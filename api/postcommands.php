@@ -33,6 +33,17 @@ $qs = array(
 			false
 		),
 		LEVEL_0
+	),
+	new APIPostCommand(
+		'post_email_connection',
+		new Query(
+			'insert into ' . TABLE_PREFIX . 'email_connections
+			(email)
+			values(:email)',
+			null,
+			false
+		),
+		LEVEL_0
 	)
 )
 

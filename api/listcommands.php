@@ -2,6 +2,18 @@
 
 $qs = array(	
 	new APICommand(
+		'list_connections',
+		new Query(
+			'select a.name, b.email, c.twitter, d.linkedin from ' . 
+				TABLE_PREFIX . 'people a left join ' . 
+				TABLE_PREFIX . 'email_connections b  on a.email = b.id left join ' .
+				TABLE_PREFIX . 'twitter_connections c on c.id = a.twitter left join '  .
+				TABLE_PREFIX . 'linkedin_connections d on d.id = a.linkedin  left join ' .
+				TABLE_PREFIX . 'fb_connections e on d.id = a.facebook order by a.name '
+		),
+		LEVEL_0
+	),
+	new APICommand(
 		'list_roles',
 		new Query(
 			'select id, level, name 

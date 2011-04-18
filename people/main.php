@@ -5,24 +5,12 @@
 
 define(PAGES_DIR, 'pages/');
 
-if(!empty($_GET['step']))
+if(!empty($_GET['page']))
 {
-	switch($_GET['step'])
+	switch($_GET['page'])
 	{
-		case 'step0':
-			include PAGES_DIR . 'step0.html';
-			break;
-		case 'step1':
-			include PAGES_DIR . 'step1.html';
-			break;
-		case 'step2':
-			include PAGES_DIR . 'step2.html';
-			break;
-		case 'step3':
-			include PAGES_DIR . 'step3.html';
-			break;
-		case 'step4':
-			include PAGES_DIR . 'step4.html';
+		case 'gmail':
+			include PAGES_DIR . 'gmail.html';
 			break;
 		
 	}

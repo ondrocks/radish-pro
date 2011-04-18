@@ -5,8 +5,8 @@ ini_set('display_errors', 1);
  
     $config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
     $config['callback_url']         =   'http://radish-pro.com/admin/login/demo.php';
-    $config['linkedin_access']      =   'BROhDyRiM04JEBKsJsrY0os5XF5YPVThLDggkWdocWR7ZVKBrsYlMmBzTXtY_OEZ';
-    $config['linkedin_secret']      =   'lqFKypL781ctc-ujkklcu2MeNfkKkLdekxa--ghCilKIScnb36_AwrAURLfa9hWz';
+    $config['linkedin_access']      =   LINKEDIN_APP_ID;
+    $config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
  
     include_once "linkedin.php";
  

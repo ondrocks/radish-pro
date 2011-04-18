@@ -1,1 +1,35 @@
-<p>Link and view connections from LinkedIn, Facebook, Twitter or Gmail.</p>
+<script type='text/javascript'>
+
+function listConnections()
+{
+	var xhrArgs = {
+		url: '/api/list_connections/',
+		handleAs: 'json',
+		load: function(data)
+		{
+			var html = '<table><tr><th>name</th><th>email</th><th>linkedIn</th><th>twitter</th><th>facebook</th></tr>'
+			for(var c = 0; c < data.length; c++)
+			{
+				if(data[c].name && !data[c].email && !data[c].twitter && !data[c].linkedin && !data[c].facebook)
+					continue;
+				if((data[c].name || data[c].email || data[c].twitter || data[c].linkedin || data[c].facebook))
+					html += "<tr><td>" + 	data[c].name + "</td><td>" + 
+								data[c].email + "</td><td>" + 
+								"</td><td>"  + "</td><td>" + "</td><td>" +		
+						"</td></tr>"
+			}
+			dojo.byId('connections').innerHTML = html + '</table>'
+		},
+		error: function(error)
+		{
+			error_alert(error)
+		}
+	}
+	dojo.xhrGet(xhrArgs)
+}
+dojo.addOnLoad(listConnections)
+</script>
+
+
+<div id='connections'></div>
+

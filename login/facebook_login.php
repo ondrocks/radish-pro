@@ -8,16 +8,16 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once '../facebook-php-sdk/src/facebook.php';
-
+require_once '../api/credentials.php';
 // Create our Application instance.
 $facebook = new Facebook(array(
-  'appId' => '201316349891020',
-  'secret' => '7093be77873477f6a32f603e20583c17',
-  'cookie' => true,
+	'appId' => FACEBOOK_APP_ID,
+	'secret' => FACEBOOK_APP_SECRET,
+	'cookie' => true,
 ));
 
-    $app_id = 201316349891020;
-    $app_secret = "7093be77873477f6a32f603e20583c17";
+    $app_id = FACEBOOK_APP_ID;
+    $app_secret = FACEBOOK_APP_SECRET;
     $my_url = "http://www.radish-pro.com/login/facebook_login.php";
 
     $code = $_REQUEST["code"];

@@ -8,6 +8,12 @@ class APIPostCommand extends APICommand
 		{
 			switch($_POST['command'])
 			{
+				case 'post_email_connection':
+					if(isset($_POST['email']))
+					{
+						$this->query->values = array('email' => $_POST['email']);
+					}
+					break;
 				case 'post_keywords':
 					if(isset($_POST['keywords']) && isset($_POST['profileId']))
 					{
@@ -87,6 +93,18 @@ class APIPostCommand extends APICommand
 	{
 		switch($command->command)
 		{
+			case 'post_email_connection':
+				if(isset($_POST['name']))
+				{
+					$query = "insert into " . TABLE_PREFIX . "people 
+					(name, email, ip)values(:name, :email_connection, :ip)";
+					$dtb->prepareAndExecute($query, array(
+						'name' => $_POST['name'], 
+						'ip' => $_SERVER['REMOTE_ADDR'],
+						'email_connection' => $dtb->dtb->lastInsertId())
+					);
+				}
+				break;
 			case 'post_keywords':
 				$query = "select count(name) as count 
 					from " . TABLE_PREFIX . "profiles 

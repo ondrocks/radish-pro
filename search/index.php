@@ -4,15 +4,14 @@ include '../api/globals.php';
 include '../api/loader.php';
 include '../api/credentials.php';
 
-include '../admin/login/linkedin.php';
+include '../login/linkedin.php';
 
 	session_start();
 
     $config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
     $config['callback_url']         =   'http://radish-pro.com/admin/login/demo.php';
-    $config['linkedin_access']      =   'BROhDyRiM04JEBKsJsrY0os5XF5YPVThLDggkWdocWR7ZVKBrsYlMmBzTXtY_OEZ';
-    $config['linkedin_secret']      =   'lqFKypL781ctc-ujkklcu2MeNfkKkLdekxa--ghCilKIScnb36_AwrAURLfa9hWz';
-
+    $config['linkedin_access']      =   LINKEDIN_APP_ID;
+    $config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
 
     # Init with consumer information
     $linkedin = new LinkedIn($config['linkedin_access'], $config['linkedin_secret'], $config['callback_url'] );
