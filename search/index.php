@@ -8,7 +8,7 @@ include '../login/linkedin.php';
 
 	session_start();
 
-if(isset($_POST['q']))
+if(isset($_POST['q']) && isset($_POST['select']))
 {
 	if($_POST['select'] == 'linkediniscompany')
 	{
@@ -18,9 +18,10 @@ if(isset($_POST['q']))
 	{
 		new LinkedInData($_POST['q'], '');
 	}
-	else if($_POST['select'] == 'local')
-	{
-		new FacebookData($_POST['q']);
-	}
 }
+else
+{
+	new FacebookData($_POST['q']);
+}
+
 ?>
