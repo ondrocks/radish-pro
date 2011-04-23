@@ -46,11 +46,12 @@
 		google.accounts.user.logout();
 	}
 
-	function Connection(name, place, gender, email, email2, email3, telephone, fb, tw, lkin)
+	function Connection(name, place, country, gender, email, email2, email3, telephone, fb, tw, lkin, headline)
 	{
 		this.name = name
 		this.place = place
 		this.gender = gender
+		this.country = country
 		this.email = email
 		this.email2 = email2
 		this.email3 =  email3
@@ -58,15 +59,40 @@
 		this.fb = fb
 		this.tw = tw
 		this.lkin = lkin
+		this.headline = headline
+	}
+
+	function saveLinkedInConnectionsToDtb(connections)
+	{
+		for(var c = 0; c < connections.length; c++)
+		{
+			var name = connections[c].name != 'Private' ? name = connections[c].name: name = 'Private'
+			var xhrArgs = {
+				url: '/api/post_linkedin_connection/',
+				content:{ command:'post_linkedin_connection', name: name, linkedin: connections[c].lkin, headline: connections[c].headline, place: connections[c].place, country: connections[c].country},
+				load:function(data)
+				{
+				},
+				error: function(error)
+				{
+					error_alert(error)
+				}
+			}
+			if(name != 'Private')
+			{
+				dojo.xhrPost(xhrArgs);
+			}
+		}
 	}
 
 	function saveConnectionsToDtb(connections)
 	{
 		for(var c = 0; c < connections.length; c++)
 		{
+			var name = connections[c].name ? connections[c].name : 'No __name__'
 			var xhrArgs = {
 				url: '/api/post_email_connection/',
-				content: { command:'post_email_connection', name: connections[c].name, email: connections[c].email},
+				content: { command:'post_email_connection', name: name, email: connections[c].email},
 				//handleAs: 'text',
 				load: function(data)
 				{

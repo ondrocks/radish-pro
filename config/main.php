@@ -12,6 +12,9 @@ if(!empty($_GET['page']))
 		case 'gmail':
 			include PAGES_DIR . 'gmail.html';
 			break;
+		case 'linkedin':
+			include PAGES_DIR . 'linkedin.phtml';
+			break;
 		
 	}
 }

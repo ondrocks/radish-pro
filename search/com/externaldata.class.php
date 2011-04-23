@@ -10,9 +10,17 @@ class ExternalData
                 if($this->getData($q))
                 {
                         $this->parseData();
-                        $this->saveData();
+                        $this->echoData();
                 }
         }
+
+	public function echoData()
+	{
+		if(is_array($this->data))
+		{
+			echo json_encode($this->data);
+		}
+	}
 
 	public function saveData()
 	{

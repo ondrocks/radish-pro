@@ -35,6 +35,17 @@ $qs = array(
 		LEVEL_0
 	),
 	new APIPostCommand(
+		'post_linkedin_connection',
+		new Query(
+			'insert into ' . TABLE_PREFIX . 'linkedin_connections
+			(linkedin)
+			values(:linkedin) ',
+			null,
+			false
+		),
+		LEVEL_0
+	),
+	new APIPostCommand(
 		'post_email_connection',
 		new Query(
 			'insert into ' . TABLE_PREFIX . 'email_connections

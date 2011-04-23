@@ -59,7 +59,7 @@ var saveContacts = function(result)
 	var emailAddress2 = emailAddresses[1] ? emailAddresses[1].getAddress() : ""
 	var emailAddress3 = emailAddresses[2] ? emailAddresses[2].getAddress() : ""
 
-	connections[connections.length] = new Connection(name, "", "", emailAddress, emailAddress2, emailAddress3, "", "", "", "")
+	connections[connections.length] = new Connection(name, "", "", "", emailAddress, emailAddress2, emailAddress3, "", "", "", "", "")
     
   }
 	saveConnectionsToDtb(connections);

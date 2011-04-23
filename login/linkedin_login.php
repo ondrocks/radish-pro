@@ -4,7 +4,7 @@ require_once '../api/credentials.php';
     session_start();
  
     $config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
-    $config['callback_url']         =   'http://radish-pro.com/admin/';
+    $config['callback_url']         =   'http://radish-pro.com/config/?page=linkedin';
     $config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
     $config['linkedin_secret']      =   LINKEDIN_APP_SECRET; 
  

@@ -71,8 +71,8 @@ class LinkedIn {
     // $auth_header = preg_replace("/Authorization\: OAuth\,/", "Authorization: OAuth ", $auth_header);
     // # Make sure there is a space between OAuth attribute
     // $auth_header = preg_replace('/\"\,/', '", ', $auth_header);
-    if ($debug) {
-      echo $auth_header;
+    if ($this->debug) {
+     // echo $auth_header;
     }
     // $response will now hold the XML document
     $response = $this->httpRequest($profile_url, $auth_header, "GET");
@@ -89,8 +89,8 @@ class LinkedIn {
     // $auth_header = preg_replace("/Authorization\: OAuth\,/", "Authorization: OAuth ", $auth_header);
     // # Make sure there is a space between OAuth attribute
     // $auth_header = preg_replace('/\"\,/', '", ', $auth_header);
-    if ($debug) {
-      echo $auth_header;
+    if ($this->debug) {
+      //echo $auth_header;
     }
     // $response will now hold the XML document
     $response = $this->httpRequest($profile_url, $auth_header, "GET");
@@ -106,7 +106,7 @@ class LinkedIn {
     $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "PUT", $status_url);
     $request->sign_request($this->signature_method, $this->consumer, $this->access_token);
     $auth_header = $request->to_header("https://api.linkedin.com");
-    if ($debug) {
+    if ($this->debug) {
       echo $auth_header . "\n";
     }
     $response = $this->httpRequest($profile_url, $auth_header, "GET");
@@ -115,13 +115,13 @@ class LinkedIn {
   
   # Parameters should be a query string starting with "?"
   # Example search("?count=10&start=10&company=LinkedIn");
-  function search($parameters) {
-    $search_url = $this->base_url . "/v1/people/" . $parameters;
-    echo "Performing search for: " . $parameters . "\n";
+  function search($keywords, $company) {
+    $search_url = $this->base_url . "/v1/people-search?count=25&keywords=" . $keywords . "&company-name=" . $company;
+    //echo "Performing search for: " . $parameters . "\n";
     $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $search_url);
     $request->sign_request($this->signature_method, $this->consumer, $this->access_token);
     $auth_header = $request->to_header("https://api.linkedin.com");
-    if ($debug) {
+    if ($this->debug) {
       echo $request->get_signature_base_string() . "\n";
       echo $auth_header . "\n";
     }

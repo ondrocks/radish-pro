@@ -9,9 +9,15 @@ class APIPostCommand extends APICommand
 			switch($_POST['command'])
 			{
 				case 'post_email_connection':
-					if(isset($_POST['email']))
+					if(!empty($_POST['email']))
 					{
 						$this->query->values = array('email' => $_POST['email']);
+					}
+					break;
+				case 'post_linkedin_connection':
+					if(isset($_POST['linkedin']))
+					{
+						$this->query->values = array('linkedin' => $_POST['linkedin']);
 					}
 					break;
 				case 'post_keywords':
@@ -93,13 +99,30 @@ class APIPostCommand extends APICommand
 	{
 		switch($command->command)
 		{
-			case 'post_email_connection':
-				if(isset($_POST['name']))
+			case 'post_linkedin_connection':
+				if(!empty($_POST['name']) && !empty($_POST['headline']) && $dtb->dtb->lastInsertId())
 				{
 					$query = "insert into " . TABLE_PREFIX . "people 
-					(name, email, ip)values(:name, :email_connection, :ip)";
+					(name, user, place, country, linkedIn, headline, ip)values(:name, :user, :place, :country, :linkedIn, :headline, :ip)";
+					$dtb->prepareAndExecute($query, array(
+						"name" => $_POST['name'],
+						"place" => $_POST['place'],
+						"country" => $_POST['country'],
+						"user" => 1,
+						"ip" => $_SERVER['REMOTE_ADDR'],
+						"headline" => $_POST['headline'],
+						"linkedIn" => $dtb->dtb->lastInsertId())
+					);
+				}
+				break;
+			case 'post_email_connection':
+				if(!empty($_POST['name']) && $dtb->dtb->lastInsertId())
+				{
+					$query = "insert into " . TABLE_PREFIX . "people 
+					(name, user, email, ip)values(:name, :user, :email_connection, :ip)";
 					$dtb->prepareAndExecute($query, array(
 						'name' => $_POST['name'], 
+						'user' => 1,
 						'ip' => $_SERVER['REMOTE_ADDR'],
 						'email_connection' => $dtb->dtb->lastInsertId())
 					);
