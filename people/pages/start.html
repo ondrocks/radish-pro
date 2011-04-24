@@ -1,22 +1,5 @@
 <script type='text/javascript'>
 
-function getLinkedInHeadline(id)
-{
-	var xhrArgs = {
-		url: '/api/getLinkedInProfile/' + id + '/',
-		handleAs: 'text',
-		load: function(data)
-		{
-			dojo.byId(id).innerHTML = data
-		},
-		error: function(error)
-		{
-			error_alert(error)
-		}
-	}
-	dojo.xhrGet(xhrArgs)
-}
-
 function submitSearchForm()
 {
         dojo.connect(
@@ -24,6 +7,7 @@ function submitSearchForm()
                 'onsubmit',
                 function(event)
                 {
+			//dojo.byId('form01').q.value = encodeURIComponent(dojo.byId('form01').qq.value)
                         dojo.stopEvent(event)
 			dojo.require('dojox.xml.parser')
                         var xhrArgs = {
@@ -35,12 +19,17 @@ function submitSearchForm()
 					var linkedInId = ''
 					var firstname = ''
 					var lastname = ''
+					var headline = ''
 					var xmldata = dojox.xml.parser.parse(data)
 					var root = xmldata.documentElement
 					for(var c = 0; c < root.getElementsByTagName('person').length; c++)	
 					{
 						for(var cc = 0; cc < root.getElementsByTagName('person')[c].childNodes.length; cc++)
 						{
+							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'headline')
+							{
+								headline = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);
+							}
 							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'id')
 							{
 								linkedInId = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);	
@@ -53,9 +42,8 @@ function submitSearchForm()
 							{
                                                                 lastname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
 							}
-						}
-						var _linkedInId = getLinkedInHeadline(linkedInId);
-                                                html += '<tr><td>' + firstname + ' ' + lastname + '</td><td><span id="' + linkedInId + '">' + linkedInId + '</span></td></tr>'
+					}
+                                                html += '<tr><td>' + firstname + ' ' + lastname + '</td><td>' + headline + '</td></tr>'
 					}
 					dojo.byId('connections').innerHTML = html + '</table>'
                                 },

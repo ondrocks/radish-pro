@@ -44,9 +44,12 @@ class APICommand
 			$linkedin = $this->initLinkedInApp();	
 			if(isset($_GET['id']))
 			{
-				$data = $linkedin->getProfile('id=' . $_GET['id'] . "");
+				$data = $linkedin->getProfile('id=' . $_GET['id'] . ":(headline)");
 				$xml = simplexml_load_string($data);
-				echo $xml[0]->headline;
+				if($xml[0]->headline)
+					echo $xml[0]->headline;
+				else
+					echo $_GET['id'];
 			}
 		}
 	}
