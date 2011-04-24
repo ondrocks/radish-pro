@@ -4,13 +4,13 @@ $qs = array(
 	new APICommand(
 		'list_connections',
 		new Query(
-			'select distinct a.name as name, b.email, c.twitter, d.linkedin, f.name as userName, a.headline from ' . 
-				TABLE_PREFIX . 'users f, ' .
+			'select distinct a.name as name, a.place, a.country, b.email, c.twitter, d.linkedin, a.headline, f.name as userName from ' . 
 				TABLE_PREFIX . 'people a left join ' . 
 				TABLE_PREFIX . 'email_connections b  on a.email = b.id left join ' .
 				TABLE_PREFIX . 'twitter_connections c on c.id = a.twitter left join '  .
 				TABLE_PREFIX . 'linkedin_connections d on d.id = a.linkedin left join ' .
-				TABLE_PREFIX . 'fb_connections e on d.id = a.facebook where f.id = a.user and b.email != "" or c.twitter != "" or d.linkedin != ""
+				TABLE_PREFIX . 'fb_connections e on d.id = a.facebook left join ' .
+				TABLE_PREFIX . 'users f on f.id = a.user where b.email != "" or c.twitter != "" or d.linkedin != ""
 						order by a.name '
 		),
 		LEVEL_0
@@ -83,7 +83,11 @@ $qs = array(
 			where a.type = b.id',
 			null, true),
 		LEVEL_0
-	)
+	),
+	new APICommand(
+		'getLinkedInProfile',
+		null,
+		LEVEL_0)
 	
 );
 

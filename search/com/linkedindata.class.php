@@ -3,7 +3,7 @@
 
 class LinkedinData
 {
-        function __construct($person, $company)
+        function __construct($person, $company, $country)
         {
 
         $config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
@@ -20,7 +20,7 @@ class LinkedinData
                         $linkedin->request_token    =   unserialize($_SESSION['requestToken']);
                         $linkedin->oauth_verifier   =   $_SESSION['oauth_verifier'];
                         $linkedin->access_token     =   unserialize($_SESSION['oauth_access_token']);
-                        $xml_response = $linkedin->search($person, $company);
+                        $xml_response = $linkedin->search($person, $company, $country);
                 	echo $xml_response;
 		}
         }

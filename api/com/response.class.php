@@ -27,9 +27,16 @@ class Response{
 				{
 					if(! $command->hasRights())
 						return;
-					$command->generateValues();
-					$dtb->prepareAndExecute($command->query->raw_query, $command->query->values);
-					$command->onBeforeClose($command, $dtb);
+					if(!empty($command->query->raw_query))
+					{
+						$command->generateValues();
+						$dtb->prepareAndExecute($command->query->raw_query, $command->query->values);
+						$command->onBeforeClose($command, $dtb);
+					}
+					else
+					{
+						$command->execute();
+					}
 				}
 			}
 		}

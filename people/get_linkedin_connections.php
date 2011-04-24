@@ -39,6 +39,9 @@ require_once '../api/credentials.php';
  
     # Result is a $linkedin->access_token, which can make calls.
  //	$xml_response = $linkedin->getProfile("~:(id,first-name,last-name,headline,picture-url)");
+
+	//$xml_response = $linkedin->getProfile("~:(id,first-name,last-name, headline, picture-url)")
+	
  	$xml_response = $linkedin->getConnections();
 	echo $xml_response;
 /*i    echo '<pre>';

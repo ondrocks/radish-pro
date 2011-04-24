@@ -31,9 +31,9 @@ include 'header.php';
         e.src = document.location.protocol +
           '//connect.facebook.net/nl_NL/all.js';
         e.async = true;
-        document.getElementById('fb-root').appendChild(e);
+        //document.getElementById('fb-root').appendChild(e);
       }());
     </script>
 
-<a href='/login/linkedin_login.php'><img class='button' src='../logo_linkedin.png'/></a>
-<fb:login-button></fb:login-button>
+login w/ LinkedIn : <a href='/login/linkedin_login.php'><img class='button' src='../logo_linkedin.png'/></a>
+<!--<fb:login-button></fb:login-button>-->

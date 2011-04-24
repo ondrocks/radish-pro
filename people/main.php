@@ -3,9 +3,11 @@
 
 <?php
 
-define(PAGES_DIR, 'pages/');
+define('PAGES_DIR', 'pages/');
 
-if(!empty($_GET['page']))
+$user = new User();
+
+if($user->isValid() && !empty($_GET['page']))
 {
 	switch($_GET['page'])
 	{
@@ -15,8 +17,13 @@ if(!empty($_GET['page']))
 		
 	}
 }
-else
+else if($user->isValid())
+{
+	echo "Welcome " . $user->getName();
 	include PAGES_DIR . 'start.html';
+}
+else
+	include PAGES_DIR . '403.html';
 ?>
 
 </body>

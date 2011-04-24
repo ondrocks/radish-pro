@@ -16,6 +16,41 @@ class APICommand
 			$this->level = $level;
 	}	
 
+
+	function initLinkedInApp()
+	{
+		require_once '../api/credentials.php';
+		require_once '../login/linkedin.php';
+
+    		session_start();
+		$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
+		$config['callback_url']         =   'http://radish-pro.com/people/get_linkedin_connections.php';
+		$config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
+		$config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
+
+		# Init with consumer information
+		$linkedin = new LinkedIn($config['linkedin_access'], $config['linkedin_secret'], $config['callback_url'] );
+		$linkedin->request_token    =   unserialize($_SESSION['requestToken']);
+		$linkedin->oauth_verifier   =   $_SESSION['oauth_verifier'];
+		$linkedin->access_token     =   unserialize($_SESSION['oauth_access_token']);
+		return $linkedin;
+	}
+
+
+	function execute()
+	{
+		if($this->command == 'getLinkedInProfile')
+		{
+			$linkedin = $this->initLinkedInApp();	
+			if(isset($_GET['id']))
+			{
+				$data = $linkedin->getProfile('id=' . $_GET['id'] . "");
+				$xml = simplexml_load_string($data);
+				echo $xml[0]->headline;
+			}
+		}
+	}
+
 	function generateValues()
 	{
 		if(isset($_GET['mode']))

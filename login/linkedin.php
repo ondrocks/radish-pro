@@ -115,8 +115,8 @@ class LinkedIn {
   
   # Parameters should be a query string starting with "?"
   # Example search("?count=10&start=10&company=LinkedIn");
-  function search($keywords, $company) {
-    $search_url = $this->base_url . "/v1/people-search?count=25&keywords=" . $keywords . "&company-name=" . $company;
+  function search($keywords, $company, $country) {
+    $search_url = $this->base_url . "/v1/people-search?count=25&keywords=" . $keywords . "&company-name=" . $company . "&country-code=" . $country;
     //echo "Performing search for: " . $parameters . "\n";
     $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $search_url);
     $request->sign_request($this->signature_method, $this->consumer, $this->access_token);
