@@ -7,7 +7,7 @@ function submitSearchForm()
                 'onsubmit',
                 function(event)
                 {
-			//dojo.byId('form01').q.value = encodeURIComponent(dojo.byId('form01').qq.value)
+			dojo.byId('form01').q.value = encodeURIComponent(dojo.byId('form01').qq.value)
                         dojo.stopEvent(event)
 			dojo.require('dojox.xml.parser')
                         var xhrArgs = {
@@ -20,12 +20,17 @@ function submitSearchForm()
 					var firstname = ''
 					var lastname = ''
 					var headline = ''
+					var profileUrl = ''
 					var xmldata = dojox.xml.parser.parse(data)
 					var root = xmldata.documentElement
 					for(var c = 0; c < root.getElementsByTagName('person').length; c++)	
 					{
 						for(var cc = 0; cc < root.getElementsByTagName('person')[c].childNodes.length; cc++)
 						{
+							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'public-profile-url')
+							{
+								profileUrl = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc])
+							}
 							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'headline')
 							{
 								headline = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);
@@ -43,7 +48,7 @@ function submitSearchForm()
                                                                 lastname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
 							}
 					}
-                                                html += '<tr><td>' + firstname + ' ' + lastname + '</td><td>' + headline + '</td></tr>'
+                                                html += '<tr><td>' + firstname + ' ' + lastname + '</td><td><a class="black" target="_blank" href="' + profileUrl  +'">' + headline + '</a></td></tr>'
 					}
 					dojo.byId('connections').innerHTML = html + '</table>'
                                 },
@@ -102,7 +107,8 @@ dojo.addOnLoad(listConnections)
 			<input type='radio' name='select' value='linkediniscompany' /> company
 			<input type='radio' name='select' value='local'/> local
 			<input class='inlineInput' name='country' size='2'/> country
-                        <input class='inlineInput' id='q' name='q' type='text'/> 
+			<input type='hidden' name='q' id='q'/>
+                        <input class='inlineInput' name='qq' type='text'/> 
                         <input class='inlineInput' type='image' src='/admin/img/search.png'/>
                 </form>
 	</div>
