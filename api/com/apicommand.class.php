@@ -61,13 +61,14 @@ class APICommand
 
 	private function saveEmailConnection($name, $email)
 	{
+		global $user;
 		$query = "insert into " . TABLE_PREFIX . "email_connections (email) values(:email)";
 		$values = array('email' => $email);
 		$this->dtb->prepareAndExecute($query, $values);
 		if($this->dtb->dtb->lastInsertId())
 		{
-			$query = "insert into " . TABLE_PREFIX . "people (name, email) values (:name, :email)";
-			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId());
+			$query = "insert into " . TABLE_PREFIX . "people (name, email, user) values (:name, :email, :user)";
+			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId(), 'user' => (int)$user->getId());
 			$this->dtb->prepareAndExecute($query, $values);
 		}
 	}
