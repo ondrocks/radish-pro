@@ -1,5 +1,2 @@
-*.png
-*.gif
 .htpasswd
-styles.css
 facebook-php-sdk/

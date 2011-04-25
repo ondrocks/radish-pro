@@ -1,7 +1,7 @@
 RewriteEngine On
 
-#RewriteCond %{HTTP_REFERER} !(www.)?radish-pro.com
-#RewriteRule .* - [F]
+RewriteCond %{HTTP_REFERER} !(www.)?radish-pro.com
+RewriteRule .* - [F]
 
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
