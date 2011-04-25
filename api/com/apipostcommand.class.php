@@ -9,7 +9,7 @@ class APIPostCommand extends APICommand
 			switch($_POST['command'])
 			{
 				case 'post_email_connection':
-					if(!empty($_POST['email']))
+					if(!empty($_POST['data']))
 					{
 						$this->query->values = array('email' => $_POST['email']);
 					}
@@ -126,7 +126,7 @@ class APIPostCommand extends APICommand
 					(name, user, email, ip)values(:name, :user, :email_connection, :ip)";
 					$dtb->prepareAndExecute($query, array(
 						'name' => $_POST['name'], 
-						'user' => 1,
+						'user' => $user->getId(),
 						'ip' => $_SERVER['REMOTE_ADDR'],
 						'email_connection' => $dtb->dtb->lastInsertId())
 					);

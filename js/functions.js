@@ -95,23 +95,28 @@
 
 	function saveConnectionsToDtb(connections)
 	{
+		var data = '[{'
 		for(var c = 0; c < connections.length; c++)
 		{
 			var name = connections[c].name ? connections[c].name : 'No __name__'
-			var xhrArgs = {
-				url: '/api/post_email_connection/',
-				content: { command:'post_email_connection', name: name, email: connections[c].email},
-				//handleAs: 'text',
-				load: function(data)
-				{
-	//alert(data)
-				},
-				error: function(error)
-				{
-					error_alert(error)
-				}
-			}
-		dojo.xhrPost(xhrArgs)
+			data += '"name":"' + name + '", "email":"' + connections[c].email + '"}'
+			if(c < connections.length - 1)
+				data += ',{'
 		}
+		data += ']'
+		var xhrArgs = {
+			url: '/api/post_email_connections/',
+			content: { command:'post_email_connection', data: data},
+			handleAs: 'text',
+			load: function(data)
+			{
+			//	alert(data)
+			},
+			error: function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrPost(xhrArgs)
 		alert('Records read: ' + connections.length)
 	}

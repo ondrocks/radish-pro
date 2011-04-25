@@ -37,7 +37,7 @@ class APICommand
 		return $linkedin;
 	}
 
-	function saveLinkedInConnection($linkedin, $name, $user, $headline,$place, $country, $pictureUrl, $profileUrl )
+	private function saveLinkedInConnection($linkedin, $name, $user, $headline,$place, $country, $pictureUrl, $profileUrl )
 	{
 		$query = "insert into " . TABLE_PREFIX . "linkedin_connections (linkedin) values (:linkedin)";
 		$values = array("linkedin" => $linkedin);
@@ -59,11 +59,35 @@ class APICommand
 		}
 	}
 
+	private function saveEmailConnection($name, $email)
+	{
+		$query = "insert into " . TABLE_PREFIX . "email_connections (email) values(:email)";
+		$values = array('email' => $email);
+		$this->dtb->prepareAndExecute($query, $values);
+		if($this->dtb->dtb->lastInsertId())
+		{
+			$query = "insert into " . TABLE_PREFIX . "people (name, email) values (:name, :email)";
+			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId());
+			$this->dtb->prepareAndExecute($query, $values);
+		}
+	}
+
 	function execute($dtb)
 	{
 		global $user;
 		$this->dtb = $dtb;
-		if($this->command == 'import_connections')
+
+		if($this->command == 'post_email_connections')
+		{
+			$json = json_decode($_POST['data']);
+			foreach($json as $email)
+			{
+				$name = $email->name;
+				$email = $email->email;
+				$this->saveEmailConnection($name, $email);
+			}
+		}
+		else if($this->command == 'import_connections')
 		{
 			$linkedin = $this->initLinkedInApp();	
 			if($linkedin)

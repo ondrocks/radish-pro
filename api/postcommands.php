@@ -55,6 +55,11 @@ $qs = array(
 			false
 		),
 		LEVEL_0
+	),
+	new APICommand(
+		'post_email_connections',
+		null,
+		LEVEL_0
 	)
 )
 
