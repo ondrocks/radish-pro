@@ -97,20 +97,24 @@ class APIPostCommand extends APICommand
 
 	function onBeforeClose($command, $dtb)
 	{
+		global $user;
 		switch($command->command)
 		{
 			case 'post_linkedin_connection':
 				if(!empty($_POST['name']) && !empty($_POST['headline']) && $dtb->dtb->lastInsertId())
 				{
 					$query = "insert into " . TABLE_PREFIX . "people 
-					(name, user, place, country, linkedIn, headline, ip)values(:name, :user, :place, :country, :linkedIn, :headline, :ip)";
+					(name, user, place, country, linkedIn, headline, ip, pictureUrl, profileUrl)
+					values(:name, :user, :place, :country, :linkedIn, :headline, :ip, :pictureUrl, :profileUrl)";
 					$dtb->prepareAndExecute($query, array(
 						"name" => $_POST['name'],
 						"place" => $_POST['place'],
 						"country" => $_POST['country'],
-						"user" => 1,
+						"user" => $user->getId(),
 						"ip" => $_SERVER['REMOTE_ADDR'],
 						"headline" => $_POST['headline'],
+						"profileUrl" => $_POST['profileUrl'],
+						"pictureUrl" => $_POST['pictureUrl'],
 						"linkedIn" => $dtb->dtb->lastInsertId())
 					);
 				}

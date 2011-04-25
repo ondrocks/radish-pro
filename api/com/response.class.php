@@ -35,7 +35,7 @@ class Response{
 					}
 					else
 					{
-						$command->execute();
+						$command->execute($dtb);
 					}
 				}
 			}

@@ -29,6 +29,8 @@ include 'globals.php';
 require_once('credentials.php');
 include 'loader.php';
 
+$user = new User();
+
 $req = new Request();
 new Response($req->commands);
 

@@ -46,7 +46,7 @@
 		google.accounts.user.logout();
 	}
 
-	function Connection(name, place, country, gender, email, email2, email3, telephone, fb, tw, lkin, headline)
+	function Connection(name, place, country, gender, email, email2, email3, telephone, fb, tw, lkin, headline, picture, profile)
 	{
 		this.name = name
 		this.place = place
@@ -60,18 +60,25 @@
 		this.tw = tw
 		this.lkin = lkin
 		this.headline = headline
+		this.pictureUrl = picture
+		this.profileUrl = profile
 	}
 
 	function saveLinkedInConnectionsToDtb(connections)
 	{
 		for(var c = 0; c < connections.length; c++)
 		{
+			var pictureUrl = ''
+			var profileUrl = ''
 			var name = connections[c].name != 'Private' ? name = connections[c].name: name = 'Private'
+			connections[c].profileUrl ? profileUrl = connections[c].profileUrl : profileUrl = '';
+			connections[c].pictureUrl ? pictureUrl = connections[c].pictureUrl : pictureUrl = '';
 			var xhrArgs = {
 				url: '/api/post_linkedin_connection/',
-				content:{ command:'post_linkedin_connection', name: name, linkedin: connections[c].lkin, headline: connections[c].headline, place: connections[c].place, country: connections[c].country},
+				content:{ command:'post_linkedin_connection', name: name, linkedin: connections[c].lkin, headline: connections[c].headline, place: connections[c].place, country: connections[c].country, profileUrl: profileUrl, pictureUrl: pictureUrl},
 				load:function(data)
 				{
+//alert('Retrun '+data)
 				},
 				error: function(error)
 				{
@@ -80,6 +87,7 @@
 			}
 			if(name != 'Private')
 			{
+//			alert('Add ' + xhrArgs.content.name + ' to addressbook?')
 				dojo.xhrPost(xhrArgs);
 			}
 		}

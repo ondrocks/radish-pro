@@ -4,7 +4,7 @@ $qs = array(
 	new APICommand(
 		'list_connections',
 		new Query(
-			'select distinct a.name as name, a.place, a.country, b.email, c.twitter, d.linkedin, a.headline, f.name as userName from ' . 
+			'select distinct a.name as name, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName from ' . 
 				TABLE_PREFIX . 'people a left join ' . 
 				TABLE_PREFIX . 'email_connections b  on a.email = b.id left join ' .
 				TABLE_PREFIX . 'twitter_connections c on c.id = a.twitter left join '  .
@@ -85,7 +85,7 @@ $qs = array(
 		LEVEL_0
 	),
 	new APICommand(
-		'getLinkedInProfile',
+		'import_connections',
 		null,
 		LEVEL_0)
 	

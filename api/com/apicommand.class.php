@@ -6,6 +6,7 @@ class APICommand
 	var $query = null;
 	var $level = LEVEL_2;
 	var $lastId = 0;
+	var $dtb;
 
 	function __construct($command, $query, $level)
 	{
@@ -22,7 +23,7 @@ class APICommand
 		require_once '../api/credentials.php';
 		require_once '../login/linkedin.php';
 
-    		session_start();
+   // 		session_start();
 		$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
 		$config['callback_url']         =   'http://radish-pro.com/people/get_linkedin_connections.php';
 		$config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
@@ -36,20 +37,51 @@ class APICommand
 		return $linkedin;
 	}
 
-
-	function execute()
+	function saveLinkedInConnection($linkedin, $name, $user, $headline,$place, $country, $pictureUrl, $profileUrl )
 	{
-		if($this->command == 'getLinkedInProfile')
+		$query = "insert into " . TABLE_PREFIX . "linkedin_connections (linkedin) values (:linkedin)";
+		$values = array("linkedin" => $linkedin);
+		$this->dtb->prepareAndExecute($query, $values);
+		if($this->dtb->dtb->lastInsertId())
+		{
+			$query = "insert into " . TABLE_PREFIX . "people (name, user, place, country, linkedIn, headline, ip, pictureUrl, profileUrl)
+				values(:name, :user, :place, :country, :linkedIn, :headline, :ip, :pictureUrl, :profileUrl)";
+			$values = array('name' => $name,
+					'user' => $user,
+					'place' => $place,
+					'country' => $country,
+					'linkedIn' => $this->dtb->dtb->lastInsertId(),
+					'headline' => $headline,
+					'ip' => $_SERVER['REMOTE_ADDR'],
+					'pictureUrl' => $pictureUrl,
+					'profileUrl' => $profileUrl);
+			$this->dtb->prepareAndExecute($query, $values);
+		}
+	}
+
+	function execute($dtb)
+	{
+		global $user;
+		$this->dtb = $dtb;
+		if($this->command == 'import_connections')
 		{
 			$linkedin = $this->initLinkedInApp();	
-			if(isset($_GET['id']))
+			if($linkedin)
 			{
-				$data = $linkedin->getProfile('id=' . $_GET['id'] . ":(headline)");
+				$data = $linkedin->getConnections();
 				$xml = simplexml_load_string($data);
-				if($xml[0]->headline)
-					echo $xml[0]->headline;
-				else
-					echo $_GET['id'];
+				foreach($xml->person as $person)
+				{
+					$name = (string)$person->{'first-name'} . ' ' . $person->{'last-name'};
+					$linkedinid = (string)$person->id;
+					$headline = $person->headline;
+					$_user = (int)$user->getId();
+					$place = (string)$person->location->name;
+					$country = (string)$person->location->country->code;
+					$profileUrl = (string)$person->url;
+					$pictureUrl = (string)$person->{'picture-url'};
+					$this->saveLinkedInConnection($linkedinid, $name, $_user, $headline, $place, $country, $pictureUrl, $profileUrl);
+				}
 			}
 		}
 	}

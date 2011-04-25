@@ -15,13 +15,23 @@ class User
 	function __construct()
 	{
 		$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
-		$config['callback_url']         =   'http://radish-pro.com/people/get_linkedin_connections.php';
+		$config['callback_url']         =   'http://radish-pro.com/people/';
 		$config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
 		$config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
 
 		$this->linkedin = new LinkedIn($config['linkedin_access'], $config['linkedin_secret'], $config['callback_url'] );
 
-   		if(isset($_SESSION['oauth_verifier'])){
+		if (isset($_REQUEST['oauth_verifier']))
+		{
+			$_SESSION['oauth_verifier']     = $_REQUEST['oauth_verifier'];
+			$this->linkedin->request_token    =   unserialize($_SESSION['requestToken']);
+			$this->linkedin->oauth_verifier   =   $_SESSION['oauth_verifier'];
+			$this->linkedin->getAccessToken($_REQUEST['oauth_verifier']);
+			$_SESSION['oauth_access_token'] = serialize($this->linkedin->access_token);
+			header("Location: " . $config['callback_url']);
+			exit;
+		}
+   		else if(isset($_SESSION['oauth_verifier'])){
 			$this->linkedin->request_token    =   unserialize($_SESSION['requestToken']);
 			$this->linkedin->oauth_verifier   =   $_SESSION['oauth_verifier'];
 			$this->linkedin->access_token     =   unserialize($_SESSION['oauth_access_token']);
@@ -37,7 +47,7 @@ class User
 	{
 		if($this->logedin)	
 			return true;
-		header('Location:/login/');
+		//header('Location:/login/');
 		return false;
 	}
 	private function _isValid()

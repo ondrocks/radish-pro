@@ -1,67 +1,17 @@
 
 <script type='text/javascript'>
 
-function importLinkedinConnections()
-{
-	dojo.require("dojox.xml.parser");
-	var xhrArgs = {
-		url: '/people/get_linkedin_connections.php',
-		handleAs:'text',
-		load:function(data)
-		{
-			var connections = []
-			data = dojox.xml.parser.parse(data)
-                        var root = data.documentElement
-			for(var c = 0; c < root.getElementsByTagName('person').length; c++)
-			{
-				var id = 'id'
-				var firstname = ''
-				var lastname = '' 
-				var headline = ''
-				var place = ''
-				for(var i = 0; i < root.getElementsByTagName('person')[c].childNodes.length; i++)
-				{
-					if(root.getElementsByTagName('person')[c].childNodes[i].tagName == 'location')
-					{
-						var place = ''
-						var country = ''
-						var xml = root.getElementsByTagName('person')[c].childNodes[i]
-						for(var ii = 0; ii < xml.childNodes.length; ii++)
-						{
-							if(xml.childNodes[ii].tagName == 'name')
-								place = dojox.xml.parser.textContent(xml.childNodes[ii])
-							if(xml.childNodes[ii].tagName == 'country')
-								country = dojox.xml.parser.textContent(xml.childNodes[ii].childNodes[1])
-						}
-					}
-					if(root.getElementsByTagName('person')[c].childNodes[i].tagName == 'headline')
-						headline = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[i])
-					if(root.getElementsByTagName('person')[c].childNodes[i].tagName == 'id')
-						id = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[i])
-					if(root.getElementsByTagName('person')[c].childNodes[i].tagName == 'first-name')
-                                                firstname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[i])
-					if(root.getElementsByTagName('person')[c].childNodes[i].tagName == 'last-name')
-                                                lastname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[i])
-				}
-				connections[connections.length] = new Connection(
-					firstname + ' ' + lastname,
-					place, country, '', '', '', '', '', '', '', id, headline
-				)
-				
-			}
-			saveLinkedInConnectionsToDtb(connections);
-			alert("Read " + root.getElementsByTagName('person').length + " connections")
-			document.location.href='/people/'
-		},
-		error:function(error)
-		{
-			error_alert(error);
-		}
-		
+var xhrArgs = {
+	url: '/api/import_connections/',
+	load: function(data)
+	{
+	//	alert(data)
+		document.location.href = '/people/'
+	},
+	error: function(error)
+	{
+		error_alert(error)
 	}
-	dojo.xhrGet(xhrArgs)
 }
-	dojo.addOnLoad(importLinkedinConnections)
-
+dojo.xhrGet(xhrArgs)
 </script>
-
