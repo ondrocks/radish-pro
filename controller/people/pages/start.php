@@ -139,7 +139,7 @@ function listEmail()
 			<input class='inlineInput' name='country' size='2'/> country
 			<input type='hidden' name='q' id='q'/>
                         <input class='inlineInput' name='qq' type='text'/> 
-                        <input class='inlineInput' type='image' src='templates/admin/img/search.png'/>
+                        <input class='inlineInput' type='image' src='controller/admin/img/search.png'/>
                 </form>
 	</div>
 </div>
