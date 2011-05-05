@@ -8,5 +8,12 @@ class controllerFront
 		include 'templates/' . $controller . '/main.php';
 		include 'templates/' . $controller . '/footer.php';
 	}
+	function getController()
+	{
+		if(isset($_GET['controller']))
+			return $_GET['controller'];
+		else
+			return 'index';
+	}
 }
 ?>
