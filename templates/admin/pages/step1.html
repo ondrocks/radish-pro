@@ -13,9 +13,9 @@
 					function(data)
 					{
 						if(data.lastInsertId)
-							location.href = '?step=step2&profileId=' + data.lastInsertId
+							location.href = '/admin/?step=step2&profileId=' + data.lastInsertId
 						else if(data.lastId)
-							location.href= '?step=step2&profileId=' + data.lastId
+							location.href= '/admin/?step=step2&profileId=' + data.lastId
 					},
 					error: 
 					function(error)

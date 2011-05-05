@@ -2,7 +2,7 @@
 define('DEBUG', true);
 if(DEBUG)
 {
-	error_reporting(E_ERROR);
+	error_reporting(E_ALL);
 	ini_set('display_errors', true);
 }
 
@@ -19,7 +19,6 @@ define('USER_RIGHT_EMAIL', 1);
 define('USER_RIGHT_LINKEDIN', 2);
 define('USER_RIGHT_TWITTER', 4);
 define('USER_RIGHT_FACEBOOK', 8);
-
 
 function getVarIs($var, $string)
 {

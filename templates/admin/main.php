@@ -4,9 +4,7 @@
 <?php
 
 define('PAGES_DIR', 'pages' . DS);
-
 $user = new User();
-
 if($user->isValid() && !empty($_GET['step']))
 {
 	switch($_GET['step'])
