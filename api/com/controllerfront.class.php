@@ -4,7 +4,7 @@ class controllerFront
 	function __construct($controller='index')
 	{
 		isset($_GET['controller']) ? $controller = $_GET['controller'] : '';
-		include 'views/header.php';
+		include 'view/header.php';
 		include 'controller/' . $controller . '/main.php';
 		include 'controller/' . $controller . '/footer.php';
 	}
