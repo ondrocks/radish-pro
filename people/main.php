@@ -3,7 +3,7 @@
 
 <?php
 
-define('PAGES_DIR', 'pages/');
+define('PAGES_DIR', 'pages' . DS);
 
 $user = new User();
 
@@ -19,8 +19,8 @@ if($user->isValid() && !empty($_GET['page']))
 }
 else if($user->isValid())
 {
-	echo "Welcome " . $user->getName();
-	include PAGES_DIR . 'start.html';
+	echo "<img src='/radish.gif' class='radish'/><p class='welcome'>Welcome " . $user->getName() . "</p>";
+	include PAGES_DIR . 'start.php';
 }
 else
 	include PAGES_DIR . '403.html';

@@ -25,7 +25,7 @@ class Dtb
 	{
 		try	
 		{
-			$this->query = $this->dtb->prepare($raw_query);
+			$this->query = $this->dtb->prepare(str_replace('#_', TABLE_PREFIX, $raw_query));
 			$this->query->execute($values);
 		}
 		catch(PDOException $excep)

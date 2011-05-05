@@ -12,4 +12,7 @@ function __autoload($name)
 		require_once('../api/' . PATH_TO_COM . strtolower($name) . '.class.php');
 }
 
+$globalIniArray = parse_ini_file( PUtil::docRoot() . "en-GB.language.ini");
+
+
 ?>

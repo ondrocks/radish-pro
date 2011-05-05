@@ -10,7 +10,7 @@ include '../login/linkedin.php';
 
 if(isset($_POST['q']) && isset($_POST['select']))
 {
-	if(!empty($_POST['country']))
+	if($_POST['select'] == 'linkedin' && !empty($_POST['country']))
 	{
 		new LinkedInData($_POST['q'], '', $_POST['country']);
 	}
@@ -22,10 +22,18 @@ if(isset($_POST['q']) && isset($_POST['select']))
 	{
 		new LinkedInData($_POST['q'], '', '');
 	}
-}
-else
-{
-	new FacebookData($_POST['q']);
+	else if($_POST['select'] == 'google' && isset($_POST['country']))
+	{
+		new GoogleData($_POST['q'], $_POST['country']);
+	}
+	else if($_POST['select'] == 'google')
+	{
+		new GoogleData($_POST['q']);
+	}
+	else
+	{
+		new FacebookData($_POST['q']);
+	}
 }
 
 ?>

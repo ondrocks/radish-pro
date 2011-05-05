@@ -2,9 +2,11 @@
 define('DEBUG', true);
 if(DEBUG)
 {
-	error_reporting(E_ALL);
+	error_reporting(E_ERROR);
 	ini_set('display_errors', true);
 }
+
+define('DS', '/');
 
 define('TABLE_PREFIX', 'crm_');
 
@@ -17,6 +19,8 @@ define('USER_RIGHT_EMAIL', 1);
 define('USER_RIGHT_LINKEDIN', 2);
 define('USER_RIGHT_TWITTER', 4);
 define('USER_RIGHT_FACEBOOK', 8);
+
+define('GOOGLE_API_KEY', 'AIzaSyC82gCzYgIqiUo6_zCd_R_-4EBTn_4HvSw');
 
 function getVarIs($var, $string)
 {

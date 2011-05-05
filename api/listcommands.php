@@ -85,6 +85,11 @@ $qs = array(
 		LEVEL_0
 	),
 	new APICommand(
+		'list_emails',
+		null,
+		LEVEL_0
+	),
+	new APICommand(
 		'import_connections',
 		null,
 		LEVEL_0)

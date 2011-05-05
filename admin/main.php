@@ -3,7 +3,7 @@
 
 <?php
 
-define('PAGES_DIR', 'pages/');
+define('PAGES_DIR', 'pages' . DS);
 
 $user = new User();
 

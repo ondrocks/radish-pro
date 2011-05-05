@@ -5,7 +5,7 @@ class FacebookData extends ExternalData implements ExternalDataInterface
 
 	var $raw_data;
 
-	public function getData($for)
+	public function getData($for, $page=null, $country=null)
 	{
         	if(!empty($for))
         	{

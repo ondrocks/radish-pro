@@ -109,6 +109,11 @@ class APICommand
 				}
 			}
 		}
+		else if($this->command == 'list_emails')
+		{
+			$mb = new ImapController('gmail', 'hoekstra', 'familie');
+			$mb->listEmails();
+		}
 	}
 
 	function generateValues()

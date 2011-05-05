@@ -56,7 +56,7 @@ function listSearchResults(data, headline)
 		html += "<tr><!--<td><input type='checkbox' value='" + data[c].id + "' checked=checked></input></td>-->" + 
 		"<td>" + headline  + "</td>" + 
 		"<td class='bold'><a href='gotoProfilePage.php?fbId=" + data[c].client + 
-		"' target='_blank'>" + data[c].client_name + "</a></td>" +
+		"' target='_blank'>" + data[c].client_name.substr(7,39) + "</a></td>" +
 		"<td>" + '0 items, 0 offers, unknown person' + "</td>" +
 		"<td><input type='checkbox'/>" + "delete <input type='checkbox'/>contact " + " <a class='bold floatright' href=''>[go]</a></td>" +
 		"<td class='italic'>" + content + "</td>" + 
@@ -81,7 +81,7 @@ function submitSearchForm()
 				load:function(data)
 				{
 					dojo.byId('statusBar').innerHTML = "";
-					var html = listSearchResults(data, 'Facebook')
+					var html = listSearchResults(data)
 					dojo.byId('events').innerHTML = html;
 				},
 				error: function(error)
@@ -117,8 +117,10 @@ dojo.addOnLoad(submitSearchForm)
 	<div class='floatright'>
 		<span class='version'>v0.0.10</span>
 		<form class='inlineForm' action='/search/' id='form01' method='POST'>
-			<input type='checkbox' name='twitter'/>Twitter
-			<input type='checkbox' name='fb' checked=checked/>FB-nl
+			<input type='radio' value='google' name='select'/> Google
+			<input type='text' class='inputCountry'  name='country' value='nl'/>  
+			<input type='radio' value='twitter' name='select'/>Twitter
+			<input type='radio' name='select' value='facebook' checked=checked/>FB-nl
 			<input class='inlineInput' id='q' name='q' type='text'/>
 			<input class='inlineInput' type='image' src='img/search.png'/>
 		</form>

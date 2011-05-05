@@ -11,6 +11,7 @@ login_id VARCHAR(128) NOT NULL,
 login_type INT(32),
 role INT(32) NOT NULL,
 account INT(32) NOT NULL,
+hasSeenInfo BOOL,
 PRIMARY KEY(id)
 );
 
@@ -48,6 +49,8 @@ type INT(32),
 locked INT(32),
 ip VARCHAR(64),
 name VARCHAR(128) NOT NULL,
+pictureUrl VARCHAR(128),
+profileUrl VARCHAR(128),
 headline VARCHAR(128),
 chatinfo TEXT,
 place VARCHAR(128),

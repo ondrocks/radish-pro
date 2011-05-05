@@ -25,6 +25,13 @@ a.black:visited,
 a.black:link,
 a.black:active		{color:black;}
 td.picture		{text-align:center;}
+p.welcome		{margin-left:10px;height:1em;}
+.inputCountry		{width:1.5em;}
+table.settings		{width:500px;margin:0 auto;}
+.tacenter		{text-align:center;}
+.taright		{text-align:right;}
+.seen			{color:gray;font-style:italic;}
+.radish			{height:2em;float:left;}
 .profilePicture		{height: 3em; margin-top:5px;}
 .tacenter		{text-align:center;}
 .floatright		{float:right;}
