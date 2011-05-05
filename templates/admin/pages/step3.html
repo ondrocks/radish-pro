@@ -1,0 +1,73 @@
+	<script type='text/javascript'>
+	function setMessages()
+	{
+		var form = dojo.byId('form03')
+		dojo.connect(form, 'onsubmit', function(event)
+			{
+				dojo.stopEvent(event);
+				var xhrArgs = {
+                                        form:  dojo.byId('form03'),
+                                        handleAs: 'json',
+                                        load: 
+                                        function(data)
+                                        {
+                                                        location.href= '?step=step4'
+                                        },
+                                        error: 
+                                        function(error)
+                                        {
+                                                error_alert(error)
+                                        }
+				}
+				dojo.xhrPost(xhrArgs)
+			})
+		
+	}
+
+	function getMessages()
+	{
+		var profileId = getUrlVars()['profileId'];
+		var xhrArgs = {
+			url: '/api/get_set_messages/' + profileId + "/",
+			handleAs: 'json',
+			load : function(data)
+			{
+				dojo.byId('pos_message').value = data[0].pos_message
+				dojo.byId('neg_message').value = data[0].neg_message
+				dojo.byId('special_message').value = data[0].special_message
+			},
+			error: function(error)
+			{
+				alert('Error => ' + error )
+			}
+		}
+		dojo.xhrGet(xhrArgs);
+	}	
+
+	function getProfileId()
+	{
+		var profileId = getUrlVars()['profileId']
+		dojo.byId('profileId').value = profileId
+	}
+	
+	dojo.addOnLoad(getProfileId)
+	dojo.addOnLoad(getMessages)
+	dojo.addOnLoad(setMessages())
+	</script>
+
+
+        <h1>Make a brand profile</h1>
+        <p class='red'>Set is named ...</p>
+        <h2>Step 3: messages</h2>
+        <p>Please provide content for the messages</p>
+        <form action='/api/post_set_messages/' method='post' id='form03'>
+		<input type='hidden' name='command' value='post_set_messages'></input>
+       		<input type='hidden' value='0' id='profileId' name='profileId'>
+	 	<table>
+                	<tr><td>Positive message</td><td><textarea id='pos_message' name='pos_message'></textarea></td></tr>
+                	<tr><td>Negative message</td><td><textarea id='neg_message' name='neg_message'></textarea></td></tr>
+                	<tr><td>Special offer message</td><td><textarea id='special_message' name='special_message'></textarea></td></tr>
+
+                	<tr><td><input type='submit' value='proceed'/></td></tr>
+        	</table>
+	</form>

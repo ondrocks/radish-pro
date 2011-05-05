@@ -1,0 +1,7 @@
+AuthUserFile /usr/local/apache2/htdocs/radishpro/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Busy"
+AuthType Basic
+<Limit GET POST>
+require valid-user
+</Limit> 

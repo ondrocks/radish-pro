@@ -88,6 +88,11 @@ class APICommand
 				$this->saveEmailConnection($name, $email);
 			}
 		}
+		else if($this->command == 'import_companies')
+		{
+			$dtb = new Dtb();
+			$query = "select ";	
+		}
 		else if($this->command == 'import_connections')
 		{
 			$linkedin = $this->initLinkedInApp();	
@@ -111,7 +116,7 @@ class APICommand
 		}
 		else if($this->command == 'list_emails')
 		{
-			$mb = new ImapController('gmail', 'hoekstra', 'familie');
+			$mb = new ImapController();
 			$mb->listEmails();
 		}
 	}

@@ -90,6 +90,17 @@ $qs = array(
 		LEVEL_0
 	),
 	new APICommand(
+		'import_companies',
+		null,
+		LEVEL_0
+	),
+	new APICommand(
+		'list_companies',
+		new Query('select name from #__companies',
+			null, true),
+		LEVEL_0
+	),
+	new APICommand(
 		'import_connections',
 		null,
 		LEVEL_0)
