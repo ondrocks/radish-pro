@@ -1,0 +1,73 @@
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script type='text/javascript'>
+google.load("gdata", "2.x") ;
+var contactsService = null
+var connections = []
+
+var handleError = function(error) {
+        error_alert(error);
+}
+
+function initRetrieveContactsGmail()
+{
+// Create the contacts service object
+        contactsService = new google.gdata.contacts.ContactsService('GoogleInc-jsguide-1.0');
+        var feedUri = 'http://www.google.com/m8/feeds/groups/default/full';
+        contactsService.getContactGroupFeed(feedUri, parseGroups, handleError)
+}
+
+function getContacts()
+{
+        var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full'
+        var query = new google.gdata.contacts.ContactQuery(feedUri);
+        //query.setParam('group', groupId)
+        query.setParam('max-results', 10000)
+        contactsService.getContactFeed(query, saveContacts, handleError);
+}
+
+var parseGroups = function(result)
+{
+  // An array of contact group entries
+  var entries = result.feed.entry;
+  
+  // Iterate through the array of contact groups, and print out their title and ID
+  for (var i = 0; i < entries.length; i++) {
+    var groupEntry = entries[i];
+    var groupTitle = groupEntry.getTitle().getText();
+        if(groupTitle == 'iedereen')
+                groupId = groupEntry.getId().getValue();
+
+    document.getElementById('list').innerHTML += 'group title = ' + groupTitle + '<br/>';
+    //PRINT('group id = ' + groupId);
+  }
+        getContacts()
+}
+
+var saveContacts = function(result) 
+{
+  // An array of contact entries
+  var entries = result.feed.entry;
+  
+  // Iterate through the array of contact entries
+  for (var i = 0; i < entries.length; i++) {
+    var contactEntry = entries[i];
+    var name = entries[i].getTitle().getText()
+    var emailAddresses = contactEntry.getEmailAddresses();
+    
+	var emailAddress = emailAddresses[0] ? emailAddresses[0].getAddress() : ''
+	var emailAddress2 = emailAddresses[1] ? emailAddresses[1].getAddress() : ""
+	var emailAddress3 = emailAddresses[2] ? emailAddresses[2].getAddress() : ""
+
+	connections[connections.length] = new Connection(name, "", "", "", emailAddress, emailAddress2, emailAddress3, "", "", "", "", "")
+    
+  }
+	saveConnectionsToDtb(connections);
+}
+</script>
+
+login to Gmail <a href='javascript:loginGmailContacts()'><img class='button' src='../logo_gmail.png'/></a>
+<a href="javascript:logoffGmail()">logoff</a> 
+<a href='javascript:initRetrieveContactsGmail()'>import contacts</a>
+
+<div id='list'></list>

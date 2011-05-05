@@ -1,0 +1,78 @@
+	<script type='text/javascript'>
+
+        function sendProfile()
+        {
+                var form = dojo.byId('form02')
+                dojo.connect(form, 'onsubmit', 
+                        function(event)
+                        {
+                                dojo.stopEvent(event);
+                                var xhrArgs = {
+                                        form:  dojo.byId('form02'),
+                                        handleAs: 'json',
+                                        load: 
+                                        function(data)
+                                        {
+						if(data.lastInsertId) 
+						{                                       
+                                                	location.href = '/admin/?step=step3&profileId=' + data.lastInsertId
+						}
+						else if(data.lastId)
+						{
+							location.href = '/admin/?step=step3&profileId=' + data.lastId
+						}
+                                        },
+                                        error: 
+                                        function(error)
+                                        {
+                                                alert(error)
+                                        }
+                                }       
+                                dojo.xhrPost(xhrArgs)
+                        }
+                )
+        }
+
+	function initStep2()
+	{
+		var urlVars = getUrlVars();
+		dojo.byId('profileId').value = urlVars['profileId']
+	}
+
+	function getProfileName()
+	{
+		var profile = getUrlVars()['profileId']
+		var xhrArgs = {
+			url: '/api/list_name_profile/' + profile + '/',
+			handleAs: 'json',
+			load: function(data)
+			{
+				dojo.byId('name').value = data[0].name
+			},
+			error: function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrGet(xhrArgs)
+	}
+
+	dojo.addOnLoad(getProfileName)
+	dojo.addOnLoad(initStep2)
+	dojo.addOnLoad(sendProfile)
+	
+	</script>
+
+
+	<h1>Make a search profile</h1>
+        <p class='red'>75 keywords in set</p>
+	<h2>Step 2: name your set</h2>
+	<p>Please attach a name to this set</p>
+	<form action='/api/post_profile/' method='post' id='form02'>
+	<input type='hidden' name='command' value='post_profile'></input>
+	<input type='hidden' id='profileId' name='profileId' value='0'></input>
+	<table>
+		<tr><td><input name='name' id='name' type='text'/></td></tr>
+		<tr><td><input type='submit' value='proceed'/></td></tr>
+	</table>
+	</form>

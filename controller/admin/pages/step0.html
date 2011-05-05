@@ -1,0 +1,35 @@
+	<script type='text/javascript'>
+	function listProfiles()
+        {
+                var xhrArgs = {
+                        url: '/api/list_profiles/',
+                        handleAs: 'json',
+                        load: function(data)
+                        {
+                                var html = '<h1>Available search profiles:</h1>'
+				html += '<table>';
+	                        for(var c = 0; c < data.length; c++)
+                                {
+				html += "<tr><td><a href='/admin/?step=step1&profileId=" +  data[c].id + "'>" + data[c].name + "</a></td><td>events (123)</td><td>[X]</td></tr>"
+                                }
+                                html += "<tr><td><a href='/admin/?step=step1&profileId=0'>New item</a></td></tr>"
+				html += '</table>'
+				dojo.byId('listProfiles').innerHTML = html
+				
+                        },
+                        error: function(error)
+                        {
+                                error_alert(error)
+                        }
+                }
+                dojo.xhrGet(xhrArgs)
+        }
+
+        dojo.addOnLoad(listProfiles)
+	</script>
+
+        <div id='listProfiles'></div>
+
+	<div id='listEvents'></div>
+
+

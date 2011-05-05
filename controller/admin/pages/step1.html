@@ -1,0 +1,75 @@
+	<script type='text/javascript'>
+	function sendKeywords()
+	{
+		var form = dojo.byId('form01')
+		dojo.connect(form, 'onsubmit', 
+			function(event)
+			{
+				dojo.stopEvent(event);
+				var xhrArgs = {
+					form:  dojo.byId('form01'),
+					handleAs: 'json',
+					load: 
+					function(data)
+					{
+						if(data.lastInsertId)
+							location.href = '/admin/?step=step2&profileId=' + data.lastInsertId
+						else if(data.lastId)
+							location.href= '/admin/?step=step2&profileId=' + data.lastId
+					},
+					error: 
+					function(error)
+					{
+						alert(error)
+					}
+				}	
+				dojo.xhrPost(xhrArgs)
+			}
+		)
+	}
+
+	function getKeywords()
+	{
+		var profileId = getUrlVars()['profileId'];
+		var xhrArgs = {
+			url: '/api/list_keywords/' + profileId + '/',
+			handleAs: 'json',
+			load: function(data)
+			{
+				var text = ''
+				for(var c = 0; c < data.length; c++)
+				{
+					text += data[c].keywords
+				}
+				if(data.length > 0){
+					dojo.byId('keywords').value = text;
+				}
+			},
+			error: function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrGet(xhrArgs)
+	}
+
+	function getProfileId()
+	{
+		var setId = getUrlVars()['profileId']
+		dojo.byId('profileId').value = setId
+	}
+
+	dojo.addOnLoad(getKeywords)
+	dojo.addOnLoad(getProfileId)
+	dojo.addOnLoad(sendKeywords)
+	</script>
+
+        <h1>Make a new search  profile</h1>
+        <h2>Step 1: define keywords</h2>
+        <p>Please fill out the box with colon separated keywords:</p>
+        <form id='form01' action='/api/post_keywords/' method='post'>
+		<input type='hidden' name='command' value='post_keywords'></input>
+		<input type='hidden' id='profileId' name='profileId' value='0'></input>
+                <table><tr><td><textarea id='keywords' name='keywords'></textarea></td></tr>
+                <tr><td><input type='submit' value='proceed'/></td></tr></table>
+        </form>

@@ -1,0 +1,130 @@
+<script type='text/javascript'>
+function listEvents()
+{
+	var xhrArgs = {
+		url: '/api/list_events/',
+		handleAs: 'json',
+		load: function(data)
+		{
+			if(data.length)
+			{
+				var html = "<table><tr><!--<th class='selected_row'>sel.:</th>-->" + 
+					"<th class='data_type'>source:</th><th class='pros_name'>name:</th>" +
+					"<th class='history_col'>history:</th>" + 
+					"<th class='actions_col'>actions:</th>" +
+					"<th class='pros_message'>message:</th>" + 
+					"<th class='date_col'>date:</th>" +
+					"<th class='time_col'>time:</th></tr>"
+				for(var c = 0; c < data.length; c++)
+				{
+					var content = addAnchors(data[c].content)
+					html += "<tr><!--<td><input type='checkbox' value='" + data[c].id + "' checked=checked></input></td>-->" + 
+						"<td>" + data[c].name + "</td>" + 
+						"<td class='bold'><a href='gotoProfilePage.php?fbId=" + data[c].client + 
+							"' target='_blank'>" + data[c].client_name + "</a></td>" +
+						"<td>" + '0 items, 0 offers, unknown person' + "</td>" +
+						"<td><input type='checkbox'/>" + "delete <input type='checkbox'/>contact " + " <a class='bold floatright' href=''>[go]</a></td>" +
+						"<td class='italic'>" + content + "</td>" + 
+						"<td class='tacenter'>" + data[c].date + "</td>" +
+						"<td class='tacenter'>" + data[c].time + "</td></tr>"
+				}
+				dojo.byId('events').innerHTML = html + '</table>'
+			}
+		},
+		error: function(error)
+		{
+			error_alert(error)
+		}
+	}
+	dojo.xhrGet(xhrArgs)
+}
+
+function listSearchResults(data, headline)
+{
+	var html = "<table><tr><!--<th class='selected_row'>sel.:</th>-->" + 
+                                        "<th class='data_type'>source:</th><th class='pros_name'>name:</th>" +
+                                        "<th class='history_col'>history:</th>" + 
+                                        "<th class='actions_col'>actions:</th>" +
+                                        "<th class='pros_message'>message:</th>" + 
+                                        "<th class='date_col'>date:</th>" +
+                                        "<th class='time_col'>time:</th></tr>";
+	if(data.length)
+	{
+		for(var c = 0; c < data.length; c++)
+		{
+		var content = addAnchors(data[c].content)
+		html += "<tr><!--<td><input type='checkbox' value='" + data[c].id + "' checked=checked></input></td>-->" + 
+		"<td>" + headline  + "</td>" + 
+		"<td class='bold'><a href='gotoProfilePage.php?fbId=" + data[c].client + 
+		"' target='_blank'>" + data[c].client_name.substr(7,39) + "</a></td>" +
+		"<td>" + '0 items, 0 offers, unknown person' + "</td>" +
+		"<td><input type='checkbox'/>" + "delete <input type='checkbox'/>contact " + " <a class='bold floatright' href=''>[go]</a></td>" +
+		"<td class='italic'>" + content + "</td>" + 
+		"<td class='tacenter'>" + data[c].date + "</td>" +
+		"<td class='tacenter'>" + data[c].time + "</td></tr>"
+		}
+	}
+	return html + '</table>';
+}
+
+function submitSearchForm()
+{
+	dojo.connect(
+		dojo.byId('form01'),
+		'onsubmit',
+		function(event)
+		{
+			dojo.stopEvent(event)
+			var xhrArgs = {
+				form: dojo.byId('form01'),
+				handleAs:'json',
+				load:function(data)
+				{
+					dojo.byId('statusBar').innerHTML = "";
+					var html = listSearchResults(data)
+					dojo.byId('events').innerHTML = html;
+				},
+				error: function(error)
+				{
+					error_alert(error)
+				}
+			}
+			if(dojo.byId('q').value.match(/^\w/))
+			{
+				dojo.byId('statusBar').innerHTML ='<span class="red">Searching ...</span>'
+				dojo.xhrPost(xhrArgs)
+			}
+		}
+	)
+}
+
+dojo.addOnLoad(listEvents)
+dojo.addOnLoad(submitSearchForm)
+</script>
+
+<div id='statusBar'></div>
+
+<div id='menuBar'>
+	<div class='floatleft'>
+		<a href='' class='bolditalic'>list/itemview</a> | 
+		<a href='' class='bolditalic'>chat (0)</a> | 
+		<a href='/people/' class='bolditalic'>people</a> | 
+		<a href='/admin/?step=step0' class='bolditalic'>profiles</a> | 
+		<a href='?' class='bolditalic'>reports</a> | 
+		<a href='/config/' class='bolditalic'>settings</a> | 
+		<a href='' class='bolditalic'>logout</a>
+	</div>
+	<div class='floatright'>
+		<span class='version'>v0.0.10</span>
+		<form class='inlineForm' action='/search/' id='form01' method='POST'>
+			<input type='radio' value='google' name='select'/> Google
+			<input type='text' class='inputCountry'  name='country' value='nl'/>  
+			<input type='radio' value='twitter' name='select'/>Twitter
+			<input type='radio' name='select' value='facebook' checked=checked/>FB-nl
+			<input class='inlineInput' id='q' name='q' type='text'/>
+			<input class='inlineInput' type='image' src='templates/admin/img/search.png'/>
+		</form>
+	</div>
+</div>
+
+<div id='events'></div>

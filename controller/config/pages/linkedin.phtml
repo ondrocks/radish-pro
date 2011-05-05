@@ -1,0 +1,17 @@
+
+<script type='text/javascript'>
+
+var xhrArgs = {
+	url: '/api/import_connections/',
+	load: function(data)
+	{
+	//	alert(data)
+		document.location.href = '/people/'
+	},
+	error: function(error)
+	{
+		error_alert(error)
+	}
+}
+dojo.xhrGet(xhrArgs)
+</script>
