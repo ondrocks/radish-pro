@@ -7,7 +7,7 @@ if(controllerFront::getController() == 'people')
         <div class='floatleft'>
         	<a class='bolditalic' href=''>list/itemview</a> | 
 		<a class='bolditalic' href='javascript:listEmail()'>email</a> | 
-		<a class='bolditalic' href='/admin/'>events</a> | 
+		<a class='bolditalic' href='/events/'>events</a> | 
 		<a class='bolditalic' href='/config/'>settings</a>
 	</div>
         <div class='floatright'>
@@ -18,14 +18,14 @@ if(controllerFront::getController() == 'people')
                         <input class='inlineInput' name='country' size='2'/> country
                         <input type='hidden' name='q' id='q'/>
                         <input class='inlineInput' name='qq' type='text'/>
-                        <input class='inlineInput' type='image' src='controller/admin/img/search.png'/>
+                        <input class='inlineInput' type='image' src='controller/events/img/search.png'/>
                 </form>
         </div>
 </div>
 
 <?php
 }
-else if(controllerFront::getController() == 'admin')
+else if(controllerFront::getController() == 'events')
 {
 ?>
 <div id='statusBar'></div>
@@ -35,7 +35,7 @@ else if(controllerFront::getController() == 'admin')
                 <a href='' class='bolditalic'>list/itemview</a> |
                 <a href='' class='bolditalic'>chat (0)</a> |
                 <a href='/people/' class='bolditalic'>people</a> |
-                <a href='/admin/?step=step0' class='bolditalic'>profiles</a> |
+                <a href='/events/?step=step0' class='bolditalic'>profiles</a> |
                 <a href='?' class='bolditalic'>reports</a> |
                 <a href='/config/' class='bolditalic'>settings</a> |
                 <a href='' class='bolditalic'>logout</a>
@@ -48,7 +48,7 @@ else if(controllerFront::getController() == 'admin')
                         <input type='radio' value='twitter' name='select'/>Twitter
                         <input type='radio' name='select' value='facebook' checked=checked/>FB-nl
                         <input class='inlineInput' id='q' name='q' type='text'/>
-                        <input class='inlineInput' type='image' src='controller/admin/img/search.png'/>
+                        <input class='inlineInput' type='image' src='controller/events/img/search.png'/>
                 </form>
         </div>
 </div>
@@ -60,7 +60,7 @@ else if(controllerFront::getController()== 'config')
 {
 ?>
 <div id='menuBar'>
-        <a href='/admin/' class='bolditalic'>home</a> | <a href='/people/' class='bolditalic'>people</a>
+        <a href='/events/' class='bolditalic'>home</a> | <a href='/people/' class='bolditalic'>people</a>
 </div>
 <?php
 }

@@ -15,11 +15,11 @@
                                         {
 						if(data.lastInsertId) 
 						{                                       
-                                                	location.href = '/admin/?step=step3&profileId=' + data.lastInsertId
+                                                	location.href = '/events/?step=step3&profileId=' + data.lastInsertId
 						}
 						else if(data.lastId)
 						{
-							location.href = '/admin/?step=step3&profileId=' + data.lastId
+							location.href = '/events/?step=step3&profileId=' + data.lastId
 						}
                                         },
                                         error: 
