@@ -127,22 +127,5 @@ function listEmail()
 }
 </script>
 
-<div id='menuBar'>
-	<div class='floatleft'>
-	<a class='bolditalic' href=''>list/itemview</a> | <a class='bolditalic' href='javascript:listEmail()'>email</a> | <a class='bolditalic' href='/admin/'>events</a> | <a class='bolditalic' href='/config/'>settings</a>
-	</div>
-	<div class='floatright'>
-                <form class='inlineForm' action='/search/' id='form01' method='POST'>
-                        <input type='radio' name='select' value='linkedin' checked/> LinkedIn
-			<input type='radio' name='select' value='linkediniscompany' /> company
-			<input type='radio' name='select' value='local'/> local
-			<input class='inlineInput' name='country' size='2'/> country
-			<input type='hidden' name='q' id='q'/>
-                        <input class='inlineInput' name='qq' type='text'/> 
-                        <input class='inlineInput' type='image' src='controller/admin/img/search.png'/>
-                </form>
-	</div>
-</div>
-
 <div id='connections'></div>
 

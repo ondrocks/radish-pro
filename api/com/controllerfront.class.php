@@ -4,9 +4,19 @@ class controllerFront
 	function __construct($controller='index')
 	{
 		isset($_GET['controller']) ? $controller = $_GET['controller'] : '';
-		include 'view/header.php';
-		include 'controller/' . $controller . '/main.php';
-		include 'controller/' . $controller . '/footer.php';
+
+		$user = new User();
+		if($user->isValid())
+		{
+			include 'view/header.php';
+			include 'controller/menu/main.php';
+			include 'controller/' . $controller . '/main.php';
+			include 'view/footer.php';
+		}
+		else
+		{
+			include 'view/403.html';
+		}
 	}
 	function getController()
 	{

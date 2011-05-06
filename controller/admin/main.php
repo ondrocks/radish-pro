@@ -1,11 +1,8 @@
-<body>
-
-
 <?php
 
 define('PAGES_DIR', 'pages' . DS);
-$user = new User();
-if($user->isValid() && !empty($_GET['step']))
+
+if(!empty($_GET['step']))
 {
 	switch($_GET['step'])
 	{
@@ -27,10 +24,6 @@ if($user->isValid() && !empty($_GET['step']))
 		
 	}
 }
-else if($user->isValid())
+else
 	include PAGES_DIR . 'start.html';
-else 
-	include PAGES_DIR . '403.html';
 ?>
-
-</body>

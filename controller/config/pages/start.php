@@ -7,10 +7,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 ?>
 
-<div id='menuBar'>
-	<a href='/admin/' class='bolditalic'>home</a> | <a href='/people/' class='bolditalic'>people</a>
-</div>
-
 <h1 class='tacenter'>Settings:</h1>
 
 <table class='settings'>

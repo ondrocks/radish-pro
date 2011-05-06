@@ -1,13 +1,8 @@
-<body>
-
-
 <?php
 
 define('PAGES_DIR', 'pages' . DS);
 
-$user = new User();
-
-if($user->isValid() && !empty($_GET['page']))
+if(!empty($_GET['page']))
 {
 	switch($_GET['page'])
 	{
@@ -17,13 +12,9 @@ if($user->isValid() && !empty($_GET['page']))
 		
 	}
 }
-else if($user->isValid())
+else
 {
-	echo "<img src='/radish.gif' class='radish'/><p class='welcome'>Welcome " . $user->getName() . "</p>";
 	include "controller/people/" . PAGES_DIR . 'start.php';
 }
-else
-	include PAGES_DIR . '403.html';
 ?>
 
-</body>
