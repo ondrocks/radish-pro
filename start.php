@@ -7,7 +7,7 @@ function __autoload($name){
 	require_once('api/com/'.strtolower($name).'.class.php');
 }
 
-$globalIniArray = parse_ini_file( PUtil::docRoot() . "en-GB.language.ini");
+$globalIniArray = parse_ini_file( PUtil::docRoot() . "/language/en-GB.language.ini");
 
 new controllerFront();
 ?>

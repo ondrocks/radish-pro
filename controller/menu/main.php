@@ -1,5 +1,5 @@
 <?php
-if(controllerFront::getController() == 'people')
+if(controllerFront::getController() == 'people' || controllerFront::getController() == 'companies')
 {
 	echo "<img src='/radish.gif' class='radish'/><p class='welcome'>Welcome " . $user->getName() . "</p>";
 ?>
