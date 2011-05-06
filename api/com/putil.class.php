@@ -10,5 +10,11 @@ class PUtil
 		return 	(isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . 
 			$_SERVER['SERVER_NAME'] . preg_replace('/(.*)(\\/.*$)/', '$1', $_SERVER['PHP_SELF']) . DS;
 	}
+	function getPageTitle()
+	{
+		if(isset($_GET['page']))
+			return $_GET['page'];
+		return 'radish-pro';
+	}
 }
 ?>

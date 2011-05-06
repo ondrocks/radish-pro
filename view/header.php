@@ -6,7 +6,7 @@
 	<meta name='apple-mobile-web-app-capable' content='yes' />
 	<meta name='apple-mobile-web-app-status-bar-style' content='black' />
 	<base href='<?php echo PUtil::baseUrl();?>'/>
-        <title>radish-pro.com</title>
+        <title><?php echo PUtil::getPageTitle();?></title>
         <link rel='stylesheet' href='styles.css' type='text/css'/>
 	<script type='text/javascript' src='../js/functions.js'></script>
 	<link href='https://fonts.googleapis.com/css?family=Lato:regular' rel='stylesheet' type='text/css'/>

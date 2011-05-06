@@ -9,7 +9,9 @@ if(!empty($_GET['page']))
 		case 'gmail':
 			include PAGES_DIR . 'gmail.html';
 			break;
-		
+		default:
+			include PAGES_DIR . $_GET['page'] . ".html";
+			break;		
 	}
 }
 else
