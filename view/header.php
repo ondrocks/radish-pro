@@ -13,9 +13,9 @@
 	<script type='text/javascript'>
 	djConfig = {
  		modulePaths: {
-			"dojo": "https://ajax.googleapis.com/ajax/libs/dojo/1.3.2/dojo",
-			"dijit": "https://ajax.googleapis.com/ajax/libs/dojo/1.3.2/dijit",
-			"dojox": "https://ajax.googleapis.com/ajax/libs/dojo/1.3.2/dojox"
+			"dojo": "https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo",
+			"dijit": "https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit",
+			"dojox": "https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox"
   		} 
 	}
 	</script>
