@@ -10,7 +10,7 @@ if(!empty($_GET['page']))
 			include PAGES_DIR . 'gmail.html';
 			break;
 		default:
-			include PAGES_DIR . $_GET['page'] . ".html";
+			include PAGES_DIR . $_GET['page'] . ".php";
 			break;		
 	}
 }
