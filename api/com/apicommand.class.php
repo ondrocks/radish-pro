@@ -20,8 +20,8 @@ class APICommand
 
 	function initLinkedInApp()
 	{
-		require_once '../api/credentials.php';
-		require_once '../login/linkedin.php';
+//		require_once '../api/credentials.php';
+//		require_once '../login/linkedin.php';
 
    // 		session_start();
 		$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
@@ -37,7 +37,7 @@ class APICommand
 		return $linkedin;
 	}
 
-	private function saveLinkedInConnection($linkedin, $name, $user, $headline,$place, $country, $pictureUrl, $profileUrl )
+	private function saveLinkedInConnection($linkedin, $name, $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
 	{
 		$query = "insert into " . TABLE_PREFIX . "linkedin_connections (linkedin) values (:linkedin)";
 		$values = array("linkedin" => $linkedin);
@@ -56,6 +56,45 @@ class APICommand
 					'pictureUrl' => $pictureUrl,
 					'profileUrl' => $profileUrl);
 			$this->dtb->prepareAndExecute($query, $values);
+
+			if($this->dtb->dtb->lastInsertId())
+			{
+				$peopleId = $this->dtb->dtb->lastInsertId();
+				$query = "select count(*) as count, id from #_companies where name = :name";
+				$values = array('name' => $company['name']);
+				$this->dtb->prepareAndExecute($query, $values);
+				$result = $this->dtb->getAllRows(false);
+				if($result[0]->count == 0)
+				{
+					$query = "insert into #_companies(name, size, ticker, industry) 
+						values(:name, :size, :ticker, :industry)";
+					$values = array(
+						'name' => $company['name'],
+						'industry' => $company['industry'],
+						'size' => $company['size'],
+						'ticker' => $company['ticker']);
+					$this->dtb->prepareAndExecute($query, $values);
+					$companyId = $this->dtb->dtb->lastInsertId();
+				}
+				else if(isset($result[0]->id))
+				{
+					$companyId = $result[0]->id;
+				}
+				else 
+					$companyId =0;
+				$query = "select count(*) as count from #_positions where company_id = :companyId and people_id = :peopleId";
+				$values = array('companyId' => $companyId, 
+						'peopleId' => $peopleId);
+				$this->dtb->prepareAndExecute($query, $values);
+				$result = $this->dtb->getAllRows(false);
+				if($result[0]->count == 0)
+				{
+					$query = "insert into #_positions(company_id, people_id) values(:companyId, :peopleId)";
+					$values = array('companyId' => $companyId,
+							'peopleId' => $peopleId);
+					$this->dtb->prepareAndExecute($query, $values);
+				}
+			}
 		}
 	}
 
@@ -69,7 +108,7 @@ class APICommand
 		{
 			$query = "insert into " . TABLE_PREFIX . "people (name, email, user) values (:name, :email, :user)";
 			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId(), 'user' => (int)$user->getId());
-			$this->dtb->prepareAndExecute($query, $values);
+			$this->dtb->dtb->prepareAndExecute($query, $values);
 		}
 	}
 
@@ -108,9 +147,16 @@ class APICommand
 					$_user = (int)$user->getId();
 					$place = (string)$person->location->name;
 					$country = (string)$person->location->country->code;
-					$profileUrl = (string)$person->url;
+					$profileUrl = (string)$person->{'public-profile-url'};
 					$pictureUrl = (string)$person->{'picture-url'};
-					$this->saveLinkedInConnection($linkedinid, $name, $_user, $headline, $place, $country, $pictureUrl, $profileUrl);
+					$companyId = $person->{'positions'};
+					$company = array(
+						"name" => $companyId->position[0]->company->name,
+						"industry" => $companyId->position[0]->company->industry,
+						"size" => $companyId->position[0]->company->size,
+						"ticker" => $companyId->position[0]->company->ticker);		
+
+					$this->saveLinkedInConnection($linkedinid, $name, $_user, $headline, $place, $country, $pictureUrl, $profileUrl, $company);
 				}
 			}
 		}

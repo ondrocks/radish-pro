@@ -4,13 +4,14 @@ $qs = array(
 	new APICommand(
 		'list_connections',
 		new Query(
-			'select distinct a.name as name, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName from ' . 
+			'select distinct a.name as name, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName, g.name as company, g.ticker from ' . 
 				TABLE_PREFIX . 'people a left join ' . 
 				TABLE_PREFIX . 'email_connections b  on a.email = b.id left join ' .
 				TABLE_PREFIX . 'twitter_connections c on c.id = a.twitter left join '  .
 				TABLE_PREFIX . 'linkedin_connections d on d.id = a.linkedin left join ' .
 				TABLE_PREFIX . 'fb_connections e on d.id = a.facebook left join ' .
-				TABLE_PREFIX . 'users f on f.id = a.user where b.email != "" or c.twitter != "" or d.linkedin != ""
+				TABLE_PREFIX . 'users f on f.id = a.user left join 
+				#_positions h on h.people_id = a.id left join #_companies g on g.id = h.company_id where b.email != "" or c.twitter != "" or d.linkedin != ""
 						order by a.name '
 		),
 		LEVEL_0

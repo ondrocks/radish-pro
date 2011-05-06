@@ -104,7 +104,7 @@ class APIPostCommand extends APICommand
 				if(!empty($_POST['name']) && !empty($_POST['headline']) && $dtb->dtb->lastInsertId())
 				{
 					$query = "insert into " . TABLE_PREFIX . "people 
-					(name, user, place, country, linkedIn, headline, ip, pictureUrl, profileUrl)
+					(name, user, place, country, linkedIn, headline, ip, pictureUrl, profileUrl, currentCompany)
 					values(:name, :user, :place, :country, :linkedIn, :headline, :ip, :pictureUrl, :profileUrl)";
 					$dtb->prepareAndExecute($query, array(
 						"name" => $_POST['name'],

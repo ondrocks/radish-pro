@@ -22,12 +22,17 @@ function submitSearchForm()
 					var headline = ''
 					var profileUrl = 'profileUrl'
 					var pictureUrl = ''
+					var companyId = ''
 					var xmldata = dojox.xml.parser.parse(data)
 					var root = xmldata.documentElement
 					for(var c = 0; c < root.getElementsByTagName('person').length; c++)	
 					{
 						for(var cc = 0; cc < root.getElementsByTagName('person')[c].childNodes.length; cc++)
 						{
+							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'current-company')
+							{
+								companyId = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc])
+							}
 							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'picture-url' && document.location.protocol == 'http:')
 							{
 								pictureUrl = "<img class='profilePicture' src='" + dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]) + "'/>"
@@ -79,7 +84,7 @@ function listConnections()
 		handleAs: 'json',
 		load: function(data)
 		{
-			var html = '<table><tr><th>from</th><th>picture</th><th>name</th><th>email</th><th>place</th><th>country</th><th>linkedIn</th><th>twitter</th><th>facebook</th></tr>'
+			var html = '<table><tr><th>from</th><th>picture</th><th>name</th><th>email</th><th>place</th><th>country</th><th>company</th><th>linkedIn</th><th>twitter</th><th>facebook</th></tr>'
 			for(var c = 0; c < data.length; c++)
 			{
 					html += "<tr><td>" + 	data[c].userName + "</td><td class='picture'>" +
@@ -88,6 +93,7 @@ function listConnections()
 								(data[c].email ? data[c].email : '')  + "</td><td>" + 
 								(data[c].place ? data[c].place : '') + "</td><td>" + 
 								(data[c].country ? data[c].country : '') + '</td><td>' +
+								(data[c].company ? data[c].company : '') + ' ' + (data[c].ticker ? data[c].ticker : '') + '</td><td>' +
 								(data[c].headline ? data[c].headline : '') + "</td><td>"  + "</td><td>" + "</td><td>" +		
 						"</td></tr>"
 			}
