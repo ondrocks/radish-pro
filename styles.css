@@ -19,6 +19,8 @@ a:visited,
 a:link,
 a:active		{color:red;}
 #events			{margin-top:10px;}
+#bgOverlay		{position:absolute; top:0;z-index:99999; background: white; opacity:0.7;}
+#popup			{position:absolute; z-index:999999;}
 div {border:opx solid red;}
 a img			{vertical-align:middle;}
 a.black:visited,

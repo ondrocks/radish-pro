@@ -5,7 +5,7 @@ if(controllerFront::getController() == 'people')
 ?>
 <div id='menuBar'>
         <div class='floatleft'>
-        	<a class='bolditalic' href=''>list/itemview</a> | 
+        	<a class='bolditalic' href='javascript:toggleMode()'>list/itemview</a> | 
 		<a class='bolditalic' href='javascript:listEmail()'>email</a> | 
 		<a class='bolditalic' href='/events/'>events</a> | 
 		<a href='/companies/' class='bolditalic'>companies</a> | 
@@ -30,7 +30,7 @@ else if(controllerFront::getController() == 'companies')
 ?>
 <div id='menuBar'>
         <div class='floatleft'>
-                <a class='bolditalic' href=''>list/itemview</a> | 
+                <a class='bolditalic' href='javascript:toggleMode()'>list/itemview</a> | 
                 <a class='bolditalic' href='javascript:listEmail()'>email</a> | 
                 <a class='bolditalic' href='/events/'>events</a> | 
 		<a class='bolditalic' href='/people/'>people</a> |
@@ -58,7 +58,7 @@ else if(controllerFront::getController() == 'events')
 
 <div id='menuBar'>
         <div class='floatleft'>
-                <a href='' class='bolditalic'>list/itemview</a> |
+                <a href='javascript:toggleMode()' class='bolditalic'>list/itemview</a> |
                 <a href='' class='bolditalic'>chat (0)</a> |
                 <a href='/people/' class='bolditalic'>people</a> |
                 <a href='/events/?step=step0' class='bolditalic'>profiles</a> |

@@ -8,7 +8,6 @@
 	<base href='<?php echo PUtil::baseUrl();?>'/>
         <title><?php echo PUtil::getPageTitle();?></title>
         <link rel='stylesheet' href='styles.css' type='text/css'/>
-	<script type='text/javascript' src='../js/functions.js'></script>
 	<link href='https://fonts.googleapis.com/css?family=Lato:regular' rel='stylesheet' type='text/css'/>
 	<script type='text/javascript'>
 	djConfig = {
@@ -21,7 +20,7 @@
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" type="text/javascript"></script> 
-
+	<script type='text/javascript' src='../js/functions.js'></script>
 </head>
 <body>
 

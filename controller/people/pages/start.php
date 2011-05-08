@@ -1,4 +1,18 @@
 <script type='text/javascript'>
+var listMode = 'list'
+var dataCached
+
+function showItem(itemId)
+{
+	listMode = 'item'
+	listConnectionsAsItem(dataCached, 'connections', itemId)
+}
+
+function showList()
+{
+	listMode = 'list'
+	listConnectionsAsList(dataCached, 'connections')
+}
 
 function submitSearchForm()
 {
@@ -58,7 +72,7 @@ function submitSearchForm()
                                                                 lastname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
 							}
 					}
-                                                html += '<tr><td class="picture">' + pictureUrl + '</td><td>' + firstname + ' ' + lastname + '</td><td><a class="black" target="_blank" href="' + profileUrl  +'">' + headline + '</a></td></tr>'
+                                                html += '<tr><td class="picture">' + pictureUrl + "</td><td>" + firstname + ' ' + lastname + '</td><td><a class="black" target="_blank" href="' + profileUrl  +'">' + headline + '</a></td></tr>'
 					}
 					dojo.byId('connections').innerHTML = html + '</table>'
                                 },
@@ -77,6 +91,31 @@ function submitSearchForm()
 
 dojo.addOnLoad(submitSearchForm)
 
+function listConnectionsAsList(data, htmlId)
+{
+	var html = '<table><tr><th>from</th><th>picture</th><th>name</th><th>email</th><th>place</th><th>country</th><th>company</th><th>linkedIn</th><th>twitter</th><th>facebook</th></tr>'
+	for(var c = 0; c < data.length; c++)
+	{
+		html += "<tr><td>" +    data[c].userName + "</td><td class='picture'>" +
+			(data[c].pictureUrl ? '<img class="profilePicture" src="' + data[c].pictureUrl + '"/>' : '') + '</td><td>' +
+			"<a href='javascript:showItem(" + c + ")'>" + data[c].name + "</a></td><td>" + 
+			(data[c].email ? data[c].email : '')  + "</td><td>" + 
+			(data[c].place ? data[c].place : '') + "</td><td>" + 
+			(data[c].country ? data[c].country : '') + '</td><td>' +
+			(data[c].company ? data[c].company : '') + ' ' + (data[c].ticker ? '(' + data[c].ticker + ')' : '') + '</td><td>' +
+			(data[c].headline ? data[c].headline : '') + "</td><td>"  + "</td><td>" + "</td><td>" + 
+			"</td></tr>"
+	}
+	dojo.byId(htmlId).innerHTML = html + '</table>'
+}
+
+function listConnectionsAsItem(data, htmlId, itemId)
+{
+	var html = '<table>'
+	html += "<tr><td>" + data[itemId].name + "</td></tr>"
+	dojo.byId(htmlId).innerHTML = html + '</table>'
+}
+
 function listConnections()
 {
 	var xhrArgs = {
@@ -84,24 +123,15 @@ function listConnections()
 		handleAs: 'json',
 		load: function(data)
 		{
-			var html = '<table><tr><th>from</th><th>picture</th><th>name</th><th>email</th><th>place</th><th>country</th><th>company</th><th>linkedIn</th><th>twitter</th><th>facebook</th></tr>'
-			for(var c = 0; c < data.length; c++)
-			{
-					html += "<tr><td>" + 	data[c].userName + "</td><td class='picture'>" +
-								(data[c].pictureUrl ? '<img class="profilePicture" src="' + data[c].pictureUrl + '"/>' : '') + '</td><td>' +
-								data[c].name + "</td><td>" + 
-								(data[c].email ? data[c].email : '')  + "</td><td>" + 
-								(data[c].place ? data[c].place : '') + "</td><td>" + 
-								(data[c].country ? data[c].country : '') + '</td><td>' +
-								(data[c].company ? data[c].company : '') + ' ' + (data[c].ticker ? '(' + data[c].ticker + ')' : '') + '</td><td>' +
-								(data[c].headline ? data[c].headline : '') + "</td><td>"  + "</td><td>" + "</td><td>" +		
-						"</td></tr>"
-			}
-			dojo.byId('connections').innerHTML = html + '</table>'
+			dataCached = data
+			if(listMode == 'item')
+				listConnectionsAsItem(data, 'connections', 0)
+			else
+				listConnectionsAsList(data, 'connections')
 		},
 		error: function(error)
 		{
-			error_alert('OK ' + error)
+			error_alert(error)
 		}
 	}
 	dojo.xhrGet(xhrArgs)

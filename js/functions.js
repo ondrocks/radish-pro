@@ -1,3 +1,9 @@
+	dojo.require("dojo.window");
+
+	var listMode = 'list'
+	var popup 
+	var form
+
 	function error_alert(error)
 	{
 		alert('Error => ' + error)
@@ -120,3 +126,108 @@
 		dojo.xhrPost(xhrArgs)
 		alert('Records read: ' + connections.length)
 	}
+
+	function toggleMode()
+	{
+	        if(listMode == 'list')
+        	{
+        	        showItem(0)
+        	}
+		else
+		{
+                	showList();
+        	}
+	}
+
+
+	function createForm(xmlFile)
+	{
+		var xhrArgs = {
+			url : '/forms/' + xmlFile + '.xml',
+			handleAs : 'xml',
+			load : function(data)
+			{
+				var _form = document.createElement('form')
+				var _els = data.getElementsByTagName('formelement')
+				for(var c = 0; c < _els.length; c++)
+				{
+					switch(_els[c].getAttribute('type'))
+					{
+						case 'submit':
+							dojo.place(createSubmitElement(_els[c].getAttribute('label')), _form)
+							break;
+					}
+				}
+				form = _form
+				attachForm(form)
+			},
+			error: function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrGet(xhrArgs)
+	}
+
+
+	function createSubmitElement(label)
+	{
+		var _el = document.createElement('input')
+		_el.setAttribute('type', 'submit')
+		_el.value = label
+		return _el
+	}
+
+	function searchForCompanyProfile()
+	{
+		createPopup()
+		createForm('searchCompany')
+	}
+
+	function destroyPopup(o)
+	{
+		dojo.destroy(o)
+		dojo.destroy(popup)
+		dojo.destroy(dojo.byId('bgOverlay'))
+		popup = void(0)
+	}
+
+	function attachForm(cnt)
+	{
+		dojo.place(cnt, dojo.byId('popupInner'))
+	}
+
+	function createPopup()
+	{
+		if(!popup)
+		{
+			var cnt = document.createElement('div')
+			cnt.id = 'bgOverlay'
+			cnt.style.width = '99%'
+			cnt.style.height = (dojo.window.getBox().h - 20) + 'px'
+			dojo.body().appendChild(cnt)
+
+			var cnt = document.createElement('div')
+			cnt.id = 'popupInner'
+			cnt.style.position = 'absolute'
+			cnt.style.top = '100px'
+			cnt.style.width = '800px'
+			cnt.style.height = '400px'
+			cnt.style.left = dojo.window.getBox().w / 2 - 400 + 'px'
+			cnt.style.border = '1px solid #ff0000'
+			cnt.style.background = 'white'
+			popup = dojo.place(cnt, dojo.byId('popup'))
+	
+			var cnt = document.createElement('div')
+			cnt.innerHTML = '[X]'
+			cnt.style.background = 'white'
+			cnt.style.position = 'absolute'
+			cnt.style.top = '75px'
+			cnt.style.left = dojo.window.getBox().w / 2 + 390 +'px' 
+			dojo.connect(cnt, 'onclick', function(){
+				destroyPopup(this)
+				})
+			dojo.place(cnt, dojo.byId('popup'))
+		}
+	}
+
