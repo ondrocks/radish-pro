@@ -3,6 +3,9 @@
 	var listMode = 'list'
 	var popup 
 	var form
+	var popupTop = 85
+	var popupHeight = 400
+	var popupWidth = 500
 
 	function error_alert(error)
 	{
@@ -210,10 +213,10 @@
 			var cnt = document.createElement('div')
 			cnt.id = 'popupInner'
 			cnt.style.position = 'absolute'
-			cnt.style.top = '100px'
-			cnt.style.width = '800px'
-			cnt.style.height = '400px'
-			cnt.style.left = dojo.window.getBox().w / 2 - 400 + 'px'
+			cnt.style.top = popupTop + 'px'
+			cnt.style.width = popupWidth + 'px'
+			cnt.style.height = popupHeight + 'px'
+			cnt.style.left = dojo.window.getBox().w / 2 - popupWidth / 2 + 'px'
 			cnt.style.border = '1px solid #ff0000'
 			cnt.style.background = 'white'
 			popup = dojo.place(cnt, dojo.byId('popup'))
@@ -221,9 +224,10 @@
 			var cnt = document.createElement('div')
 			cnt.innerHTML = '[X]'
 			cnt.style.background = 'white'
+			cnt.style.cursor = 'pointer'
 			cnt.style.position = 'absolute'
-			cnt.style.top = '75px'
-			cnt.style.left = dojo.window.getBox().w / 2 + 390 +'px' 
+			cnt.style.top = popupTop - 22 + 'px'
+			cnt.style.left = dojo.window.getBox().w / 2 + popupWidth / 2 - 18 +'px' 
 			dojo.connect(cnt, 'onclick', function(){
 				destroyPopup(this)
 				})

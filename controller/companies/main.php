@@ -29,7 +29,7 @@ function listCompaniesAsItem(data, htmlId, itemId)
 	html += '<tr><td> :</td><td>' + data[itemId].company + '</td></tr>'
 	html += '<tr><td> :</td> <td>' + data[itemId].industry + '</td></tr>'
 	html += '<tr><td> :</td><td>' + data[itemId].size + '</td></tr>'
-	html += '<tr><td></td><td><a href="javascript:searchForCompanyProfile(\'' + encodeURIComponent(data[itemId].company) + "')\">update profile</a>"	
+	html += '<tr><td></td><td><a href="javascript:searchForCompanyProfile(\'' + encodeURIComponent(data[itemId].company) + "')\">get profile info</a>"	
 	dojo.byId(htmlId).innerHTML = html + '</table>'
 }
 
