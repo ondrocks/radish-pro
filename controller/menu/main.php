@@ -1,5 +1,5 @@
 <?php
-if(controllerFront::getController() == 'people' || controllerFront::getController() == 'companies')
+if(controllerFront::getController() == 'people')
 {
 	echo "<img src='/radish.gif' class='radish'/><p class='welcome'>Welcome " . $user->getName() . "</p>";
 ?>
@@ -8,8 +8,34 @@ if(controllerFront::getController() == 'people' || controllerFront::getControlle
         	<a class='bolditalic' href=''>list/itemview</a> | 
 		<a class='bolditalic' href='javascript:listEmail()'>email</a> | 
 		<a class='bolditalic' href='/events/'>events</a> | 
+		<a href='/companies/' class='bolditalic'>companies</a> | 
 		<a class='bolditalic' href='/config/'>settings</a>
 	</div>
+        <div class='floatright'>
+                <form class='inlineForm' action='/search/' id='form01' method='POST'>
+                        <input type='radio' name='select' value='linkedin' checked/> LinkedIn
+                        <input type='radio' name='select' value='linkediniscompany' /> company
+                        <input type='radio' name='select' value='local'/> local
+                        <input class='inlineInput' name='country' size='2'/> country
+                        <input type='hidden' name='q' id='q'/>
+                        <input class='inlineInput' name='qq' type='text'/>
+                        <input class='inlineInput' type='image' src='controller/events/img/search.png'/>
+                </form>
+        </div>
+</div>
+<?php
+}
+else if(controllerFront::getController() == 'companies')
+{
+?>
+<div id='menuBar'>
+        <div class='floatleft'>
+                <a class='bolditalic' href=''>list/itemview</a> | 
+                <a class='bolditalic' href='javascript:listEmail()'>email</a> | 
+                <a class='bolditalic' href='/events/'>events</a> | 
+		<a class='bolditalic' href='/people/'>people</a> |
+                <a class='bolditalic' href='/config/'>settings</a>
+        </div>
         <div class='floatright'>
                 <form class='inlineForm' action='/search/' id='form01' method='POST'>
                         <input type='radio' name='select' value='linkedin' checked/> LinkedIn

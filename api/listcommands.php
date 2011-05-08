@@ -4,16 +4,24 @@ $qs = array(
 	new APICommand(
 		'list_connections',
 		new Query(
-			'select distinct a.name as name, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName, g.name as company, g.ticker from ' . 
-				TABLE_PREFIX . 'people a left join ' . 
-				TABLE_PREFIX . 'email_connections b  on a.email = b.id left join ' .
-				TABLE_PREFIX . 'twitter_connections c on c.id = a.twitter left join '  .
-				TABLE_PREFIX . 'linkedin_connections d on d.id = a.linkedin left join ' .
-				TABLE_PREFIX . 'fb_connections e on d.id = a.facebook left join ' .
-				TABLE_PREFIX . 'users f on f.id = a.user left join 
+			'select distinct a.name as name, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName, g.name as company, g.ticker from 
+				#_people a left join 
+				#_email_connections b  on a.email = b.id left join 
+				#_twitter_connections c on c.id = a.twitter left join 
+				#_linkedin_connections d on d.id = a.linkedin left join 
+				#_fb_connections e on d.id = a.facebook left join 
+				#_users f on f.id = a.user left join 
 				#_positions h on h.people_id = a.id left join #_companies g on g.id = h.company_id where b.email != "" or c.twitter != "" or d.linkedin != ""
-						order by a.name '
+				order by a.name '
 		),
+		LEVEL_0
+	),
+	new APICommand(
+		'list_companies',
+		new Query(
+			'select c.name as name, a.industry, a.name as company from #_companies a left join #_positions b on a.id = b.company_id left join #_people c on b.people_id = c.id order by a.name',
+			null,
+			true),
 		LEVEL_0
 	),
 	new APICommand(
@@ -93,12 +101,6 @@ $qs = array(
 	new APICommand(
 		'import_companies',
 		null,
-		LEVEL_0
-	),
-	new APICommand(
-		'list_companies',
-		new Query('select name from #__companies',
-			null, true),
 		LEVEL_0
 	),
 	new APICommand(

@@ -80,7 +80,7 @@ class LinkedIn {
   }
 
   	function getConnections(){
-	$profile_url = $this->base_url . '/v1/people/~/connections:(id,location,picture-url,public-profile-url,first-name,last-name,headline,positions:(company:(name,industry,ticker,size)))';
+	$profile_url = $this->base_url . '/v1/people/~/connections:(id,location,main-address,picture-url,public-profile-url,first-name,last-name,headline,positions:(company:(name,industry,ticker,size)))';
 	$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $profile_url);
     $request->sign_request($this->signature_method, $this->consumer, $this->access_token);
     $auth_header = $request->to_header("https://api.linkedin.com"); # this is the realm
@@ -115,7 +115,7 @@ class LinkedIn {
   # Parameters should be a query string starting with "?"
   # Example search("?count=10&start=10&company=LinkedIn");
   function search($keywords, $company, $country) {
-    $search_url = $this->base_url . "/v1/people-search:(people:(id,current-company,public-profile-url,picture-url,first-name,last-name,headline))?count=25&keywords=" . $keywords . "&company-name=" . $company . "&country-code=" . $country . ""; 
+    $search_url = $this->base_url . "/v1/people-search:(people:(id,public-profile-url,picture-url,first-name,last-name,headline))?count=25&keywords=" . $keywords . "&company-name=" . $company . "&country-code=" . $country . ""; 
     //echo "Performing search for: " . $parameters . "\n";
     $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $search_url);
     $request->sign_request($this->signature_method, $this->consumer, $this->access_token);
@@ -125,6 +125,8 @@ class LinkedIn {
       echo $auth_header . "\n";
     }
     $response = $this->httpRequest($search_url, $auth_header, "GET");
+echo $response;
+die();
     return $response;
   }
   

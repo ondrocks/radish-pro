@@ -93,7 +93,7 @@ function listConnections()
 								(data[c].email ? data[c].email : '')  + "</td><td>" + 
 								(data[c].place ? data[c].place : '') + "</td><td>" + 
 								(data[c].country ? data[c].country : '') + '</td><td>' +
-								(data[c].company ? data[c].company : '') + ' ' + (data[c].ticker ? data[c].ticker : '') + '</td><td>' +
+								(data[c].company ? data[c].company : '') + ' ' + (data[c].ticker ? '(' + data[c].ticker + ')' : '') + '</td><td>' +
 								(data[c].headline ? data[c].headline : '') + "</td><td>"  + "</td><td>" + "</td><td>" +		
 						"</td></tr>"
 			}

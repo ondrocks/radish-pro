@@ -145,8 +145,9 @@ class APICommand
 					$linkedinid = (string)$person->id;
 					$headline = $person->headline;
 					$_user = (int)$user->getId();
-					$place = (string)$person->location->name;
+					$place = (string)$person->location->name;;
 					$country = (string)$person->location->country->code;
+					$address = (string)$person->{'main-address'};
 					$profileUrl = (string)$person->{'public-profile-url'};
 					$pictureUrl = (string)$person->{'picture-url'};
 					$companyId = $person->{'positions'};

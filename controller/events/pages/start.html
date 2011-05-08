@@ -20,7 +20,7 @@ function listEvents()
 					var content = addAnchors(data[c].content)
 					html += "<tr><!--<td><input type='checkbox' value='" + data[c].id + "' checked=checked></input></td>-->" + 
 						"<td>" + data[c].name + "</td>" + 
-						"<td class='bold'><a href='gotoProfilePage.php?fbId=" + data[c].client + 
+						"<td class='bold'><a href='/events/?fbId=" + data[c].client + 
 							"' target='_blank'>" + data[c].client_name + "</a></td>" +
 						"<td>" + '0 items, 0 offers, unknown person' + "</td>" +
 						"<td><input type='checkbox'/>" + "delete <input type='checkbox'/>contact " + " <a class='bold floatright' href=''>[go]</a></td>" +
@@ -55,7 +55,7 @@ function listSearchResults(data, headline)
 		var content = addAnchors(data[c].content)
 		html += "<tr><!--<td><input type='checkbox' value='" + data[c].id + "' checked=checked></input></td>-->" + 
 		"<td>" + headline  + "</td>" + 
-		"<td class='bold'><a href='gotoProfilePage.php?fbId=" + data[c].client + 
+		"<td class='bold'><a href='/events/?fbId=" + data[c].client + 
 		"' target='_blank'>" + data[c].client_name.substr(7,39) + "</a></td>" +
 		"<td>" + '0 items, 0 offers, unknown person' + "</td>" +
 		"<td><input type='checkbox'/>" + "delete <input type='checkbox'/>contact " + " <a class='bold floatright' href=''>[go]</a></td>" +
