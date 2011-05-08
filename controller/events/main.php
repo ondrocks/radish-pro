@@ -2,12 +2,11 @@
 
 define('PAGES_DIR', 'pages' . DS);
 
-if(!empty($_GET['fbId']))
+if(isset($_GET['action']) && $_GET['action'] == 'gotoProfilePage' && !empty($_GET['fbId']))
 {
         $url = 'http://graph.facebook.com/' . $_GET['fbId'];
         $jdata = file_get_contents($url);
         $data = json_decode($jdata);
-echo "OK";
         header('Location:' . $data->link);
 }
 else if(!empty($_GET['step']))
