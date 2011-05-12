@@ -98,7 +98,7 @@ function listConnectionsAsList(data, htmlId)
 	{
 		html += "<tr><td>" +    data[c].userName + "</td><td class='picture'>" +
 			(data[c].pictureUrl ? '<img class="profilePicture" src="' + data[c].pictureUrl + '"/>' : '') + '</td><td>' +
-			"<a href='javascript:showItem(" + c + ")'>" + data[c].name + "</a></td><td>" + 
+			"<a href='javascript:showItem(" + c + ")'>" + data[c].firstName + ' ' + data[c].lastName  + "</a></td><td>" + 
 			(data[c].email ? data[c].email : '')  + "</td><td>" + 
 			(data[c].place ? data[c].place : '') + "</td><td>" + 
 			(data[c].country ? data[c].country : '') + '</td><td>' +

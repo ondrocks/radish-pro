@@ -37,16 +37,17 @@ class APICommand
 		return $linkedin;
 	}
 
-	private function saveLinkedInConnection($linkedin, $name, $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
+	private function saveLinkedInConnection($linkedin, $firstName, $lastName,  $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
 	{
 		$query = "insert into " . TABLE_PREFIX . "linkedin_connections (linkedin) values (:linkedin)";
 		$values = array("linkedin" => $linkedin);
 		$this->dtb->prepareAndExecute($query, $values);
 		if($this->dtb->dtb->lastInsertId())
 		{
-			$query = "insert into " . TABLE_PREFIX . "people (name, user, place, country, linkedIn, headline, ip, pictureUrl, profileUrl)
-				values(:name, :user, :place, :country, :linkedIn, :headline, :ip, :pictureUrl, :profileUrl)";
-			$values = array('name' => $name,
+			$query = "insert into " . TABLE_PREFIX . "people (firstName, lastName, user, place, country, linkedIn, headline, ip, pictureUrl, profileUrl)
+				values(:firstName, :lastName, :user, :place, :country, :linkedIn, :headline, :ip, :pictureUrl, :profileUrl)";
+			$values = array('firstName' => $firstName,
+					'lastName' => $lastName,
 					'user' => $user,
 					'place' => $place,
 					'country' => $country,
@@ -106,7 +107,7 @@ class APICommand
 		$this->dtb->prepareAndExecute($query, $values);
 		if($this->dtb->dtb->lastInsertId())
 		{
-			$query = "insert into " . TABLE_PREFIX . "people (name, email, user) values (:name, :email, :user)";
+			$query = "insert into " . TABLE_PREFIX . "people (lastName, email, user) values (:name, :email, :user)";
 			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId(), 'user' => (int)$user->getId());
 			$this->dtb->dtb->prepareAndExecute($query, $values);
 		}
@@ -141,7 +142,8 @@ class APICommand
 				$xml = simplexml_load_string($data);
 				foreach($xml->person as $person)
 				{
-					$name = (string)$person->{'first-name'} . ' ' . $person->{'last-name'};
+					$firstName = (string)$person->{'first-name'};
+					$lastName = (string)$person->{'last-name'};
 					$linkedinid = (string)$person->id;
 					$headline = $person->headline;
 					$_user = (int)$user->getId();
@@ -157,7 +159,7 @@ class APICommand
 						"size" => $companyId->position[0]->company->size,
 						"ticker" => $companyId->position[0]->company->ticker);		
 
-					$this->saveLinkedInConnection($linkedinid, $name, $_user, $headline, $place, $country, $pictureUrl, $profileUrl, $company);
+					$this->saveLinkedInConnection($linkedinid, $firstName, $lastName, $_user, $headline, $place, $country, $pictureUrl, $profileUrl, $company);
 				}
 			}
 		}

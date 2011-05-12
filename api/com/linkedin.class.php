@@ -1,4 +1,6 @@
 <?php
+
+// http://www.linkedin.com/ta/federator?query=citr&types=company,group,sitefeature
 require_once("OAuth.php");
 
 class LinkedIn {

@@ -4,7 +4,7 @@ $qs = array(
 	new APICommand(
 		'list_connections',
 		new Query(
-			'select distinct a.name as name, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName, g.name as company, g.ticker from 
+			'select distinct a.firstName as firstName, a.lastName as lastName, a.place, a.country, a.profileUrl, a.pictureUrl, b.email, c.twitter, d.linkedin, a.headline, f.name as userName, g.name as company, g.ticker from 
 				#_people a left join 
 				#_email_connections b  on a.email = b.id left join 
 				#_twitter_connections c on c.id = a.twitter left join 
@@ -12,14 +12,14 @@ $qs = array(
 				#_fb_connections e on d.id = a.facebook left join 
 				#_users f on f.id = a.user left join 
 				#_positions h on h.people_id = a.id left join #_companies g on g.id = h.company_id where b.email != "" or c.twitter != "" or d.linkedin != ""
-				order by a.name '
+				order by a.lastName '
 		),
 		LEVEL_0
 	),
 	new APICommand(
 		'list_companies',
 		new Query(
-			'select c.name as name, a.industry, a.name as company from #_companies a left join #_positions b on a.id = b.company_id left join #_people c on b.people_id = c.id order by a.name',
+			'select c.lastName as name, a.industry, a.name as company from #_companies a left join #_positions b on a.id = b.company_id left join #_people c on b.people_id = c.id order by a.name',
 			null,
 			true),
 		LEVEL_0

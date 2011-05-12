@@ -48,7 +48,8 @@ status INT(32) NOT NULL,
 type INT(32),
 locked INT(32),
 ip VARCHAR(64),
-name VARCHAR(128) NOT NULL,
+firstName VARCHAR(128),
+lastName VARCHAR(128) NOT NULL,
 pictureUrl VARCHAR(128),
 profileUrl VARCHAR(128),
 headline VARCHAR(128),
@@ -60,9 +61,24 @@ email INT(32),
 email2 INT(32),
 email3 INT(32),
 telephone VARCHAR(32),
+mobile VARCHAR(32),
 facebook INT(32),
 twitter INT(32),
 linkedIn INT(32),
+PRIMARY KEY(id)
+);
+
+create table crm_people_insert_report(
+id INT(32) NOT NULL AUTO_INCREMENT,
+people_id INT(32),
+insertedOn datetime,
+PRIMARY KEY(id)
+);
+
+create table crm_positions(
+id INT(32) NOT NULL AUTO_INCREMENT,
+company_id INT(12),
+people_id INT(32),
 PRIMARY KEY(id)
 );
 
@@ -181,9 +197,65 @@ set_id INT(32) NOT NULL,
 PRIMARY KEY(id)
 );
 
+create table crm_companies(
+id INT(32) NOT NULL AUTO_INCREMENT,
+linkedInId INT(12),
+name VARCHAR(128) NOT NULL,
+address VARCHAR(128),
+postalcode VARCHAR(8),
+url VARCHAR(64),
+usps TEXT,
+size INT(7),
+ticker VARCHAR(10),
+industry VARCHAR(128),
+PRIMARY KEY(id),
+UNIQUE (linkedInId)
+);
+
+create table crm_projects(
+id INT(32) NOT NULL AUTO_INCREMENT,
+company INT(32),
+project_tupe_id INT(32),
+project_relations_id INT(32),
+project_workflow INT(32),
+PRIMARY KEY(id)
+);
+
+create table crm_project_relations(
+id INT(32) NOT NULL AUTO_INCREMENT,
+company1_id INT(32),
+company2_id INT(32),
+company3_id INT(32),
+company4_id INT(32),
+PRIMARY KEY(id)
+);
+
+create table crm_workflows(
+id INT(32) NOT NULL AUTO_INCREMENT,
+name VARCHAR(32),
+PRIMARY KEY(id)
+);
+
+create table crm_tasks(
+id INT(32) NOT NULL AUTO_INCREMENT,
+workflow_id INT(32),
+name VARCHAR(32),
+date_start DATE,
+avail_time INT(32),
+status VARCHAR(12),
+PRIMARY KEY(id)
+);
+
+create table crm_project_types(
+id INT(32) NOT NULL AUTO_INCREMENT,
+name VARCHAR(32),
+PRIMARY KEY(id)
+);
+
+insert into crm_project_types(name)values('MMF');
 insert into crm_accounts(name)values('demo');
 insert into crm_lead_item_types(name)values('Facebook message'),('tweet'),('email'),('telephone'),('walk-in');
-insert into crm_types(name)values('Twitter'),('Facebook'), ('LinkedIn'), ('e-mail');
+insert into crm_types(name)values('Twitter'),('Facebook'), ('LinkedIn'), ('e-mail'), ('Google');
 insert into crm_roles(name, level)values('administrator', 1),('user', 0);
 insert into crm_actions(name, level)values('sent message', 0),('', 1);
 insert into crm_lead_status(name)values('unknown person'),('prospect'), ('action required'), ('connection'), ('dead');
@@ -194,3 +266,14 @@ insert into crm_users(name, login_id, role, account)values('Nathalie Voorn', 'a_
 
 insert into crm_profiles(name, active, account) values('instant Search', true, 1);
 
+DELIMITER $$
+
+create trigger on_insert_people
+after insert on crm_people
+for each row begin
+insert into crm_people_insert_report
+set insertedOn = now(),
+people_id = new.id; 
+END$$
+
+DELIMITER ;

@@ -181,6 +181,41 @@
 		return _el
 	}
 
+	function createInputTextElementAsRow(value, form, label)
+	{
+		return createAsRow(createInputTextElement(value), label, 0)
+	}
+
+	function createAnchorAsRow(anchor, label, prnt)
+	{
+		return createAsRow(createAnchor(anchor, label), 0, 0)
+	}
+
+	function createAsRow(el, label, start)
+	{
+		var _el = document.createElement('tr')
+		var _el2 = document.createElement('td')
+		dojo.place(_el2, _el)
+		dojo.place(el, _el2)
+		return _el
+	}
+
+	function createAnchor(anchor, label)
+	{
+		var _el = document.createElement('a')
+		_el.href = anchor
+		_el.innerHTML = label
+		return _el
+	}
+
+	function createInputTextElement(value)
+	{
+		var _el = document.createElement('input')
+		_el.type = 'text'
+		_el.value = value
+		return _el
+	}
+
 	function searchForCompanyProfile()
 	{
 		createPopup()
