@@ -1,1 +1,27 @@
 Lead generation and management tool v0.0.1
+
+
+Requirements: PHP5 and a database
+
+You need to create the file 
+
+api/credentials.php
+
+with the following:
+
+<?php
+define('DSN', 'mysql:dbname=dbname');
+define('USER', 'dtbuser');
+define('PASS', 'dtbpass');
+
+define('FACEBOOK_APP_ID', 'your FB app id');
+define('FACEBOOK_APP_SECRET', 'your FB app secret');
+
+define('LINKEDIN_APP_ACCESS', 'your LinkedIn app id');
+define('LINKEDIN_APP_SECRET', 'your LinkedIn app secret');
+
+define('GOOGLE_API_KEY', 'your Google API key');
+?>
+
+You also need to create the database and the tables. An install file is in the root.
+ 
