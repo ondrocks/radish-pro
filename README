@@ -5,7 +5,7 @@ Requirements: PHP5 and a database
 
 You need to create the file 
 
-api/credentials.php
+conf/credentials.php
 
 with the following:
 
