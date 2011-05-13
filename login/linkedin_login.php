@@ -1,8 +1,11 @@
 <?php
+include '../api/globals.php';
+include '../api/loader.php';
+
 require_once DIRNAME(__FILE__) . '/../api/credentials.php';
  
     $config['base_url'] = 'http://radish-pro.com/admin/login/auth.php';
-    $config['callback_url'] = 'http://radish-pro.com/people/';
+    $config['callback_url'] = PUtil::baseUrl() . 'people/';
     $config['linkedin_access'] = LINKEDIN_APP_ACCESS;
     $config['linkedin_secret'] = LINKEDIN_APP_SECRET;
  
