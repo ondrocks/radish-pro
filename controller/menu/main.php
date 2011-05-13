@@ -1,7 +1,7 @@
 <?php
 if(controllerFront::getController() == 'people')
 {
-	echo "<img src='/radish.gif' class='radish'/><p class='welcome'>Welcome " . $user->getName() . "</p>";
+	echo "<img src='media/radish.gif' class='radish'/><p class='welcome'>Welcome " . $user->getName() . "</p>";
 ?>
 <div id='menuBar'>
         <div class='floatleft'>
