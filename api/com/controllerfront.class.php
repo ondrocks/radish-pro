@@ -8,10 +8,15 @@ class controllerFront
 		$user = new User();
 		if($user->isValid())
 		{
-			include 'view/header.php';
-			include 'controller/menu/main.php';
+			if($controller != 'search')
+			{
+				include 'view/header.php';
+				include 'controller/menu/main.php';
+			}
 			include 'controller/' . $controller . '/main.php';
-			include 'view/footer.php';
+
+			if($controller != 'search')
+				include 'view/footer.php';
 		}
 		else
 		{

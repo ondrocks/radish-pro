@@ -26,15 +26,9 @@ function listCompaniesAsList(data, htmlId)
 function listCompaniesAsItem(data, htmlId, itemId)
 {
 	var frame = document.createElement('table')
-	var html = document.createElement('form')
-	dojo.place(createInputTextElementAsRow(data[itemId].company), frame) 
-	dojo.place(createInputTextElementAsRow(data[itemId].industry), frame)
-	dojo.place(createInputTextElementAsRow(data[itemId].size), frame)
+	dojo.place(createTextAsRow(data[itemId].company), frame)
 	dojo.byId(htmlId).innerHTML = ''
-	dojo.place(frame, html)
-	dojo.place(html, dojo.byId(htmlId))
-	dojo.place(createAnchorAsRow("javascript:searchForCompanyProfile('" + encodeURIComponent(data[itemId].company) + "')", 'get profile info'), htmlId)
-
+	dojo.place(frame, dojo.byId(htmlId))
 }
 
 var xhrArgs = {

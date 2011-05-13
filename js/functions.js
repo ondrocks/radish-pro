@@ -173,6 +173,18 @@
 	}
 
 
+	function createText(text)
+	{
+		var _el = document.createElement('p')
+		_el.innerHTML = text
+		return _el
+	}
+
+	function createTextAsRow(text)
+	{
+		return createAsRow(createText(text), 0, 0)
+	}
+
 	function createSubmitElement(label)
 	{
 		var _el = document.createElement('input')

@@ -8,7 +8,7 @@ class PUtil
 	function baseUrl()
 	{
 		return 	(isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . 
-			$_SERVER['SERVER_NAME'] . preg_replace('/(.*)(\\/.*$)/', '$1', $_SERVER['PHP_SELF']) . DS;
+			$_SERVER['SERVER_NAME'] . preg_replace('/^(.*)(\\/.*$)/', '$1', $_SERVER['PHP_SELF']) . DS;
 	}
 	function getPageTitle()
 	{

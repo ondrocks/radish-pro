@@ -112,7 +112,7 @@ function listConnectionsAsList(data, htmlId)
 function listConnectionsAsItem(data, htmlId, itemId)
 {
 	var html = '<table>'
-	html += "<tr><td>" + data[itemId].name + "</td></tr>"
+	html += "<tr><td>" + data[itemId].lastName + "</td></tr>"
 	dojo.byId(htmlId).innerHTML = html + '</table>'
 }
 
