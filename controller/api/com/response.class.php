@@ -23,7 +23,7 @@ class Response{
 			$dtb = new Dtb();
 			foreach($this->commands as $command)
 			{
-				if(getVarIs('mode', $command->command))
+				if(getVarIs('action', $command->command))
 				{
 					if(! $command->hasRights())
 						return;

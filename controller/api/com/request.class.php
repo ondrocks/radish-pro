@@ -8,10 +8,10 @@ class Request
 		switch($_SERVER['REQUEST_METHOD'])
 		{
         		case 'POST':
-                		include 'postcommands.php';
+                		include PUtil::docRoot() . DS . 'controller' . DS . 'api' . DS . 'postcommands.php';
                 		break;
         		default :
-                		include 'listcommands.php';
+                		include PUtil::docRoot() . DS . 'controller' . DS . 'api' . DS . 'listcommands.php';
 		}
 		$this->commands = $qs;
 	}

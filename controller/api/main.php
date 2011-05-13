@@ -25,11 +25,11 @@ THE SOFTWARE.
 
 =========================================================================== */
 
-include 'globals.php';
-require_once('credentials.php');
-include 'loader.php';
+//include 'globals.php';
+//require_once('credentials.php');
+//include 'loader.php';
 
-$user = new User();
+//$user = new User();
 
 $req = new Request();
 new Response($req->commands);

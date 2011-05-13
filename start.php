@@ -1,8 +1,8 @@
 <?php
 
-require_once 'api/credentials.php';
-include 'api/globals.php';
-include 'api/loader.php';
+require_once 'conf/credentials.php';
+include 'conf/globals.php';
+include 'conf/loader.php';
 
 //function __autoload($name){
 //	require_once('api/com/'.strtolower($name).'.class.php');

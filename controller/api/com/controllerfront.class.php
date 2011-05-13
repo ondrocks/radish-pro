@@ -3,19 +3,19 @@ class controllerFront
 {
 	function __construct($controller='index')
 	{
-		isset($_GET['controller']) ? $controller = $_GET['controller'] : '';
+		$controller = controllerFront::getController();
 
 		$user = new User();
 		if($user->isValid())
 		{
-			if($controller != 'search')
+			if($controller != 'search' && $controller != 'api')
 			{
 				include 'view/header.php';
 				include 'controller/menu/main.php';
 			}
 			include 'controller/' . $controller . '/main.php';
 
-			if($controller != 'search')
+			if($controller != 'search' && $controller != 'api')
 				include 'view/footer.php';
 		}
 		else
