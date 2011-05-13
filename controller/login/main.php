@@ -1,5 +1,11 @@
 <?php
 
+if(PUtil::getAction() == 'linkedin')
+{
+	$h = new loginControllerHelper();
+	$h->gotoLoginUrl();
+}
+
 include 'view/header.php';
 
 ?>
@@ -35,5 +41,5 @@ e.async = true;
 }());
 </script>
 
-login w/ LinkedIn : <a href='/login/linkedin_login.php'><img class='button' src='../logo_linkedin.png'/></a>
+login w/ LinkedIn : <a href='/login/linkedin/'><img class='button' src='../logo_linkedin.png'/></a>
 <!--<fb:login-button></fb:login-button>-->
