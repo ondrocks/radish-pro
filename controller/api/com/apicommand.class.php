@@ -5,14 +5,16 @@ class APICommand
 	var $command = '';
 	var $query = null;
 	var $level = LEVEL_2;
+	var $cacheable = false;
 	var $lastId = 0;
 	var $dtb;
 
-	function __construct($command, $query, $level)
+	function __construct($command, $query, $level, $cacheable)
 	{
                 $this->dtb = new Dtb();
 		$this->command = $command;
 		$this->query = $query;
+		$this->cacheable = $cacheable;
 		if(is_int($level))
 			$this->level = $level;
 	}	
@@ -20,11 +22,7 @@ class APICommand
 
 	function initLinkedInApp()
 	{
-//		require_once '../api/credentials.php';
-//		require_once '../login/linkedin.php';
-
-   // 		session_start();
-		$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
+		//$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
 		$config['callback_url']         =   'http://radish-pro.com/people/get_linkedin_connections.php';
 		$config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
 		$config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
@@ -203,7 +201,12 @@ class APICommand
 	function onBeforeClose($command, $dtb)
 	{
 		if($command->query->output)
-			echo $dtb->getAllRows();
+		{
+			$data = $dtb->getAllRows();
+			echo $data;
+			if($command->cacheable)
+				cache::getCache()->set($command->command, $data, false, 12000);
+		}
 		else
 			if($dtb->dtb->lastInsertId() != 0)
 				echo json_encode(array('lastInsertId' => $dtb->dtb->lastInsertId()));

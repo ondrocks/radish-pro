@@ -20,6 +20,9 @@ define('USER_RIGHT_LINKEDIN', 2);
 define('USER_RIGHT_TWITTER', 4);
 define('USER_RIGHT_FACEBOOK', 8);
 
+define('MEMCACHE_HOST', 'localhost');
+define('MEMCACHE_PORT', '11211');
+
 function getVarIs($var, $string)
 {
 	if(isset($_GET[$var]) && $_GET[$var] == $string)

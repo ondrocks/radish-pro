@@ -27,6 +27,11 @@ class Response{
 				{
 					if(! $command->hasRights())
 						return;
+					if($data = cache::getCache()->get($command->command))
+					{	
+						echo $data;
+						die();
+					}
 					if(!empty($command->query->raw_query))
 					{
 						$command->generateValues();
