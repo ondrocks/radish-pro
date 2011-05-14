@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<form action='/api/post_connection/'>
+
+        <formelement type='id' name='id' for='id'>
+        </formelement>
+
+	<formelement type='text' for='firstName' label='First name'>
+	</formelement>
+
+	<formelement type='text' for='lastName' label='Last name'>
+	</formelement>
+
+        <formelement type='submit' label='update'>
+        </formelement>
+
+</form>
+

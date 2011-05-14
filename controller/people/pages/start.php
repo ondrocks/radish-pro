@@ -111,9 +111,12 @@ function listConnectionsAsList(data, htmlId)
 
 function listConnectionsAsItem(data, htmlId, itemId)
 {
-	var html = '<table>'
-	html += "<tr><td>" + data[itemId].lastName + "</td></tr>"
-	dojo.byId(htmlId).innerHTML = html + '</table>'
+	var html = document.createElement('div')
+	dojo.byId(htmlId).innerHTML = ''
+	dojo.place(createAnchor("javascript:editConnection(" + itemId + ")", "Edit"), html)	
+	displayFormAsItem('editPeople', html, itemId)
+	dojo.place(html, dojo.byId(htmlId))
+	
 }
 
 function listConnections()
@@ -162,6 +165,6 @@ function listEmail()
 	dojo.xhrGet(xhrArgs)
 }
 </script>
-
+<div id='popup'></div>
 <div id='connections'></div>
 

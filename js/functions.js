@@ -349,6 +349,12 @@
 		createForm('editCompany', index)
 	}
 
+	function editConnection(index)
+	{
+		createPopup()
+		createForm('editPeople', index)
+	}
+
 	function destroyPopup(o)
 	{
 		dojo.destroy(o)
