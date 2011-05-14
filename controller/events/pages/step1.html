@@ -15,7 +15,9 @@
 						if(data.lastInsertId)
 							location.href = '/events/?step=step2&profileId=' + data.lastInsertId
 						else if(data.lastId)
-							location.href= '/events/?step=step2&profileId=' + data.lastId
+							location.href = '/events/?step=step2&profileId=' + data.lastId
+						else
+							location.href = '/events/?step=step2&profileId=' + getUrlVars()['profileId']
 					},
 					error: 
 					function(error)

@@ -21,6 +21,8 @@
 						{
 							location.href = '/events/?step=step3&profileId=' + data.lastId
 						}
+						else
+							location.href = '/events/?step=step3&profileId=' + getUrlVars()['profileId']
                                         },
                                         error: 
                                         function(error)

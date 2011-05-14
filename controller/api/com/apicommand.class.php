@@ -210,8 +210,10 @@ class APICommand
 		else
 			if($dtb->dtb->lastInsertId() != 0)
 				echo json_encode(array('lastInsertId' => $dtb->dtb->lastInsertId()));
-			else 
-				echo json_encode(array('lastId' => $this->lastId));
+			//else 
+			//	echo json_encode(array('lastId' => $this->lastId));
+			else
+				echo json_encode(false);
 	}
 
 	function hasRights()
