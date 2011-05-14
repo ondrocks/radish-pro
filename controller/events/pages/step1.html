@@ -1,13 +1,13 @@
 	<script type='text/javascript'>
 	function sendKeywords()
 	{
-		var form = dojo.byId('form01')
+		//var form = dojo.byId('_form01')
 		dojo.connect(form, 'onsubmit', 
 			function(event)
 			{
 				dojo.stopEvent(event);
 				var xhrArgs = {
-					form:  dojo.byId('form01'),
+					form:  dojo.byId('_form01'),
 					handleAs: 'json',
 					load: 
 					function(data)
@@ -20,7 +20,7 @@
 					error: 
 					function(error)
 					{
-						alert(error)
+						error_alert(error)
 					}
 				}	
 				dojo.xhrPost(xhrArgs)
@@ -32,7 +32,7 @@
 	{
 		var profileId = getUrlVars()['profileId'];
 		var xhrArgs = {
-			url: '/api/list_keywords/' + profileId + '/',
+			url: '/api/list_keywords/?id=' + profileId + '/',
 			handleAs: 'json',
 			load: function(data)
 			{
@@ -67,7 +67,7 @@
         <h1>Make a new search  profile</h1>
         <h2>Step 1: define keywords</h2>
         <p>Please fill out the box with colon separated keywords:</p>
-        <form id='form01' action='/api/post_keywords/' method='post'>
+        <form id='_form01' action='/api/post_keywords/' method='post'>
 		<input type='hidden' name='command' value='post_keywords'></input>
 		<input type='hidden' id='profileId' name='profileId' value='0'></input>
                 <table><tr><td><textarea id='keywords' name='keywords'></textarea></td></tr>

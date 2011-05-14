@@ -43,7 +43,7 @@
 	{
 		var profile = getUrlVars()['profileId']
 		var xhrArgs = {
-			url: '/api/list_name_profile/' + profile + '/',
+			url: '/api/list_name_profile/?id=' + profile + '/',
 			handleAs: 'json',
 			load: function(data)
 			{

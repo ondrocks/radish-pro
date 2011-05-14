@@ -23,7 +23,7 @@ a:active		{color:red;}
 #bgOverlay		{position:absolute; top:0;z-index:99999; background: white; opacity:0.7;}
 #popup			{position:absolute; z-index:999999;}
 #popupInner form	{margin:20px;}
-div {border:opx solid red;}
+div {border:0px solid red;}
 a img			{vertical-align:middle;}
 a.black:visited,
 a.black:link,

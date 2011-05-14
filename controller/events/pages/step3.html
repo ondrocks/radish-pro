@@ -28,7 +28,7 @@
 	{
 		var profileId = getUrlVars()['profileId'];
 		var xhrArgs = {
-			url: '/api/get_set_messages/' + profileId + "/",
+			url: '/api/get_set_messages/?id=' + profileId + "/",
 			handleAs: 'json',
 			load : function(data)
 			{

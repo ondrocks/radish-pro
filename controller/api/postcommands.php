@@ -10,7 +10,8 @@ $qs = array(
 			null, 
 			false
 		),
-                LEVEL_0
+                LEVEL_0,
+		false
         ),
 	new APIPostCommand(
 		'post_profile',
@@ -21,7 +22,8 @@ $qs = array(
 			null, 
 			false
 		),
-		LEVEL_0
+		LEVEL_0,
+		false
 	),
 	new APIPostCommand(
 		'post_set_messages',
@@ -32,7 +34,8 @@ $qs = array(
 			null,
 			false
 		),
-		LEVEL_0
+		LEVEL_0,
+		false
 	),
 	new APIPostCommand(
 		'post_linkedin_connection',
@@ -43,7 +46,8 @@ $qs = array(
 			null,
 			false
 		),
-		LEVEL_0
+		LEVEL_0,
+		false
 	),
 	new APIPostCommand(
 		'post_email_connection',
@@ -54,12 +58,14 @@ $qs = array(
 			null,
 			false
 		),
-		LEVEL_0
+		LEVEL_0,
+		false
 	),
 	new APICommand(
 		'post_email_connections',
 		null,
-		LEVEL_0
+		LEVEL_0,
+		false
 	)
 )
 

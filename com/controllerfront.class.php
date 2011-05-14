@@ -20,7 +20,7 @@ class controllerFront
 		}
 		else
 		{
-			include 'controller/login/linkedin_login.php';
+			include 'controller/login/main.php';
 		}
 	}
 	function getController()

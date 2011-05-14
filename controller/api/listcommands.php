@@ -58,7 +58,7 @@ $qs = array(
 			from ' . TABLE_PREFIX . 'profiles 
 			where account=:account', null, true),
 		LEVEL_0,
-		true
+		false
 	),
 	new APICommand(
 		'list_name_profile',
@@ -67,7 +67,7 @@ $qs = array(
 			from ' . TABLE_PREFIX . 'profiles
 			where id=:profile', null, true),
 		LEVEL_0,
-		true
+		false
 	),
 	new APICommand(
 		'list_keywords',
@@ -75,7 +75,7 @@ $qs = array(
 			'select a.id, a.keywords, b.set_id from ' . TABLE_PREFIX . 'sets a, ' . TABLE_PREFIX . 'profiles b 
 			where a.id=b.set_id and b.id=:profile'),
 		LEVEL_0,
-		true
+		false
 	),
 	new APICommand(
 		'list_lead_item_types',
@@ -109,7 +109,7 @@ $qs = array(
 			from ' . TABLE_PREFIX . 'sets a, ' . TABLE_PREFIX . 'profiles b 
 			where a.id=b.set_id and b.id=:profileId', null, true),
 		LEVEL_0,
-		true
+		false
 	),
 	new APICommand(
 		'list_events',
