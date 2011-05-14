@@ -142,8 +142,39 @@
         	}
 	}
 
+	function displayFormAsItem(xmlFile, object, index)
+	{
+		var xhrArgs = {
+			url: '/forms/' + xmlFile + '.xml',
+			handleAs: 'xml',
+			load: function(data)
+			{
+				var _el = document.createElement('table')
+				var _els = data.getElementsByTagName('formelement')
+				for(var c = 0; c < _els.length; c++)
+				{
+					switch(_els[c].getAttribute('type'))
+					{
+						case 'submit':
+						case 'hidden':
+							break;
+						case 'text' :
+						case 'lookup':
+							dojo.place(createTextAsRow(dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el) 
+							break;
+					}
+				}	
+				dojo.place(_el, object, 0)
+			},
+			error: function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrGet(xhrArgs)
+	}
 
-	function createForm(xmlFile)
+	function createForm(xmlFile, index)
 	{
 		var xhrArgs = {
 			url : '/forms/' + xmlFile + '.xml',
@@ -151,13 +182,33 @@
 			load : function(data)
 			{
 				var _form = document.createElement('form')
+				var _f = data.getElementsByTagName('form')[0]
+				_form.setAttribute('action', _f.getAttribute('action'))
 				var _els = data.getElementsByTagName('formelement')
 				for(var c = 0; c < _els.length; c++)
 				{
 					switch(_els[c].getAttribute('type'))
 					{
 						case 'submit':
-							dojo.place(createSubmitElement(_els[c].getAttribute('label')), _form)
+							dojo.place(createSubmitElementAsRow(_els[c].getAttribute('label')), _form)
+							break;
+						case 'id':
+							dojo.place(createHiddenElement(_els[c].getAttribute('for'), dataCached[index][_els[c].getAttribute('for')]), _form)
+							break;
+						case 'lookup':
+							dojo.place(createLookupAsRow(
+								_els[c].getAttribute('into'), 
+								_els[c].getAttribute('label'), 
+								_els[c].getAttribute('for'),
+								_els[c].getAttribute('where'),
+								dataCached[index][_els[c].getAttribute('where')],
+								dataCached[index][_els[c].getAttribute('for')]), _form)
+							break;
+						case 'text':
+							dojo.place(createInputTextElementAsRow(
+								_els[c].getAttribute('label'), 
+								_els[c].getAttribute('for'), 
+								dataCached[index][_els[c].getAttribute('for')]), _form)
 							break;
 					}
 				}
@@ -172,6 +223,48 @@
 		dojo.xhrGet(xhrArgs)
 	}
 
+	function createLookupAsRow(into, label, name, where, whereValue, value)
+	{
+		return createAsRow(createLookup(into, name, where, whereValue, value), label, 0)
+	}
+
+	function createLookup(into, name, where, whereValue, value)
+	{
+		var _el = document.createElement('select')
+		_el.name = name
+		_el.id = 'lookup' + into
+		var xhrArgs = {
+			url: '/api/lookup'  + into + '/?' + where + '=' + encodeURIComponent(whereValue),
+			handleAs: 'json',
+			load: function(data)
+			{
+				for(var c = 0; c < data.length; c++)
+				{
+					var _el = document.createElement('option')
+					_el.value = data[c].id
+					_el.innerHTML = data[c].name
+					if(data[c].name == value)
+						_el.selected = 'selected'
+					dojo.place(_el, dojo.byId('lookup'+into))
+				}
+			},
+			error: function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrGet(xhrArgs)
+		return _el
+	}
+
+	function createHiddenElement(name, value)
+	{
+		var _el = document.createElement('input')
+		_el.setAttribute('type', 'hidden')
+		_el.setAttribute('value', value)
+		_el.setAttribute('name', name)
+		return _el
+	}
 
 	function createText(text)
 	{
@@ -180,9 +273,9 @@
 		return _el
 	}
 
-	function createTextAsRow(text)
+	function createTextAsRow(text, label)
 	{
-		return createAsRow(createText(text), 0, 0)
+		return createAsRow(createText(text), label, 0)
 	}
 
 	function createSubmitElement(label)
@@ -193,9 +286,14 @@
 		return _el
 	}
 
-	function createInputTextElementAsRow(value, form, label)
+	function createSubmitElementAsRow(label)
 	{
-		return createAsRow(createInputTextElement(value), label, 0)
+		return createAsRow(createSubmitElement(label))
+	}
+
+	function createInputTextElementAsRow(label, name, value)
+	{
+		return createAsRow(createInputTextElement(name, value), label, 0)
 	}
 
 	function createAnchorAsRow(anchor, label, prnt)
@@ -207,8 +305,18 @@
 	{
 		var _el = document.createElement('tr')
 		var _el2 = document.createElement('td')
-		dojo.place(_el2, _el)
-		dojo.place(el, _el2)
+		var _el3 = document.createElement('td')
+		if(!label)
+			_el3.setAttribute('colspan', 2)
+		var _l = document.createElement('label')
+		_l.innerHTML = label + ' : '
+		if(label)
+		{
+			dojo.place(_l, _el2)
+			dojo.place(_el2, _el)
+		}
+		dojo.place(el, _el3)
+		dojo.place(_el3, _el)
 		return _el
 	}
 
@@ -220,11 +328,12 @@
 		return _el
 	}
 
-	function createInputTextElement(value)
+	function createInputTextElement(name, value )
 	{
 		var _el = document.createElement('input')
 		_el.type = 'text'
 		_el.value = value
+		_el.name = name
 		return _el
 	}
 
@@ -232,6 +341,12 @@
 	{
 		createPopup()
 		createForm('searchCompany')
+	}
+
+	function editCompany(index)
+	{
+		createPopup()
+		createForm('editCompany', index)
 	}
 
 	function destroyPopup(o)

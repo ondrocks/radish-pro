@@ -172,9 +172,12 @@ class APICommand
 
 	function generateValues()
 	{
-		if(isset($_GET['mode']))
-			switch($_GET['mode'])
+		if(isset($_GET['action']))
+			switch($_GET['action'])
 			{
+				case 'lookuppeople':
+					$this->query->values = array('company' => $_GET['company']);
+					break;
 				case 'list_name_profile':
 					$this->query->values = array('profile' => $_GET['id']);
 					break;

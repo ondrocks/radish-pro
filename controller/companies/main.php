@@ -25,8 +25,9 @@ function listCompaniesAsList(data, htmlId)
 
 function listCompaniesAsItem(data, htmlId, itemId)
 {
-	var frame = document.createElement('table')
-	dojo.place(createTextAsRow(data[itemId].company), frame)
+	var frame = document.createElement('div')
+	displayFormAsItem('editCompany', frame, itemId)
+	dojo.place(createAnchor("javascript:editCompany(" + itemId + ")", "Edit"), frame)
 	dojo.byId(htmlId).innerHTML = ''
 	dojo.place(frame, dojo.byId(htmlId))
 }

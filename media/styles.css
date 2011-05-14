@@ -2,6 +2,7 @@ body			{font-family:Lato, Arial, sans-serif;font-size:0.9em;color:black;line-hei
 h1			{font-size:16px;}
 th			{border:1px solid white;}
 td			{vertical-align:top;}
+td p			{margin:0;}
 textarea		{width: 400px; height:100px;}
 input[type='image']	{top:2px;position:relative;}
 input[name='country'], 

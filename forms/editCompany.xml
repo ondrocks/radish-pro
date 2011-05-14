@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<form action='/api/post_company/'>
+
+	<formelement type='id' name='id' for='id'>
+	</formelement>
+
+	<formelement type='text' label='Name' for='company'>
+	</formelement>
+
+	<formelement type='lookup' into='people' label='Contact' for='name' where='company'>
+	</formelement>
+
+	<formelement type='text' label='Industry' for='industry'>
+	</formelement>
+
+	<formelement type='submit' label='update'>
+	</formelement>
+
+</form>
+
