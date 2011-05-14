@@ -41,7 +41,7 @@ $qs = array(
 			null, 
 			true),
 		LEVEL_0,
-		true
+		false
 	),
 	new APICommand(
 		'list_roles',
