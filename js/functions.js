@@ -214,6 +214,8 @@
 								dataCached[index][_els[c].getAttribute('for')]), _form)
 							break;
 						case 'text':
+						case 'image':
+						case 'anchor':
 							dojo.place(createInputTextElementAsRow(
 								_els[c].getAttribute('label'), 
 								_els[c].getAttribute('for'), 
