@@ -10,6 +10,18 @@
 	<formelement type='text' for='lastName' label='Last name'>
 	</formelement>
 
+	<formelement type='text' for='place' label='Place'>
+	</formelement>
+
+	<formelement type='text' for='country' label='Country'>
+	</formelement>
+
+	<formelement type='image' for='pictureUrl' label='Picture'>
+	</formelement>
+
+	<formelement type='anchor' for='profileUrl' label='Profile'>
+	</formelement>
+
         <formelement type='submit' label='update'>
         </formelement>
 

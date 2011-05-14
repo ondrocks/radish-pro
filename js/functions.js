@@ -158,6 +158,15 @@
 						case 'submit':
 						case 'hidden':
 							break;
+						case 'image':
+							if(dataCached[index][_els[c].getAttribute('for')].match(/^http:/i))
+								dojo.place(createImageAsRow(
+									dataCached[index][_els[c].getAttribute('for')], 
+									_els[c].getAttribute('label')), _el)
+							break;
+						case 'anchor':
+							dojo.place(createAnchorAsRow(dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el)
+							break;
 						case 'text' :
 						case 'lookup':
 							dojo.place(createTextAsRow(dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el) 
@@ -257,6 +266,18 @@
 		return _el
 	}
 
+	function createImageAsRow(url, label)
+	{
+		return createAsRow(createImage(url), label, 0)
+	}
+
+	function createImage(url)
+	{
+		var _el = document.createElement('img')
+		_el.setAttribute('src', url)
+		return _el
+	}
+
 	function createHiddenElement(name, value)
 	{
 		var _el = document.createElement('input')
@@ -298,7 +319,7 @@
 
 	function createAnchorAsRow(anchor, label, prnt)
 	{
-		return createAsRow(createAnchor(anchor, label), 0, 0)
+		return createAsRow(createAnchor(anchor, label), label, 0)
 	}
 
 	function createAsRow(el, label, start)
@@ -325,6 +346,7 @@
 		var _el = document.createElement('a')
 		_el.href = anchor
 		_el.innerHTML = label
+		//_el.setAttribute('target', '_blank')
 		return _el
 	}
 
