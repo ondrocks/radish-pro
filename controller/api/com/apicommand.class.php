@@ -118,7 +118,7 @@ class APICommand
 
 		if($this->command == 'post_email_connections')
 		{
-			cache::getCache()->flush();
+			cache::getCache()->delete('list_people');
 			$json = json_decode($_POST['data']);
 			foreach($json as $email)
 			{

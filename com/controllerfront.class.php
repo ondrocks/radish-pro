@@ -27,7 +27,8 @@ class controllerFront
 	function isSystemController()
 	{
 		if(	self::getController() == 'search' || 
-			self::getController() == 'api')
+			self::getController() == 'api' ||
+			self::getController() == 'login')
 			return true;
 		return false;
 	}

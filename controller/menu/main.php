@@ -1,5 +1,5 @@
 <?php
-
+global $user;
 	echo "<img src='media/radish.gif' class='radish'/>";
 
 if($user->isValid())
