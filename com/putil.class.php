@@ -4,8 +4,9 @@ class PUtil
 	function getVersion()
 	{
 		global $version;
-
-		return $version;
+		
+		$debug = DEBUG ? 'DEBUG' : '';
+		return $version . '_' . $debug;
 	}
 	function docRoot()
 	{
