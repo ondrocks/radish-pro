@@ -1,7 +1,7 @@
 <?php
 class controllerFront
 {
-	function __construct($controller='index')
+	function __construct()
 	{
 		global $user;
 		$controller = controllerFront::getController();
@@ -9,14 +9,13 @@ class controllerFront
 		$user = new User();
 		if($user->isValid())
 		{
-			if($controller != 'search' && $controller != 'api')
+			if(! self::isSystemController())
 			{
-				include 'view/header.php';
-				include 'controller/menu/main.php';
+				include 'view/index.php';
 			}
 			include 'controller/' . $controller . '/main.php';
 
-			if($controller != 'search' && $controller != 'api')
+			if(! self::isSystemController())
 				include 'view/footer.php';
 		}
 		else
@@ -30,6 +29,13 @@ class controllerFront
 			return $_GET['controller'];
 		else
 			return 'index';
+	}
+
+	function isSystemController()
+	{
+		if(self::getController() == 'search' || self::getController() == 'api')
+			return true;
+		return false;
 	}
 }
 ?>
