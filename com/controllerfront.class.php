@@ -10,6 +10,10 @@ class controllerFront
 		{
 			layoutController::dispatch();
 		}
+		else
+		{
+			include 'controller/login/main.php';
+		}
 
 	}
 	function getController()
