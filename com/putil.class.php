@@ -1,6 +1,12 @@
 <?php
 class PUtil
 {
+	function getVersion()
+	{
+		global $version;
+
+		return $version;
+	}
 	function docRoot()
 	{
 		return $_SERVER['DOCUMENT_ROOT'] . DS;

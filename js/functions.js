@@ -115,11 +115,11 @@
 		data += ']'
 		var xhrArgs = {
 			url: '/api/post_email_connections/',
-			content: { command:'post_email_connection', data: data},
+			content: { command:'post_email_connections', data: data},
 			handleAs: 'text',
 			load: function(data)
 			{
-			//	alert(data)
+				//alert(data)
 			},
 			error: function(error)
 			{

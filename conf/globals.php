@@ -1,4 +1,7 @@
 <?php
+
+$version = 'v0.0.10';
+
 define('DEBUG', true);
 if(DEBUG)
 {

@@ -3,6 +3,7 @@ class controllerFront
 {
 	function __construct($controller='index')
 	{
+		global $user;
 		$controller = controllerFront::getController();
 
 		$user = new User();

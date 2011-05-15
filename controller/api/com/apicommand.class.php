@@ -107,7 +107,7 @@ class APICommand
 		{
 			$query = "insert into " . TABLE_PREFIX . "people (lastName, email, user) values (:name, :email, :user)";
 			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId(), 'user' => (int)$user->getId());
-			$this->dtb->dtb->prepareAndExecute($query, $values);
+			$this->dtb->prepareAndExecute($query, $values);
 		}
 	}
 
@@ -118,6 +118,7 @@ class APICommand
 
 		if($this->command == 'post_email_connections')
 		{
+			cache::getCache()->flush();
 			$json = json_decode($_POST['data']);
 			foreach($json as $email)
 			{

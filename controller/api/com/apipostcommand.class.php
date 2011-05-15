@@ -8,7 +8,7 @@ class APIPostCommand extends APICommand
 		{
 			switch($_POST['command'])
 			{
-				case 'post_email_connection':
+				case 'post_email_connections':
 					if(!empty($_POST['data']))
 					{
 						$this->query->values = array('email' => $_POST['email']);
