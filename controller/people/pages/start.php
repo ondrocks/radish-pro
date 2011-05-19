@@ -151,9 +151,9 @@ function listEmail()
 			var html = '<table><tr><th><?php echo PText::getString("Subject");?></th></tr>'
 			for(var c = 0; c < data.length; c++)
 			{
-				var class = ''
-				data[c].seen ? class='seen' : class=''; 
-				html += '<tr><td class="' + class + '">' + data[c].subject + '</td</tr>'
+				var _class = ''
+				data[c].seen ? _class='seen' : _class=''; 
+				html += '<tr><td class="' + _class + '">' + data[c].subject + '</td</tr>'
 			}
 			dojo.byId('connections').innerHTML = html + '</table>'
 		},

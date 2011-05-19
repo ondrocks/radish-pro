@@ -20,7 +20,7 @@ class APICommand
 	}	
 
 
-	function initLinkedInApp()
+/*	function initLinkedInApp()
 	{
 		//$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
 		$config['callback_url']         =   'http://radish-pro.com/people/get_linkedin_connections.php';
@@ -35,7 +35,7 @@ class APICommand
 		return $linkedin;
 	}
 
-	private function saveLinkedInConnection($linkedin, $firstName, $lastName,  $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
+*/	private function saveLinkedInConnection($linkedin, $firstName, $lastName,  $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
 	{
 		$query = "insert into " . TABLE_PREFIX . "linkedin_connections (linkedin) values (:linkedin)";
 		$values = array("linkedin" => $linkedin);
