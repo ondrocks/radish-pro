@@ -20,7 +20,7 @@
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" type="text/javascript"></script> 
-	<script type='text/javascript' src='../js/functions.js'></script>
+	<script type='text/javascript' src='js/functions.js'></script>
 </head>
 <body>
 

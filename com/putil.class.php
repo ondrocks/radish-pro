@@ -5,8 +5,9 @@ class PUtil
 	{
 		global $version;
 		
-		$debug = DEBUG ? 'DEBUG' : '';
-		return $version . '_' . $debug;
+		$debug = DEBUG ? '_DEBUG' : '';
+		$memcache = USE_MEMCACHE ? '_MEMC' : '';
+		return $version . $debug . $memcache;
 	}
 	function docRoot()
 	{

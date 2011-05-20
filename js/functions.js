@@ -83,7 +83,7 @@
 			connections[c].profileUrl ? profileUrl = connections[c].profileUrl : profileUrl = '';
 			connections[c].pictureUrl ? pictureUrl = connections[c].pictureUrl : pictureUrl = '';
 			var xhrArgs = {
-				url: '/api/post_linkedin_connection/',
+                                url: 'api/post_linkedin_connection/',
 				content:{ command:'post_linkedin_connection', name: name, linkedin: connections[c].lkin, headline: connections[c].headline, place: connections[c].place, country: connections[c].country, profileUrl: profileUrl, pictureUrl: pictureUrl},
 				load:function(data)
 				{
@@ -114,7 +114,7 @@
 		}
 		data += ']'
 		var xhrArgs = {
-			url: '/api/post_email_connections/',
+                        url: 'api/post_email_connections/',
 			content: { command:'post_email_connections', data: data},
 			handleAs: 'text',
 			load: function(data)
@@ -145,7 +145,7 @@
 	function displayFormAsItem(xmlFile, object, index)
 	{
 		var xhrArgs = {
-			url: '/forms/' + xmlFile + '.xml',
+                        url: 'forms/' + xmlFile + '.xml',
 			handleAs: 'xml',
 			load: function(data)
 			{
@@ -186,7 +186,7 @@
 	function createForm(xmlFile, index)
 	{
 		var xhrArgs = {
-			url : '/forms/' + xmlFile + '.xml',
+                        url : 'forms/' + xmlFile + '.xml',
 			handleAs : 'xml',
 			load : function(data)
 			{
@@ -245,7 +245,7 @@
 		_el.name = name
 		_el.id = 'lookup' + into
 		var xhrArgs = {
-			url: '/api/lookup'  + into + '/?' + where + '=' + encodeURIComponent(whereValue),
+                        url: 'api/lookup'  + into + '/?' + where + '=' + encodeURIComponent(whereValue),
 			handleAs: 'json',
 			load: function(data)
 			{

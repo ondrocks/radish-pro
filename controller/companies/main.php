@@ -1,5 +1,6 @@
 <script type='text/javascript'>
 var dataCached
+var listMode = 'list'
 
 function showItem(i)
 {
@@ -33,13 +34,13 @@ function listCompaniesAsItem(data, htmlId, itemId)
 }
 
 var xhrArgs = {
-	url: '/api/list_companies/',
+	url: 'api/list_companies/',
 	handleAs: 'json',
 	load: function(data)
 	{
 		dataCached = data
 		if(listMode == 'item')
-			listComapniesAsItem(data, 'companies', 0)
+			listCompaniesAsItem(data, 'companies', 0)
 		else
 			listCompaniesAsList(data, 'companies')
 	},
