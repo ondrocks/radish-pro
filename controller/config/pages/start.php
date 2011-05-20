@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <tr><td colspan='2'><p><?php echo PText::getString('Import_connections', 
 					array(
 						"<a href='/config/?page=linkedin'>LinkedIn</a>", 
-						"<a href='/config/?page=gmail'>Gmail</a>"));?></p><?php echo PText::getString('Explain_email', array('<a href="https://__url__' . controllerFront::getController() . '/">', '</a>'));?></p></td></tr>
+						"<a href='/config/?page=gmail'>Gmail</a>"));?></p><?php echo PText::getString('Explain_email', array('<a href="https://__url__/' . controllerFront::getController() . '/">', '</a>'));?></p></td></tr>
 <tr><td><?php echo PText::getString('Email');?></td><td><input name='emailUser' value='<?php if(isset($_SESSION['EMAIL_ADDRESS'])) echo $_SESSION['EMAIL_ADDRESS'];?>'/></td></tr>
 <tr><td><?php echo PText::getString('Pass');?></td><td><input name='emailPass' type='password' value='<?php if(isset($_SESSION['EMAIL_PASS'])) echo $_SESSION['EMAIL_PASS'];?>'/></td></tr>
 <tr><td><?php echo PText::getString('Email_type');?></td><td><select name='emailType'>

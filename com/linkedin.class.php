@@ -127,8 +127,6 @@ class LinkedIn {
       echo $auth_header . "\n";
     }
     $response = $this->httpRequest($search_url, $auth_header, "GET");
-echo $response;
-die();
     return $response;
   }
   
@@ -139,6 +137,8 @@ die();
 
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
+ 	if(RUN_ON_WINDOWS)
+    	curl_setopt($curl, CURLOPT_CAINFO, 'c:/xampp/cacert.crt');    
     curl_setopt($curl, CURLOPT_HEADER, 0);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth_header)); // Set the headers.
@@ -154,6 +154,7 @@ die();
     if ($this->debug) {
       echo $data . "\n";
     }
+
     curl_close($curl);
     return $data; 
   }

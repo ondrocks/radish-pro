@@ -21,10 +21,10 @@ function leftMenu()
         <div class='floatleft'>
         	<a class='bolditalic' href='javascript:toggleMode()'>list/itemview</a> | 
 		<a class='bolditalic' href='javascript:listEmail()'>email</a> | 
-		<a class='bolditalic' href='/events/'>events</a> | 
-		<a class='bolditalic' href='/people/'>people</a> | 
-		<a href='/companies/' class='bolditalic'>companies</a> | 
-		<a class='bolditalic' href='/config/'>settings</a>
+		<a class='bolditalic' href='events/'>events</a> | 
+		<a class='bolditalic' href='people/'>people</a> | 
+		<a class='bolditalic' href='companies/'>companies</a> | 
+		<a class='bolditalic' href='config/'>settings</a>
 	</div>
 <?php
 }

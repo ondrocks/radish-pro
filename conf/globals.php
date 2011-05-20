@@ -9,7 +9,8 @@ if(DEBUG)
 	ini_set('display_errors', true);
 }
 
-define('DS', '/');
+define('DS', "/");
+define('RUN_ON_WINDOWS', true);
 
 define('TABLE_PREFIX', 'crm_');
 

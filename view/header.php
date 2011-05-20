@@ -5,7 +5,7 @@
 	<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes"/>
 	<meta name='apple-mobile-web-app-capable' content='yes' />
 	<meta name='apple-mobile-web-app-status-bar-style' content='black' />
-	<base href='<?php echo PUtil::baseUrl();?>'/>
+	<base href='<?php echo PUtil::baseUrl();?>/'/>
         <title><?php echo PUtil::getPageTitle();?></title>
         <link rel='stylesheet' href='media/styles.css' type='text/css'/>
 	<link href='https://fonts.googleapis.com/css?family=Lato:regular' rel='stylesheet' type='text/css'/>

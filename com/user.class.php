@@ -11,8 +11,8 @@ class User
 
 	function __construct()
 	{
-		$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
-		$config['callback_url']         =   'http://radish-pro.com/people/';
+	//	$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
+		$config['callback_url']         =   PUtil::baseUrl() . '/people/';
 		$config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
 		$config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
 
