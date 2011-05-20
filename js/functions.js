@@ -12,20 +12,21 @@
 		alert('Error => ' + error)
 	}
 
-        function getUrlVars()
-        {
-                var vars = [], hash;
-                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	function getUrlVars()
+	{
+		var vars = [], hash;
+		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 
-                for(var i = 0; i < hashes.length; i++)
-                {
-                        hash = hashes[i].split('=');
-                        vars.push(hash[0]);
-                        vars[hash[0]] = hash[1];
-                }
+		for(var i = 0; i < hashes.length; i++)
+		{
+			hash = hashes[i].split('=');
+			vars.push(hash[0]);
+			vars[hash[0]] = hash[1];
+		}
 
-                return vars;
-        }
+		return vars;
+	}
+	
 	function addAnchors(content)
 	{
 		var cont_arr = new String(content).split(" ")
@@ -87,7 +88,7 @@
 				content:{ command:'post_linkedin_connection', name: name, linkedin: connections[c].lkin, headline: connections[c].headline, place: connections[c].place, country: connections[c].country, profileUrl: profileUrl, pictureUrl: pictureUrl},
 				load:function(data)
 				{
-//alert('Retrun '+data)
+					alert('Read ' + data.length + ' rows')
 				},
 				error: function(error)
 				{
@@ -96,7 +97,6 @@
 			}
 			if(name != 'Private')
 			{
-//			alert('Add ' + xhrArgs.content.name + ' to addressbook?')
 				dojo.xhrPost(xhrArgs);
 			}
 		}

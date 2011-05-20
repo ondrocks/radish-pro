@@ -33,7 +33,7 @@ function rightMenu1()
 ?>
         <div class='floatright'>
 		<span class='version'><?php echo PUtil::getVersion();?></span>
-                <form class='inlineForm' action='/search/' id='form01' method='POST'>
+                <form class='inlineForm' action='search/' id='form01' method='POST'>
                         <input type='radio' name='select' value='linkedin' checked/> LinkedIn
                         <input type='radio' name='select' value='linkediniscompany' /> company
                         <input type='radio' name='select' value='local'/> local
@@ -51,7 +51,7 @@ function rightMenu2()
 ?>
 	<div class='floatright'>
 		<span class='version'><?php echo PUtil::getVersion();?></span>
-		<form class='inlineForm' action='/search/' id='form01' method='POST'>
+		<form class='inlineForm' action='search/' id='form01' method='POST'>
 			<input type='radio' value='google' name='select'/> Google
 			<input type='text' class='inputCountry' name='country' value='nl'/>
 			<input type='radio' value='twitter' name='select'/>Twitter

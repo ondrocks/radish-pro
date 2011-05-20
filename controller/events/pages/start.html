@@ -2,7 +2,7 @@
 function listEvents()
 {
 	var xhrArgs = {
-		url: '/api/list_events/',
+                url: 'api/list_events/',
 		handleAs: 'json',
 		load: function(data)
 		{
@@ -77,7 +77,7 @@ function submitSearchForm()
 			dojo.stopEvent(event)
 			var xhrArgs = {
 				form: dojo.byId('form01'),
-				handleAs:'json',
+                                handleAs:'json',
 				load:function(data)
 				{
 					dojo.byId('statusBar').innerHTML = "";
