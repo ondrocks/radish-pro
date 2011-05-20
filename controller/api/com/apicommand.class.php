@@ -20,10 +20,10 @@ class APICommand
 	}	
 
 
-/*	function initLinkedInApp()
+	function initLinkedInApp()
 	{
 		//$config['base_url']             =   'http://radish-pro.com/admin/login/auth.php';
-		$config['callback_url']         =   'http://radish-pro.com/people/get_linkedin_connections.php';
+		$config['callback_url']         =   PUtil::baseUrl() . '/people/get_linkedin_connections.php';
 		$config['linkedin_access']      =   LINKEDIN_APP_ACCESS;
 		$config['linkedin_secret']      =   LINKEDIN_APP_SECRET;
 
@@ -35,7 +35,7 @@ class APICommand
 		return $linkedin;
 	}
 
-*/	private function saveLinkedInConnection($linkedin, $firstName, $lastName,  $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
+	private function saveLinkedInConnection($linkedin, $firstName, $lastName,  $user, $headline,$place, $country, $pictureUrl, $profileUrl, $company )
 	{
 		$query = "insert into " . TABLE_PREFIX . "linkedin_connections (linkedin) values (:linkedin)";
 		$values = array("linkedin" => $linkedin);
@@ -118,7 +118,8 @@ class APICommand
 
 		if($this->command == 'post_email_connections')
 		{
-			cache::getCache()->delete('list_people');
+			if(USE_MEMCACHE)
+				cache::getCache()->delete('list_people');
 			$json = json_decode($_POST['data']);
 			foreach($json as $email)
 			{
@@ -205,7 +206,7 @@ class APICommand
 		{
 			$data = $dtb->getAllRows();
 			echo $data;
-			if($command->cacheable)
+			if($command->cacheable && USE_MEMCACHE)
 				cache::getCache()->set($command->command, $data, false, 12000);
 		}
 		else

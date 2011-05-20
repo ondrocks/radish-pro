@@ -27,7 +27,7 @@ class Response{
 				{
 					if(! $command->hasRights())
 						return;
-					if($command->cacheable && $data = cache::getCache()->get($command->command))
+					if($command->cacheable && USE_MEMCACHE && $data = cache::getCache()->get($command->command))
 					{	
 						echo $data;
 						die();

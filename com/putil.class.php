@@ -10,7 +10,7 @@ class PUtil
 	}
 	function docRoot()
 	{
-		return $_SERVER['DOCUMENT_ROOT'] . DS;
+		return $_SERVER['DOCUMENT_ROOT'] . preg_replace('/^(.*)(\\/.*$)/', '$1', $_SERVER['PHP_SELF']);
 	}
 	function baseUrl()
 	{

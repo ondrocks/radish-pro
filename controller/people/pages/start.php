@@ -122,7 +122,7 @@ function listConnectionsAsItem(data, htmlId, itemId)
 function listConnections()
 {
 	var xhrArgs = {
-		url: '/api/list_connections/',
+		url: 'api/list_connections/',
 		handleAs: 'json',
 		load: function(data)
 		{
@@ -144,7 +144,7 @@ dojo.addOnLoad(listConnections)
 function listEmail()
 {
 	var xhrArgs = {
-		url: '/api/list_emails/',
+		url: 'api/list_emails/',
 		handleAs: 'json',
 		load: function(data)
 		{

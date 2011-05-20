@@ -2,11 +2,11 @@
 <script type='text/javascript'>
 
 var xhrArgs = {
-	url: '/api/import_connections/',
+	url: 'api/import_connections/',
 	load: function(data)
 	{
-		//alert(data)
-		document.location.href = '/people/'
+		alert(data)
+		document.location.href = 'people/'
 	},
 	error: function(error)
 	{

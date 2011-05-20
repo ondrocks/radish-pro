@@ -24,6 +24,7 @@ define('USER_RIGHT_LINKEDIN', 2);
 define('USER_RIGHT_TWITTER', 4);
 define('USER_RIGHT_FACEBOOK', 8);
 
+define('USE_MEMCACHE', false);
 define('MEMCACHE_HOST', 'localhost');
 define('MEMCACHE_PORT', '11211');
 
