@@ -197,23 +197,32 @@
 			load : function(data)
 			{
 				var _form = document.createElement('form')
+				var _tab = document.createElement('table')
 				_form.setAttribute('method', 'POST')
 				var _f = data.getElementsByTagName('form')[0]
 				_form.setAttribute('action', _f.getAttribute('action'))
 				_form.setAttribute('id', _f.getAttribute('formid'))
+				dojo.place(_tab, _form)
+				
 				var _els = data.getElementsByTagName('formelement')
 				for(var c = 0; c < _els.length; c++)
 				{
 					switch(_els[c].getAttribute('type'))
 					{
+						case 'separator':
+							
+							var _tab2 = document.createElement('table')
+							dojo.place(_tab2, _form)
+							_tab = _tab2
+							break;
 						case 'submit':
-							dojo.place(createSubmitElementAsRow(_els[c].getAttribute('label')), _form)
+							dojo.place(createSubmitElementAsRow(_els[c].getAttribute('label')), _tab)
 							break;
 						case 'hidden':
-							dojo.place(createHiddenElement(_els[c].getAttribute('name'), _els[c].getAttribute('value')), _form)
+							dojo.place(createHiddenElement(_els[c].getAttribute('name'), _els[c].getAttribute('value')), _tab)
 							break;
 						case 'id':
-							dojo.place(createHiddenElement(_els[c].getAttribute('for'), dataCached[index].id), _form)
+							dojo.place(createHiddenElement(_els[c].getAttribute('for'), dataCached[index].id), _tab)
 							break;
 						case 'lookup':
 							dojo.place(createLookupAsRow(
@@ -223,14 +232,14 @@
 								_els[c].getAttribute('where'),
 								dataCached[index][_els[c].getAttribute('where')],
 								dataCached[index][_els[c].getAttribute('for')],
-								_els[c].getAttribute('editable')), _form)
+								_els[c].getAttribute('editable')), _tab)
 							break;
 						case 'textarea':
 							dojo.place(createTextareaAsRow(
 							_els[c].getAttribute('for'),
 							dataCached[index][_els[c].getAttribute('for')],
 							_els[c].getAttribute('label'),
-							_els[c].getAttribute('editable')), _form)
+							_els[c].getAttribute('editable')), _tab)
 							break;
 						case 'telephone':
 						case 'text':
@@ -240,11 +249,11 @@
 								_els[c].getAttribute('label'), 
 								_els[c].getAttribute('for'), 
 								dataCached[index][_els[c].getAttribute('for')],
-								_els[c].getAttribute('editable')), _form)
+								_els[c].getAttribute('editable')), _tab)
 							break;
 					}
 				}
-				form = _form
+				form = _form 
 				attachForm(form)
 				dojo.connect(
 					dojo.byId(_f.getAttribute('formid')),

@@ -23,7 +23,9 @@ a			{border:none;}
 #events			{margin-top:10px;}
 #bgOverlay		{position:absolute; top:0;z-index:99999; background: white; opacity:0.7;}
 #popup			{position:absolute; z-index:999999;}
-#popupInner form	{margin:20px;}
+#popupInner form	{margin:0px;}
+#popupInner form table {width:180px;float:left;clear:none;margin-left:10px;}
+#popupInner form table tr td textarea{width:140px;}
 div {border:0px solid red;}
 a img			{border:none;vertical-align:middle;}
 a.black:visited,
