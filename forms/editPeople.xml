@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<form action='/api/post_connection/'>
+<form action='api/post_connection/' formid='editPeople'>
 
-        <formelement type='id' name='id' for='id'>
-        </formelement>
+<formelements>
+	<formelement type='hidden' name='command' value='post_connection'>
+	</formelement>
+
+	<formelement type='id' name='id' for='id'>
+	</formelement>
 
 	<formelement type='text' for='firstName' label='First name'>
 	</formelement>
@@ -10,20 +14,47 @@
 	<formelement type='text' for='lastName' label='Last name'>
 	</formelement>
 
+	<formelement type='text' for='headline' label='Professional headline'>
+	</formelement>
+
+	<formelement type='text' for='chatinfo' label='Chat info'>
+	</formelement>
+	
 	<formelement type='text' for='place' label='Place'>
 	</formelement>
 
 	<formelement type='text' for='country' label='Country'>
 	</formelement>
 
+	<formelement type='text' for='email' label='Email'>
+	</formelement>
+
+	<formelement type='text' for='email2' label='Email 2'>
+	</formelement>
+
+	<formelement type='text' for='email3' label='Email 3'>
+	</formelement>	
+
+	<formelement type='text' for='telephone' label='Telephone'>
+	</formelement>
+	
+	<formelement type='text' for='mobile' label='Mobile'>
+	</formelement>
+	
 	<formelement type='image' for='pictureUrl' label='Picture'>
 	</formelement>
 
 	<formelement type='anchor' for='profileUrl' label='Profile'>
 	</formelement>
 
-        <formelement type='submit' label='update'>
-        </formelement>
-
+	<formelement type='text' for='gender' label='Gender'>
+	</formelement>
+	
+	<formelement type='text' for='status' label='Status'>
+	</formelement>
+	
+	<formelement type='submit' label='update'>
+	</formelement>
+</formelements>
 </form>
 

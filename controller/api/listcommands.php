@@ -4,12 +4,15 @@ $qs = array(
 	new APICommand(
 		'list_connections',
 		new Query(
-			'select distinct a.firstName as firstName, a.lastName as lastName, 
-				a.place, a.country, a.profileUrl, a.pictureUrl, b.email, 
+			'select distinct a.id, a.firstName as firstName, a.lastName as lastName, 
+				a.place, a.chatinfo, a.country, a.profileUrl, a.pictureUrl, b.email, 
+				bb.email as email2, bbb.email as email3, a.telephone, a.mobile, a.gender, a.status, 
 				c.twitter, d.linkedin, a.headline, f.name as userName, 
 				g.name as company, g.ticker 
 				from #_people a left join 
 				#_email_connections b  on a.email = b.id left join 
+				#_email_connections bb on a.email2 = bb.id left join
+				#_email_connections bbb on a.email3 = bbb.id left join 
 				#_twitter_connections c on c.id = a.twitter left join 
 				#_linkedin_connections d on d.id = a.linkedin left join 
 				#_fb_connections e on d.id = a.facebook left join 

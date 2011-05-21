@@ -191,8 +191,10 @@
 			load : function(data)
 			{
 				var _form = document.createElement('form')
+				_form.setAttribute('method', 'POST')
 				var _f = data.getElementsByTagName('form')[0]
 				_form.setAttribute('action', _f.getAttribute('action'))
+				_form.setAttribute('id', _f.getAttribute('formid'))
 				var _els = data.getElementsByTagName('formelement')
 				for(var c = 0; c < _els.length; c++)
 				{
@@ -201,8 +203,11 @@
 						case 'submit':
 							dojo.place(createSubmitElementAsRow(_els[c].getAttribute('label')), _form)
 							break;
+						case 'hidden':
+							dojo.place(createHiddenElement(_els[c].getAttribute('name'), _els[c].getAttribute('value')), _form)
+							break;
 						case 'id':
-							dojo.place(createHiddenElement(_els[c].getAttribute('for'), dataCached[index][_els[c].getAttribute('for')]), _form)
+							dojo.place(createHiddenElement(_els[c].getAttribute('for'), dataCached[index].id), _form)
 							break;
 						case 'lookup':
 							dojo.place(createLookupAsRow(
@@ -225,6 +230,25 @@
 				}
 				form = _form
 				attachForm(form)
+				dojo.connect(
+					dojo.byId(_f.getAttribute('formid')),
+					'onsubmit',
+					function(event){
+						dojo.stopEvent(event);
+						var xhrArgs = {
+							form: dojo.byId(_f.getAttribute('formid')),
+							handleAs: 'json',
+							load: function(data)
+							{
+								//alert(data);
+							},
+							error: function(error)
+							{
+								error_alert(error);
+							}
+						}
+						dojo.xhrPost(xhrArgs)
+					})
 			},
 			error: function(error)
 			{

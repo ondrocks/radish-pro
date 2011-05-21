@@ -21,65 +21,65 @@ function submitSearchForm()
                 'onsubmit',
                 function(event)
                 {
-			dojo.byId('form01').q.value = encodeURIComponent(dojo.byId('form01').qq.value)
-                        dojo.stopEvent(event)
-			dojo.require('dojox.xml.parser')
+					dojo.byId('form01').q.value = encodeURIComponent(dojo.byId('form01').qq.value)
+					dojo.stopEvent(event)
+					dojo.require('dojox.xml.parser')
                         var xhrArgs = {
-                                form: dojo.byId('form01'),
-				handleAs:'text',
-                                load:function(data)
-                                {
-					var html = '<table><tr><th>picture</th><th>name</th><th>professional headline</th></tr>'
-					var linkedInId = ''
-					var firstname = ''
-					var lastname = ''
-					var headline = ''
-					var profileUrl = 'profileUrl'
-					var pictureUrl = ''
-					var companyId = ''
-					var xmldata = dojox.xml.parser.parse(data)
-					var root = xmldata.documentElement
-					for(var c = 0; c < root.getElementsByTagName('person').length; c++)	
-					{
-						for(var cc = 0; cc < root.getElementsByTagName('person')[c].childNodes.length; cc++)
-						{
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'current-company')
+							form: dojo.byId('form01'),
+							handleAs:'text',
+							load:function(data)
 							{
-								companyId = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc])
-							}
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'picture-url' && document.location.protocol == 'http:')
-							{
-								pictureUrl = "<img class='profilePicture' src='" + dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]) + "'/>"
-							}
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'public-profile-url')
-							{
-								profileUrl = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc])
-							}
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'headline')
-							{
-								headline = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);
-							}
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'id')
-							{
-								linkedInId = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);	
-							}
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'first-name')
-							{
-                                                                firstname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
-							}
-							if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'last-name')
-							{
-                                                                lastname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
-							}
-					}
-                                                html += '<tr><td class="picture">' + pictureUrl + "</td><td>" + firstname + ' ' + lastname + '</td><td><a class="black" target="_blank" href="' + profileUrl  +'">' + headline + '</a></td></tr>'
+								var html = '<table><tr><th>picture</th><th>name</th><th>professional headline</th></tr>'
+								var linkedInId = ''
+								var firstname = ''
+								var lastname = ''
+								var headline = ''
+								var profileUrl = 'profileUrl'
+								var pictureUrl = ''
+								var companyId = ''
+								var xmldata = dojox.xml.parser.parse(data)
+								var root = xmldata.documentElement
+								for(var c = 0; c < root.getElementsByTagName('person').length; c++)	
+								{
+									for(var cc = 0; cc < root.getElementsByTagName('person')[c].childNodes.length; cc++)
+									{
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'current-company')
+										{
+											companyId = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc])
+										}
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'picture-url' && document.location.protocol == 'http:')
+										{
+											pictureUrl = "<img class='profilePicture' src='" + dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]) + "'/>"
+										}
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'public-profile-url')
+										{
+											profileUrl = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc])
+										}
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'headline')
+										{
+											headline = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);
+										}
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'id')
+										{
+											linkedInId = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);	
+										}
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'first-name')
+										{
+											firstname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
+										}
+										if(root.getElementsByTagName('person')[c].childNodes[cc].tagName == 'last-name')
+										{
+											lastname = dojox.xml.parser.textContent(root.getElementsByTagName('person')[c].childNodes[cc]);  
+										}
+								}
+ 								html += '<tr><td class="picture">' + pictureUrl + "</td><td>" + firstname + ' ' + lastname + '</td><td><a class="black" target="_blank" href="' + profileUrl  +'">' + headline + '</a></td></tr>'
 					}
 					dojo.byId('connections').innerHTML = html + '</table>'
-                                },
-                                error: function(error)
-                                {
-                                        error_alert(error)
-                                }
+                    },
+						error: function(error)
+						{	
+							error_alert(error)
+					}
                         }
                         if(dojo.byId('q').value.match(/^\w/))
                         {

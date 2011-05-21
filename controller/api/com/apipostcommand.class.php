@@ -1,6 +1,24 @@
 <?php
 class APIPostCommand extends APICommand
 {
+	function postVarsByXMLForm($xmlFileName)
+	{
+		$retar = array();
+		$file = simplexml_load_file('forms/' . $xmlFileName);
+		foreach ($file->formelements as $el)
+		{
+			foreach ($el as $_el)
+			{
+				foreach ($_el->attributes() as $attr => $value)
+				{
+					$value = (string)$value;
+					if((string)$attr == 'for' && array_key_exists($value, $_POST))
+						$retar[$value] = $_POST[$value]; 
+				}
+			}
+		}
+		return $retar;
+	}
 
 	function generateValues()
 	{	
@@ -14,10 +32,11 @@ class APIPostCommand extends APICommand
 						$this->query->values = array('email' => $_POST['email']);
 					}
 					break;
-				case 'post_linkedin_connection':
-					if(isset($_POST['linkedin']))
+				case 'post_connection':
+					if(!empty($_POST['id']))
 					{
-						$this->query->values = array('linkedin' => $_POST['linkedin']);
+						$values= $this->postVarsByXMLForm('editPeople.xml');
+						$this->query->values = $values;
 					}
 					break;
 				case 'post_keywords':

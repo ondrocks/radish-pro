@@ -38,11 +38,12 @@ $qs = array(
 		false
 	),
 	new APIPostCommand(
-		'post_linkedin_connection',
+		'post_connection',
 		new Query(
-			'insert into ' . TABLE_PREFIX . 'linkedin_connections
-			(linkedin)
-			values(:linkedin) ',
+			'update #_people
+			set status=:status, firstName=:firstName, lastName=:lastName, pictureUrl=:pictureUrl, headline=:headline, 
+			chatinfo=:chatinfo, place=:place, country=:country, gender=:gender, email=:email, email2=:email2, 
+			email3=:email3, telephone=:telephone, mobile=:mobile, profileUrl=:profileUrl where id=:id',
 			null,
 			false
 		),
