@@ -11,7 +11,7 @@ class APICommand
 
 	function __construct($command, $query, $level, $cacheable)
 	{
-                $this->dtb = new Dtb();
+		$this->dtb = new Dtb();
 		$this->command = $command;
 		$this->query = $query;
 		$this->cacheable = $cacheable;

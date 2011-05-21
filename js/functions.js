@@ -167,6 +167,12 @@
 						case 'anchor':
 							dojo.place(createAnchorAsRow(dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el)
 							break;
+						case 'telephone':
+							dojo.place(createTelephoneNumberAsRow(dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el)
+							break;
+						case 'textarea':
+							dojo.place(createTextParaAsRow(_els[c].getAttribute('for'), dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el)
+							break;							
 						case 'text' :
 						case 'lookup':
 							dojo.place(createTextAsRow(dataCached[index][_els[c].getAttribute('for')], _els[c].getAttribute('label')), _el) 
@@ -216,15 +222,25 @@
 								_els[c].getAttribute('for'),
 								_els[c].getAttribute('where'),
 								dataCached[index][_els[c].getAttribute('where')],
-								dataCached[index][_els[c].getAttribute('for')]), _form)
+								dataCached[index][_els[c].getAttribute('for')],
+								_els[c].getAttribute('editable')), _form)
 							break;
+						case 'textarea':
+							dojo.place(createTextareaAsRow(
+							_els[c].getAttribute('for'),
+							dataCached[index][_els[c].getAttribute('for')],
+							_els[c].getAttribute('label'),
+							_els[c].getAttribute('editable')), _form)
+							break;
+						case 'telephone':
 						case 'text':
 						case 'image':
 						case 'anchor':
 							dojo.place(createInputTextElementAsRow(
 								_els[c].getAttribute('label'), 
 								_els[c].getAttribute('for'), 
-								dataCached[index][_els[c].getAttribute('for')]), _form)
+								dataCached[index][_els[c].getAttribute('for')],
+								_els[c].getAttribute('editable')), _form)
 							break;
 					}
 				}
@@ -237,10 +253,10 @@
 						dojo.stopEvent(event);
 						var xhrArgs = {
 							form: dojo.byId(_f.getAttribute('formid')),
-							handleAs: 'json',
+							handleAs: 'text',
 							load: function(data)
 							{
-								//alert(data);
+								alert(data);
 							},
 							error: function(error)
 							{
@@ -257,16 +273,18 @@
 		}
 		dojo.xhrGet(xhrArgs)
 	}
-
-	function createLookupAsRow(into, label, name, where, whereValue, value)
+	
+	function createLookupAsRow(into, label, name, where, whereValue, value, editable)
 	{
-		return createAsRow(createLookup(into, name, where, whereValue, value), label, 0)
+		return createAsRow(createLookup(into, name, where, whereValue, value, editable), label, 0)
 	}
 
-	function createLookup(into, name, where, whereValue, value)
+	function createLookup(into, name, where, whereValue, value, editable)
 	{
 		var _el = document.createElement('select')
 		_el.name = name
+		if(editable && editable == 'false')
+			_el.setAttribute('disabled', 'disabled')
 		_el.id = 'lookup' + into
 		var xhrArgs = {
                         url: 'api/lookup'  + into + '/?' + where + '=' + encodeURIComponent(whereValue),
@@ -312,7 +330,47 @@
 		_el.setAttribute('name', name)
 		return _el
 	}
+	
+	function createTextPara(name, value)
+	{
+		var _el = document.createElement('p')
+		_el.innerHTML = value
+		return _el
+	}
+	
+	function createTextParaAsRow(name, value, label)
+	{
+		return createAsRow(createTextPara(name, value), label, 0)
+	}
 
+	function createTextarea(name, value, editable)
+	{
+		var _el = document.createElement('textarea')
+		if(editable && editable == 'false')
+			_el.setAttribute('readonly', 'readonly')
+		_el.setAttribute('name', name)
+		_el.innerHTML = value
+		return _el
+	}
+	
+	function createTextareaAsRow(name, value, label, editable)
+	{
+		return createAsRow(createTextarea(name, value, editable), label, 0)
+	}
+	
+	function createTelephoneNumber(text)
+	{
+		var _el = document.createElement('a')
+		_el.setAttribute('href', 'skype:'+text)
+		_el.innerHTML = text
+		return _el
+	}
+	
+	function createTelephoneNumberAsRow(text, label)
+	{
+		return createAsRow(createTelephoneNumber(text), label, 0)
+	}
+	
 	function createText(text)
 	{
 		var _el = document.createElement('p')
@@ -338,9 +396,9 @@
 		return createAsRow(createSubmitElement(label))
 	}
 
-	function createInputTextElementAsRow(label, name, value)
+	function createInputTextElementAsRow(label, name, value, editable)
 	{
-		return createAsRow(createInputTextElement(name, value), label, 0)
+		return createAsRow(createInputTextElement(name, value, editable), label, 0)
 	}
 
 	function createAnchorAsRow(anchor, label, prnt)
@@ -376,10 +434,12 @@
 		return _el
 	}
 
-	function createInputTextElement(name, value )
+	function createInputTextElement(name, value, editable)
 	{
 		var _el = document.createElement('input')
 		_el.type = 'text'
+		if(editable && editable == 'false')
+			_el.setAttribute('readonly', 'readonly')
 		_el.value = value
 		_el.name = name
 		return _el

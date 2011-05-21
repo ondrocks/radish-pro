@@ -1,13 +1,6 @@
 <?php
-/*
 
-tag : $Id$
-
-
-*/
-
-
-$version = 'v0.0.10';
+$version = 'v0.0.15';
 
 define('DEBUG', true);
 if(DEBUG)

@@ -4,18 +4,35 @@ class APIPostCommand extends APICommand
 	function postVarsByXMLForm($xmlFileName)
 	{
 		$retar = array();
+		$in = array();
+		$_in = array();
+		$_out = true;
 		$file = simplexml_load_file('forms/' . $xmlFileName);
 		foreach ($file->formelements as $el)
 		{
 			foreach ($el as $_el)
 			{
-				foreach ($_el->attributes() as $attr => $value)
+				$_out = true;
+				foreach($_el->attributes() as $attr => $value)
 				{
-					$value = (string)$value;
-					if((string)$attr == 'for' && array_key_exists($value, $_POST))
-						$retar[$value] = $_POST[$value]; 
+					$_in[(string)$attr] = (string)$value;
 				}
-			}
+				foreach($_in as $_attr => $_value)
+				{
+					if((string)$_attr == 'editable' && (string)$_value == 'false')
+					{
+						$_out = false;
+					}
+				}
+				if($_out)
+				{
+					if(isset($_in['for']))
+						$value = (string)$_in['for'];
+					if(array_key_exists((string)$value, $_POST))
+							$retar[$value] = $_POST[$value]; 
+
+				}
+			}	
 		}
 		return $retar;
 	}
@@ -36,6 +53,13 @@ class APIPostCommand extends APICommand
 					if(!empty($_POST['id']))
 					{
 						$values= $this->postVarsByXMLForm('editPeople.xml');
+						$this->query->values = $values;
+					}
+					break;
+				case 'post_company':					
+					if(!empty($_POST['id']))
+					{
+						$values = $this->postVarsByXMLForm('editCompany.xml');
 						$this->query->values = $values;
 					}
 					break;

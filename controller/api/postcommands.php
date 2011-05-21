@@ -51,6 +51,18 @@ $qs = array(
 		false
 	),
 	new APIPostCommand(
+		'post_company',
+		new Query(
+			'update #_companies
+			set name=:company, address=:address, postalcode=:postalcode, url=:url, size=:size, ticker=:ticker, industry=:industry
+			where id=:id',
+			null,
+			false
+		),
+		LEVEL_0,
+		false
+	),
+	new APIPostCommand(
 		'post_email_connection',
 		new Query(
 			'insert into ' . TABLE_PREFIX . 'email_connections

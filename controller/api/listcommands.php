@@ -27,7 +27,8 @@ $qs = array(
 	new APICommand(
 		'list_companies',
 		new Query(
-			'select c.lastName as name, a.id, a.industry, a.name as company 
+			'select c.lastName as name, a.id, a.industry, a.name as company,
+				a.postalcode, a.url, a.address, a.size, a.ticker 
 				from #_companies a left join #_positions b on a.id = b.company_id 
 				left join #_people c on b.people_id = c.id order by a.name',
 			null,

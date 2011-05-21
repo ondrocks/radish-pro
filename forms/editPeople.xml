@@ -17,7 +17,7 @@
 	<formelement type='text' for='headline' label='Professional headline'>
 	</formelement>
 
-	<formelement type='text' for='chatinfo' label='Chat info'>
+	<formelement type='textarea' editable='false' for='chatinfo' label='Chat info'>
 	</formelement>
 	
 	<formelement type='text' for='place' label='Place'>
@@ -35,7 +35,7 @@
 	<formelement type='text' for='email3' label='Email 3'>
 	</formelement>	
 
-	<formelement type='text' for='telephone' label='Telephone'>
+	<formelement type='telephone' for='telephone' label='Telephone'>
 	</formelement>
 	
 	<formelement type='text' for='mobile' label='Mobile'>

@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<form action='api/post_company/'>
+<form action='api/post_company/' method='POST' formid='editCompany'>
+	
+	<formelements>
 
-	<formelement type='id' name='id' for='id'>
-	</formelement>
+		<formelement type='hidden' name='command' value='post_company'>
+		</formelement>
+		
+		<formelement type='id' name='id' for='id'>
+		</formelement>
 
-	<formelement type='text' label='Name' for='company'>
-	</formelement>
+		<formelement type='text' label='Name' for='company'>
+		</formelement>
 
-	<formelement type='lookup' into='people' label='Contact' for='name' where='company'>
-	</formelement>
+		<formelement type='lookup' editable='false' into='people' label='Contact' for='name' where='company'>
+		</formelement>
 
-	<formelement type='text' label='Industry' for='industry'>
-	</formelement>
+		<formelement type='text' label='Industry' for='industry'>
+		</formelement>
+	
+		<formelement type='text' editable='false' for='address' label='Address'>
+		</formelement> 
 
-	<formelement type='submit' label='update'>
-	</formelement>
+		<formelement type='text' for='postalcode' label='Postal code'>
+		</formelement>
+		
+		<formelement type='anchor' for='url' label='Website'>
+		</formelement>
+		
+		<formelement type='text' for='size' label='Employees'>
+		</formelement>
+		
+		<formelement type='text' for='ticker' label='Ticker'>
+		</formelement>
+		
+		<formelement type='submit' label='update'>
+		</formelement>
 
+	</formelements>
+		
 </form>
 
