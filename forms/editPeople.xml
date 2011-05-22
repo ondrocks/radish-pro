@@ -18,7 +18,7 @@
 	<formelement type='text' for='headline' label='Professional headline'>
 	</formelement>
 
-	<formelement type='textarea' editable='false' for='chatinfo' label='Chat info'>
+	<formelement type='textarea' for='chatinfo' label='Chat info'>
 	</formelement>
 	
 	<formelement type='text' for='place' label='Place'>

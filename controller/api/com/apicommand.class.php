@@ -133,6 +133,27 @@ class APICommand
 			$dtb = new Dtb();
 			$query = "select ";	
 		}
+		else if($this->command == 'get_comp_info')
+		{
+			if(!empty($_GET['comp']))
+			{
+				$helper = new Kvk();
+				$address = $helper->getKvkAddress($_GET['comp']);
+				$helper = new UndocLinkedIn();
+				$info = $helper->getInformation($_GET['comp']);
+				if($info)
+				{
+					$address['size'] = $info[0]['size'];
+					$address['foundName'] = $info[0]['name'];
+				}
+				else
+				{
+					$address['size'] = 0;
+					$address['foundName'] = '';
+				}
+				echo json_encode($address);
+			}
+		}
 		else if($this->command == 'import_connections')
 		{
 			$linkedin = $this->initLinkedInApp();	
@@ -156,7 +177,7 @@ class APICommand
 					$company = array(
 						"name" => $companyId->position[0]->company->name,
 						"industry" => $companyId->position[0]->company->industry,
-						"size" => $companyId->position[0]->company->size,
+						"size" => preg_replace('/^(.*)(employees)$/', '$1', $companyId->position[0]->company->size),
 						"ticker" => $companyId->position[0]->company->ticker);		
 
 					$this->saveLinkedInConnection($linkedinid, $firstName, $lastName, $_user, $headline, $place, $country, $pictureUrl, $profileUrl, $company);

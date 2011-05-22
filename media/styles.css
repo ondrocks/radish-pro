@@ -8,8 +8,9 @@ input[type='image']	{top:2px;position:relative;}
 input[name='country'], 
 input[name='qq']	{top:-2px;position:relative;}
 table			{border:1px solid gray;border-radius:4px;font-size:0.9em;margin-top:10px;clear:both;background-color:#f0f0f0;width:100%;border-right:3px solid #f0f0f0;}
-table tr:nth-child(even)
-			{background-color:white;}
+table tr:nth-child(even)	{background-color:white;}
+table tr td:first-child {text-align:right;}
+div#companies div table tr td:first-child{width:300px;}
 #statusBar		{width:100%;text-align:right;background-color:white;}
 #menuBar a.bolditalic	{font-size:0.9em;font-style:italic;font-weight:bold;}
 #menuBar		{min-height:1.7em;float:left;background-color:#f0f0f0;padding-left:10px;padding-right:10px;width:98%;border:1px solid gray; border-right:3px solid #f0f0f0; border-radius: 4px;}
@@ -23,9 +24,13 @@ a			{border:none;}
 #events			{margin-top:10px;}
 #bgOverlay		{position:absolute; top:0;z-index:99999; background: white; opacity:0.7;}
 #popup			{position:absolute; z-index:999999;}
+#popupInner	{background-color:#f0f0f0;}
 #popupInner form	{margin:0px;}
-#popupInner form table {width:180px;float:left;clear:none;margin-left:10px;}
-#popupInner form table tr td textarea{width:140px;}
+#popupInner form table {width:270px;float:left;clear:none;margin-left:10px;}
+#popupInner form table td{width:135px;}
+#popupInner form table tr td textarea{width:130px;}
+#popupInner form table tr td input{width:130px;}
+#popupInner form table tr td select{width:130px;}
 div {border:0px solid red;}
 a img			{border:none;vertical-align:middle;}
 a.black:visited,

@@ -50,6 +50,7 @@ class User
 	private function _isValid()
 	{
 		$profile = $this->_getLinkedInProfileId();
+		//var_dump($profile);
 		if($this->_isValidProfile($profile))
 			return true;
 		return false;

@@ -201,11 +201,18 @@ create table crm_companies(
 id INT(32) NOT NULL AUTO_INCREMENT,
 linkedInId INT(12),
 name VARCHAR(128) NOT NULL,
+kvk VARCHAR(32),
+businessAddress VARCHAR(128),
+businessPostalcode VARCHAR(10),
+businessPlace VARCHAR(128),
+telephone VARCHAR(12),
 address VARCHAR(128),
 postalcode VARCHAR(8),
+place VARCHAR(64),
+country VARCHAR(8),
 url VARCHAR(64),
 usps TEXT,
-size INT(7),
+size VARCHAR(12),
 ticker VARCHAR(10),
 industry VARCHAR(128),
 PRIMARY KEY(id),
@@ -260,7 +267,7 @@ insert into crm_roles(name, level)values('administrator', 1),('user', 0);
 insert into crm_actions(name, level)values('sent message', 0),('', 1);
 insert into crm_lead_status(name)values('unknown person'),('prospect'), ('action required'), ('connection'), ('dead');
 insert into crm_users(name, login_id, role, account)values('Nadia Gombra', 'DHqzIsP_64', 1, 1);
-insert into crm_users(name, login_id, role, account)values('Pieter Hoekstra', 'R8tdWFiRkq', 1, 1);
+insert into crm_users(name, login_id, role, account)values('Pieter Hoekstra', 'vSYMPYwYiL', 1, 1);
 insert into crm_users(name, login_id, role, account)values('Thorgal Nicasia', 'Ct46VXpcsx', 1, 1);
 insert into crm_users(name, login_id, role, account)values('Nathalie Voorn', 'a_evdcLKIr', 1, 1);
 

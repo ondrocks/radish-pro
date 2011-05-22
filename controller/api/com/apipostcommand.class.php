@@ -19,9 +19,13 @@ class APIPostCommand extends APICommand
 				}
 				foreach($_in as $_attr => $_value)
 				{
-					if((string)$_attr == 'editable' && (string)$_value == 'false')
+					if((string)$_attr == 'editable' && (string)$_value === 'false')
 					{
 						$_out = false;
+					}
+					else
+					{
+						$_out = true;
 					}
 				}
 				if($_out)

@@ -5,7 +5,7 @@
 	var form
 	var popupTop = 85
 	var popupHeight = 400
-	var popupWidth = 500
+	var popupWidth = 570
 
 	function error_alert(error)
 	{
@@ -215,6 +215,9 @@
 							dojo.place(_tab2, _form)
 							_tab = _tab2
 							break;
+						case 'button':
+							dojo.place(createButtonElementAsRow(_els[c].getAttribute('label'), _els[c].getAttribute('onclick')), _tab)
+							break;
 						case 'submit':
 							dojo.place(createSubmitElementAsRow(_els[c].getAttribute('label')), _tab)
 							break;
@@ -391,7 +394,21 @@
 	{
 		return createAsRow(createText(text), label, 0)
 	}
+	
+	function createButtonElement(label, value)
+	{
+		var _el = document.createElement('input')
+		_el.setAttribute('type', 'button')
+		_el.setAttribute('onclick', value)
+		_el.setAttribute('value', label)
+		return _el
+	}
 
+	function createButtonElementAsRow(label, value)
+	{
+		return createAsRow(createButtonElement(label, value))
+	}
+	
 	function createSubmitElement(label)
 	{
 		var _el = document.createElement('input')
@@ -437,8 +454,11 @@
 	function createAnchor(anchor, label)
 	{
 		var _el = document.createElement('a')
-		_el.href = anchor
-		_el.innerHTML = label
+		if(anchor)
+		{
+			_el.href = anchor
+			_el.innerHTML = label
+		}
 		//_el.setAttribute('target', '_blank')
 		return _el
 	}
@@ -503,7 +523,6 @@
 			cnt.style.height = popupHeight + 'px'
 			cnt.style.left = dojo.window.getBox().w / 2 - popupWidth / 2 + 'px'
 			cnt.style.border = '1px solid #ff0000'
-			cnt.style.background = 'white'
 			popup = dojo.place(cnt, dojo.byId('popup'))
 	
 			var cnt = document.createElement('div')
@@ -519,4 +538,27 @@
 			dojo.place(cnt, dojo.byId('popup'))
 		}
 	}
-
+	function getCompInfo(comp, fields)
+	{
+		var _comp = dojo.query("[name^="+comp+"]")[0].value
+		var xhrArgs = {
+			url: 'api/get_comp_info/?comp=' + encodeURIComponent(_comp),
+			handleAs: 'json',
+			load: function(data)
+			{
+				var mes = 	'Kvk :' + data.kvk + '\n' +
+							'Business address :' + data.businessAddress + '\n' +
+							'Business postal code :' + data.businessPostalcode + '\n' +
+							'Business city :' + data.businessPlace
+				var yes = confirm(mes)
+				if(yes)
+				{
+					for(var c = 0; c < fields.length; c++)
+					{
+						dojo.query("[name^=" + fields[c] + "]")[0].value = data[fields[c]]
+					}
+				}
+			}
+		}
+		dojo.xhrGet(xhrArgs)
+	}

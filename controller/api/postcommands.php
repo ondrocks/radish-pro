@@ -54,7 +54,9 @@ $qs = array(
 		'post_company',
 		new Query(
 			'update #_companies
-			set name=:company, address=:address, postalcode=:postalcode, url=:url, size=:size, ticker=:ticker, industry=:industry
+			set name=:company, businessAddress=:businessAddress, businessPostalcode=:businessPostalcode, 
+			businessPlace=:businessPlace, kvk=:kvk, telephone=:telephone, place=:place, 
+			address=:address, postalcode=:postalcode, url=:url, size=:size, ticker=:ticker, industry=:industry
 			where id=:id',
 			null,
 			false

@@ -28,7 +28,8 @@ $qs = array(
 		'list_companies',
 		new Query(
 			'select c.lastName as name, a.id, a.industry, a.name as company,
-				a.postalcode, a.url, a.address, a.size, a.ticker 
+				a.postalcode, a.url, a.businessAddress, a.businessPostalcode, a.businessPlace, 
+				a.kvk, a.address, a.place, a.size, a.ticker, a.telephone 
 				from #_companies a left join #_positions b on a.id = b.company_id 
 				left join #_people c on b.people_id = c.id order by a.name',
 			null,
@@ -133,6 +134,12 @@ $qs = array(
 	),
 	new APICommand(
 		'import_companies',
+		null,
+		LEVEL_0,
+		false
+	),
+	new APICommand(
+		'get_comp_info',
 		null,
 		LEVEL_0,
 		false

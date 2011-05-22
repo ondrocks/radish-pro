@@ -1,8 +1,3 @@
-<?php
-
-//include 'header.php';
-
-?>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 	<script type='text/javascript'>
@@ -35,5 +30,5 @@
       }());
     </script>
 
-login w/ LinkedIn : <a href='/login/linkedin_login.php'><img class='button' src='../logo_linkedin.png'/></a>
+login w/ LinkedIn : <a href='login/linkedin/'><img class='button' src='../logo_linkedin.png'/></a>
 <!--<fb:login-button></fb:login-button>-->

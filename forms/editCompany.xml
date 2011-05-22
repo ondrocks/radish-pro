@@ -17,11 +17,32 @@
 
 		<formelement type='text' label='Industry' for='industry'>
 		</formelement>
-	
-		<formelement type='text' editable='false' for='address' label='Address'>
+
+		<formelement type='text' label='Kvk nr' for='kvk'>
+		</formelement>
+		
+		<formelement type='text' label='Business address' for='businessAddress'>
+		</formelement>
+		
+		<formelement type='text' label='Business postalcode' for='businessPostalcode'>
+		</formelement>
+		
+		<formelement type='text' label='Business city' for='businessPlace'>
+		</formelement>
+
+		<formelement type='separator'>
+		</formelement>
+		
+		<formelement type='telephone' label='Telephone' for='telephone'>
+		</formelement>
+		
+		<formelement type='text' for='address' label='Address'>
 		</formelement> 
 
 		<formelement type='text' for='postalcode' label='Postal code'>
+		</formelement>
+		
+		<formelement type='text' for='place' label='City'>
 		</formelement>
 		
 		<formelement type='anchor' for='url' label='Website'>
@@ -32,10 +53,18 @@
 		
 		<formelement type='text' for='ticker' label='Ticker'>
 		</formelement>
+
+		<formelement type='separator'>
+		</formelement>
+
+		<formelement type='button' label='get business details' onclick="getCompInfo(
+			'company',
+			['kvk', 'businessAddress', 'businessPostalcode', 'businessPlace', 'size'])">
+		</formelement>		
 		
 		<formelement type='submit' label='update'>
 		</formelement>
-
+		
 	</formelements>
 		
 </form>

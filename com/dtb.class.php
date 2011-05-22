@@ -25,6 +25,8 @@ class Dtb
 	{
 		try	
 		{
+//var_dump($raw_query, $values);
+//die();
 			$this->query = $this->dtb->prepare(str_replace('#_', TABLE_PREFIX, $raw_query));
 			$this->query->execute($values);
 		}
