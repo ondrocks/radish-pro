@@ -24,4 +24,10 @@ define('GOOGLE_API_KEY', 'your Google API key');
 ?>
 
 You also need to create the database and the tables. An install file is in the root.
- 
+
+To display the linkedin id for a specific linkedin application in order to give yourselve 
+acccess remove the comment delimiters from com/user.class.php where the code runs like:
+	private function _isValid()
+
+Like this you'll see the linkedin id to give access to in the table #_users of your 
+prefered database engine and database.
