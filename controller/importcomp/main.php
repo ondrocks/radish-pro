@@ -129,9 +129,11 @@ function parseKvkPage($page, $company)
 	return false;
 }
 ?>
-<table>
+
 <form action='/importcomp/' method='POST' enctype='multipart/form-data'>
+<table>
 <tr><td>Basenet csv file companies:</td><td><input type='file' name='csvfile'/></td></tr>
 <tr><td></td><td><input type='submit' value='upload'/></td></tr>
-</form>
 </table>
+</form>
+

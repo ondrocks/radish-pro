@@ -1,6 +1,6 @@
 <?php
 
-$version = 'v0.0.15';
+$version = 'v0.0.17';
 
 define('DEBUG', true);
 if(DEBUG)

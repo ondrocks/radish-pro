@@ -18,7 +18,7 @@ class PText
 		}
 		return false;
 	}
-	function prepareString($string)
+	private function prepareString($string)
 	{
 		$ifCommand = substr($string, strpos($string, '/'), 4);
 		if($ifCommand == '/IF{')
@@ -32,7 +32,7 @@ class PText
 		}
 		return $string;
 	}
-	function prepareValue($value)
+	private function prepareValue($value)
 	{
 		return preg_replace(array(
 				"/\__url__/", 

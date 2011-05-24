@@ -555,7 +555,8 @@
 				{
 					for(var c = 0; c < fields.length; c++)
 					{
-						dojo.query("[name^=" + fields[c] + "]")[0].value = data[fields[c]]
+						if(data[fields[c]] != '')
+							dojo.query("[name^=" + fields[c] + "]")[0].value = data[fields[c]]
 					}
 				}
 			}

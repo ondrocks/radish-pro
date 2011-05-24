@@ -148,7 +148,7 @@ class APICommand
 				}
 				else
 				{
-					$address['size'] = 0;
+					$address['size'] = '';
 					$address['foundName'] = '';
 				}
 				echo json_encode($address);
