@@ -38,6 +38,12 @@ $qs = array(
 		true
 	),
 	new APICommand(
+		'list_companies_to_merge',
+		null,
+		LEVEL_0,
+		true
+	),
+	new APICommand(
 		'lookuppeople',
 		new Query('select a.lastName as name, a.id from #_people a 
 				left join #_positions b on b.people_id = a.id

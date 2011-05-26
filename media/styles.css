@@ -10,6 +10,7 @@ input[name='qq']	{top:-2px;position:relative;}
 table			{border:1px solid gray;border-radius:4px;font-size:0.9em;margin-top:10px;clear:both;background-color:#f0f0f0;width:100%;border-right:3px solid #f0f0f0;}
 table tr:nth-child(even)	{background-color:white;}
 table tr td:first-child {text-align:right;}
+#companies_to_merge tr td:first-child{text-align:left;}
 div#companies div table tr td:first-child{width:300px;}
 #statusBar		{width:100%;text-align:right;background-color:white;}
 #menuBar a.bolditalic	{font-size:0.9em;font-style:italic;font-weight:bold;}
