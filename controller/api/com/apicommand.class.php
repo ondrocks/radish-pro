@@ -159,6 +159,7 @@ class APICommand
 			}
 			$largest = '';
 			$largest_with_ticker = false;
+			$largest_ticker = '';
 			$fnd2 = array();
 			foreach ($fnd as $item)
 			{
@@ -172,6 +173,7 @@ class APICommand
 						$largest = $alt['name'];
 						$id_largest = $alt['id'];
 						$largest_with_ticker = !empty($alt['ticker'])? true : false;
+						$largest_ticker = $alt['ticker'];
 					}
 				}
 				$fnd2[] = array('comp' => $largest, 'item' => $item);
@@ -189,7 +191,7 @@ class APICommand
 						$items[] = array('name' => $alt['name'], 'id' => $alt['id']);
 					}
 				}
-				$fnd3[] = array('comp' => $largest, 'id' => $id_largest, 'ticker' => $alt['ticker'], 'item' => $items);
+				$fnd3[] = array('comp' => $largest, 'id' => $id_largest, 'ticker' => $largest_ticker, 'item' => $items);
 			}
 			//var_dump($fnd2);
 			echo json_encode($fnd3);
