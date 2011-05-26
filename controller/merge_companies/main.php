@@ -21,7 +21,8 @@ date: 		26 mei 2011
 			for(var c = 0; c < data.length; c++)
 			{
 				html += '<tr>'
-				html += '<td><input type="checkbox" checked/>' + data[c].id + ' ' + data[c].comp + '</td><td>'
+				var ticker = data[c].ticker ? '(' + data[c].ticker + ')' : ''
+				html += '<td><input type="checkbox" checked/>' + data[c].id + ' ' + data[c].comp + ' ' + ticker + '</td><td>'
 				for(var cc = 0; cc < data[c].item.length; cc++)
 				{
 					html += data[c].item[cc]['id'] + ' ' + data[c].item[cc]['name'] + '<br/>'

@@ -136,7 +136,7 @@ class APICommand
 		else if ($this->command == 'list_companies_to_merge') 
 		{
 			$dtb = new Dtb();
-			$query = "select name, id from #_companies";
+			$query = "select name, id, ticker from #_companies";
 			$dtb->prepareAndExecute($query, null);
 			$rows = $dtb->getAllRows(false);
 			$fnd = array();
@@ -150,12 +150,15 @@ class APICommand
 						PLanguage::are_alike($rows[$c]->name, $rows[$cc]->name))
 					{
 						{
-							$fnd['alt'][] = array('name' => $rows[$c]->name, 'id' => $rows[$c]->id);
+							$fnd['alt'][] = array(	'name' => $rows[$c]->name, 
+													'id' => $rows[$c]->id,
+													'ticker' => $rows[$c]->ticker);
 						}
 					} 
 				}
 			}
 			$largest = '';
+			$largest_with_ticker = false;
 			$fnd2 = array();
 			foreach ($fnd as $item)
 			{
@@ -163,10 +166,12 @@ class APICommand
 				{
 					if(PLanguage::number_of_words($alt['name']) > PLanguage::number_of_words($largest) || 
 						(PLanguage::number_of_words($alt['name']) == PLanguage::number_of_words($largest) &&
-						strlen($alt['name']) > strlen($largest)))
+						strlen($alt['name']) > strlen($largest)) &&
+						!($largest_with_ticker && empty($alt['ticker'])))
 					{
 						$largest = $alt['name'];
 						$id_largest = $alt['id'];
+						$largest_with_ticker = !empty($alt['ticker'])? true : false;
 					}
 				}
 				$fnd2[] = array('comp' => $largest, 'item' => $item);
@@ -184,7 +189,7 @@ class APICommand
 						$items[] = array('name' => $alt['name'], 'id' => $alt['id']);
 					}
 				}
-				$fnd3[] = array('comp' => $largest, 'id' => $id_largest, 'item' => $items);
+				$fnd3[] = array('comp' => $largest, 'id' => $id_largest, 'ticker' => $alt['ticker'], 'item' => $items);
 			}
 			//var_dump($fnd2);
 			echo json_encode($fnd3);
