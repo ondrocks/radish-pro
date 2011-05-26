@@ -55,7 +55,7 @@ class PLanguage
 				{
 					if ($c == 0) 
 					{
-						// boost is string equals from the lefthandside
+						// boost if string equals from the lefthandside
 						$c++;
 					}
 					$c++;

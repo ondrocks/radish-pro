@@ -161,7 +161,9 @@ class APICommand
 			{
 				foreach ($item as $alt)
 				{
-					if(PLanguage::number_of_words($alt['name']) > PLanguage::number_of_words($largest))
+					if(PLanguage::number_of_words($alt['name']) > PLanguage::number_of_words($largest) || 
+						(PLanguage::number_of_words($alt['name']) == PLanguage::number_of_words($largest) &&
+						strlen($alt['name']) > strlen($largest)))
 					{
 						$largest = $alt['name'];
 						$id_largest = $alt['id'];
