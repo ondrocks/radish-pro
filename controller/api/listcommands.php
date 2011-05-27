@@ -27,7 +27,8 @@ $qs = array(
 	new APICommand(
 		'list_companies',
 		new Query(
-			'select c.lastName as name, a.id, a.industry, a.name as company,
+			'select (select count(*) from #_positions where company_id = a.id) as numberOfCollegues, 
+				c.lastName as name, a.id, a.industry, a.name as company,
 				a.postalcode, a.url, a.businessAddress, a.businessPostalcode, a.businessPlace, 
 				a.kvk, a.address, a.place, a.size, a.ticker, a.telephone 
 				from #_companies a left join #_positions b on a.id = b.company_id 
