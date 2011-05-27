@@ -70,7 +70,7 @@ PRIMARY KEY(id)
 
 create table crm_people_insert_report(
 id INT(32) NOT NULL AUTO_INCREMENT,
-people_id INT(32),
+user_id INT(32),
 insertedOn datetime,
 PRIMARY KEY(id)
 );
@@ -267,7 +267,7 @@ insert into crm_roles(name, level)values('administrator', 1),('user', 0);
 insert into crm_actions(name, level)values('sent message', 0),('', 1);
 insert into crm_lead_status(name)values('unknown person'),('prospect'), ('action required'), ('connection'), ('dead');
 insert into crm_users(name, login_id, role, account)values('Nadia Gombra', 'DHqzIsP_64', 1, 1);
-insert into crm_users(name, login_id, role, account)values('Pieter Hoekstra', 'vSYMPYwYiL', 1, 1);
+insert into crm_users(name, login_id, role, account)values('Pieter Hoekstra', '7inbshCoQJ', 1, 1);
 insert into crm_users(name, login_id, role, account)values('Thorgal Nicasia', 'Ct46VXpcsx', 1, 1);
 insert into crm_users(name, login_id, role, account)values('Nathalie Voorn', 'a_evdcLKIr', 1, 1);
 
@@ -280,7 +280,7 @@ after insert on crm_people
 for each row begin
 insert into crm_people_insert_report
 set insertedOn = now(),
-people_id = new.id; 
+user_id = new.id; 
 END$$
 
 DELIMITER ;
