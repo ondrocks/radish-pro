@@ -20,6 +20,8 @@ class PLanguage
 	}
 	public function are_alike_score( $str1,  $str2)
 	{
+		$str1 = preg_replace('/\w/', ' ', $str1);
+		$str2 = preg_replace("/\w/", ' ', $str2);
 		if (self::_are_alike_lowercase($str1, $str2))	 
 		{
 			return 100;
