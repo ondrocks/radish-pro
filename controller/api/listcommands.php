@@ -37,7 +37,7 @@ $qs = array(
 		LEVEL_0,
 		true
 	),
-	new APICommand(
+	new APICommandMergeCompanies(
 		'list_companies_to_merge',
 		null,
 		LEVEL_0,
