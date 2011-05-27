@@ -15,13 +15,12 @@ class PLanguage
 		{
 			return true;
 		}
-		
 		return false;
 	}
 	public function are_alike_score( $str1,  $str2)
 	{
-		$str1 = preg_replace('/\w/', ' ', $str1);
-		$str2 = preg_replace("/\w/", ' ', $str2);
+		$str1 = preg_replace('/\\./', ' ', $str1);
+		$str2 = preg_replace("/\\./", ' ', $str2);
 		if (self::_are_alike_lowercase($str1, $str2))	 
 		{
 			return 100;
@@ -30,7 +29,7 @@ class PLanguage
 		{
 			return 100;
 		}
-		return self::_number_of_common_words($str1, $str2) / self::number_of_words($str1) * 100;
+		return (self::_number_of_common_words($str1, $str2) / self::number_of_words($str1) * 100);
 	}
 	private function _are_alike_lowercase( $str1,  $str2)
 	{
@@ -49,22 +48,23 @@ class PLanguage
 		$arr1 = explode(' ', $str1);
 		$arr2 = explode(' ', $str2);
 		$c = 0;
+		
 		foreach ($arr1 as $str3)
 		{
 			foreach ($arr2 as $str4)
 			{
-				if($str3 == $str4)
+				if(self::_are_alike_lowercase($str3, $str4))
 				{
 					if ($c == 0) 
 					{
 						// boost if string equals from the lefthandside
-						$c++;
+						$c += 2;
 					}
 					$c++;
 				}
 			}
 		}
-		return $c;
+		return $c / 2;
 	}
 	public function number_of_words( $str1)
 	{
