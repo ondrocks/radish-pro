@@ -150,7 +150,7 @@ $qs = array(
 		LEVEL_0,
 		false
 	),
-	new APICommand(
+	new APICommandImportConnections(
 		'import_connections',
 		null,
 		LEVEL_0,
