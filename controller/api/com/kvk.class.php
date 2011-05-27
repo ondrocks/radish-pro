@@ -21,8 +21,18 @@ class Kvk{
 		$add = substr($add, strpos($add, $start));
 		$add = substr($add, 0, strpos($add, $end));
 
-//	echo "Found " . $company . " as " . $add . "<br/>";
-
+		$start = '<a';
+		$end = '</a>';
+		$addcomp = $add;
+		$addcomp = substr($addcomp, strpos($addcomp, $start));
+		$addcomp = substr($addcomp, 0, strpos($addcomp, $end));
+		$fnd_comp = preg_replace('/.*>([a-zA-Z]*)/', '$1', $addcomp);
+		
+		if(! PLanguage::are_alike($company, $fnd_comp))
+		{
+			return array('kvk' => false);
+		}
+		
 		$start = '<p class="content">';
 		$end = '</p>';
 		$add = substr($add, strpos($add, $start) + 18);

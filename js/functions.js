@@ -546,12 +546,12 @@
 			handleAs: 'json',
 			load: function(data)
 			{
-				var mes = 	'Kvk :' + data.kvk + '\n' +
-							'Business address :' + data.businessAddress + '\n' +
-							'Business postal code :' + data.businessPostalcode + '\n' +
-							'Business city :' + data.businessPlace
-				var yes = confirm(mes)
-				if(yes)
+				if(data.kvk == false)
+				{
+					alert('No match found')
+					return
+				}
+				else
 				{
 					for(var c = 0; c < fields.length; c++)
 					{
