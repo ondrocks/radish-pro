@@ -19,7 +19,8 @@ function listCompaniesAsList(data, htmlId)
 	var html = '<table><tr><th>contact</th><th>company</th><th>industry</th></tr>'
 	for(var c = 0; c < data.length; c++)
 	{
-		html += '<tr><td>' + data[c].name + '</td><td><a href="javascript:showItem(' + c + ')">' + data[c].company + '</a></td><td>' + data[c].industry + '</td></tr>'
+		var collegues = data[c].numberOfCollegues > 1 ? ' et.al.' : '';
+		html += '<tr><td>' + data[c].name + collegues + '</td><td><a href="javascript:showItem(' + c + ')">' + data[c].company + '</a></td><td>' + data[c].industry + '</td></tr>'
 	}
 	dojo.byId(htmlId).innerHTML = html + '</table>'
 }
