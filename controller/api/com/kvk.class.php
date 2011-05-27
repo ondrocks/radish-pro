@@ -48,7 +48,7 @@ class Kvk{
 	
 			return $retVal;
 		}
-		return false;
+		return array('kvk' => FALSE);
 	}	
 }
 ?>
