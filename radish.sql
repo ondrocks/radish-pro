@@ -71,7 +71,7 @@ PRIMARY KEY(id)
 create table crm_people_insert_report(
 id INT(32) NOT NULL AUTO_INCREMENT,
 user_id INT(32),
-insertedOn datetime,
+inserted_on datetime,
 PRIMARY KEY(id)
 );
 
@@ -279,7 +279,7 @@ create trigger on_insert_people
 after insert on crm_people
 for each row begin
 insert into crm_people_insert_report
-set insertedOn = now(),
+set inserted_on = now(),
 user_id = new.id; 
 END$$
 

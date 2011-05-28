@@ -14,6 +14,10 @@ define('RUN_ON_WINDOWS', true);
 
 define('TABLE_PREFIX', 'crm_');
 
+define('USE_MEMCACHE', false);
+define('MEMCACHE_HOST', 'localhost');
+define('MEMCACHE_PORT', '11211');
+
 define('LEVEL_0', 0);	// Security levels Users
 define('LEVEL_1', 1);   // Acount Administrator
 define('LEVEL_2', 8);	// System Administrator
@@ -24,9 +28,8 @@ define('USER_RIGHT_LINKEDIN', 2);
 define('USER_RIGHT_TWITTER', 4);
 define('USER_RIGHT_FACEBOOK', 8);
 
-define('USE_MEMCACHE', false);
-define('MEMCACHE_HOST', 'localhost');
-define('MEMCACHE_PORT', '11211');
+define('MATCH_LEFT_TO_RIGHT', 1);
+define('MATCH_RIGHT_TO_LEFT', 2);
 
 function getVarIs($var, $string)
 {

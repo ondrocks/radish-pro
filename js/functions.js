@@ -48,7 +48,7 @@
 
 	function loginGmailContacts(){
 		google.accounts.user.login('http://www.google.com/m8/feeds')
-		document.location.href = '/config/?page=gmail'
+		document.location.href = 'config/?page=gmail'
 	}
 
 	function logoffGmail()
@@ -562,4 +562,11 @@
 			}
 		}
 		dojo.xhrGet(xhrArgs)
+	}
+	function showProgress(strId, text)
+	{
+		var el = document.createElement('div')
+		el.setAttribute('style', 'height:200px;');
+		el.innerHTML = '<br/><br/><br/><br/>' + text
+		dojo.place(el, dojo.byId(strId))
 	}

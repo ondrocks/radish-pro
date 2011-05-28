@@ -80,6 +80,15 @@ class LinkedIn {
     $response = $this->httpRequest($profile_url, $auth_header, "GET");
     return $response;
   }
+  	function getUpdates($time)
+  	{
+  	$profile_url = $this->base_url . '/v1/people/~/connections:(id,location,main-address,picture-url,public-profile-url,first-name,last-name,headline,positions:(company:(name,industry,ticker,size)))?modified=new&modified-since=' . $time;	
+	$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $profile_url);
+	$request->sign_request($this->signature_method, $this->consumer, $this->access_token);
+	$auth_header = $request->to_header('https://api.linkedin.com');
+	$response = $this->httpRequest($profile_url, $auth_header, "GET");
+	return $response;
+  	}
 
   	function getConnections(){
 	$profile_url = $this->base_url . '/v1/people/~/connections:(id,location,main-address,picture-url,public-profile-url,first-name,last-name,headline,positions:(company:(name,industry,ticker,size)))';

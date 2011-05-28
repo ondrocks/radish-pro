@@ -151,12 +151,18 @@ $qs = array(
 		LEVEL_0,
 		false
 	),
+	new APICommandMergePeople(
+		'list_people_to_merge',
+		null,
+		LEVEL_0,
+		false
+	),
 	new APICommandImportConnections(
 		'import_connections',
 		null,
 		LEVEL_0,
-		false)
-	
+		false
+	)
 );
 
 ?>

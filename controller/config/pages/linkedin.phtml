@@ -5,8 +5,30 @@ var xhrArgs = {
 	url: 'api/import_connections/',
 	load: function(data)
 	{
-		alert(data)
-		document.location.href = 'people/'
+		var xhrArgs = {
+			url: 'api/list_companies_to_merge/',
+			load: function(data)
+			{
+				if(data.length > 0)
+				{
+					var yes = confirm(
+							'There may be some duplicate rows for companies.\n' +  
+							'Would you like to run an analyse algorithm?')
+					if(yes)
+					{
+						document.location.href = 'merge_companies/';
+					}
+					else{
+						document.location.href = 'people/'
+					}
+				}
+			},
+			error:function(error)
+			{
+				error_alert(error)
+			}
+		}
+		dojo.xhrGet(xhrArgs)
 	},
 	error: function(error)
 	{

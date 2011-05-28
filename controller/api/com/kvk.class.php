@@ -26,7 +26,7 @@ class Kvk{
 		$addcomp = $add;
 		$addcomp = substr($addcomp, strpos($addcomp, $start));
 		$addcomp = substr($addcomp, 0, strpos($addcomp, $end));
-		$fnd_comp = preg_replace('/.*>([a-zA-Z]*)/', '$1', $addcomp);
+		$fnd_comp = preg_replace('/.*>([a-zA-Z-]*)/', '$1', $addcomp);
 		
 		if(! PLanguage::are_alike($company, $fnd_comp))
 		{
