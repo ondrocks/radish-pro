@@ -23,11 +23,10 @@ var xhrArgs = {
 			html += '<tr><td>' + data[c].name + '</td><td>'
 			for(var cc = 0 ; cc < data[c].items.length; cc++)
 			{
+				if(data[c].items[cc].pers2.email2)
+					html += data[c].items[cc].pers2.email2 + '<br/>'
 				if(data[c].items[cc].pers2.email)
 					html += data[c].items[cc].pers2.email + '<br/>'
-				//if(data[c].items[cc].pers2.email)
-				//	html += data[c].items[cc].pers2.email + '<br/>'
-					
 			}
 			html += '</td></tr>'
 		}

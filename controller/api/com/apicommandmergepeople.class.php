@@ -45,7 +45,7 @@ class APICommandMergePeople extends APICommand
 				}
 			
 				if(	$pers2->id != $pers1->id && 
-					!preg_match("/info/i", $pers1->lastName) && 
+	/*				!preg_match("/info/i", $pers1->lastName) && */
 					PLanguage::is_same_person(
 						strtolower($pers1->firstName . ' ' . $pers1->lastName), 
 						strtolower($pers2->firstName . ' ' . $pers2->lastName)))
@@ -57,6 +57,7 @@ class APICommandMergePeople extends APICommand
 								'name' => $pers1->firstName . ' ' . $pers1->lastName,
 								'id' => $pers2->id,
 								'linkedin' => $pers2->linkedin,
+								'email2' => $pers1->email,
 								'email' => $pers2->email)
 						);				
 					$had[] = $pers2->id;
