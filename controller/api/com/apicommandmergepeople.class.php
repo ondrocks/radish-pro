@@ -32,7 +32,7 @@ class APICommandMergePeople extends APICommand
 			{	
 				continue; 			
 			}			
-			
+			$fndMatch = false;
 			for($cc = $c; $cc < $ll; $cc++)
 			{
 				$pers2 = $arr2[$cc];
@@ -51,15 +51,18 @@ class APICommandMergePeople extends APICommand
 						strtolower($pers2->firstName . ' ' . $pers2->lastName)))
 				{	
 					if(! in_array($pers2->id, $had))
-					$retArr[$pers1->id][] = 
-						array(
-							'pers2' => array(
-								'name' => $pers1->firstName . ' ' . $pers1->lastName,
-								'id' => $pers2->id,
-								'linkedin' => $pers2->linkedin,
-								'email2' => $pers1->email,
-								'email' => $pers2->email)
-						);				
+					{
+						$retArr[$pers1->id][] = 
+							array(
+								'pers2' => array(
+									'name' => $pers1->firstName . ' ' . $pers1->lastName,
+									'id' => $pers2->id,
+									'linkedin' => $pers2->linkedin,
+									'email2' => ( $fndMatch == false? $pers1->email:''),
+									'email' => $pers2->email)
+							);
+							$fndMatch = true;
+					}				
 					$had[] = $pers2->id;
 				}
 			}
