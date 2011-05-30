@@ -63,7 +63,7 @@ class PLanguage
 	{
 		$str1 = strtolower($str1);
 		$str2 = strtolower($str2);
-		return $str1 == $str2;
+		return strcmp($str1, $str2) == 0;
 	}
 	private function _are_alike_nospace( $str1,  $str2)
 	{

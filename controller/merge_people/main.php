@@ -17,16 +17,16 @@ var xhrArgs = {
 	handleAs: 'json',
 	load: function(data)
 	{
-		var html = '<tr><th>Sugggested name:</th><th>for</th></tr>'
+		var html = '<tr><th>Sugggested name:</th><th>For</th></tr>'
 		for(var c = 0; c < data.length; c++)
 		{
-			html += '<tr><td>' + data[c].id + '</td><td>'
+			html += '<tr><td>' + data[c].name + '</td><td>'
 			for(var cc = 0 ; cc < data[c].items.length; cc++)
 			{
-				if(data[c].items[cc].pers1.email)
-					html += data[c].items[cc].pers1.email + '<br/>'
 				if(data[c].items[cc].pers2.email)
-					html += data[c].items[cc].pers2.email + '<br/'
+					html += data[c].items[cc].pers2.email + '<br/>'
+				//if(data[c].items[cc].pers2.email)
+				//	html += data[c].items[cc].pers2.email + '<br/>'
 					
 			}
 			html += '</td></tr>'
@@ -38,6 +38,6 @@ var xhrArgs = {
 		error_alert(error)
 	}
 }
-showProgress('people', 'Loading data, this can taken a minute or two')
+showProgress('people', 'Analysing data, this can take a minute or two ...')
 dojo.xhrGet(xhrArgs)
 </script>

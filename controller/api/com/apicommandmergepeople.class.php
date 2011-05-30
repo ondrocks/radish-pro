@@ -13,113 +13,64 @@ class APICommandMergePeople extends APICommand
 	{
 		$query = 'select a.id, a.linkedin, a.firstName, a.lastName, b.email 
 				from #_people a left join
-				#_email_connections b on a.email = b.id';
+				#_email_connections b on a.email = b.id 
+				order by a.linkedin = "" desc, a.lastName asc';
 		$values = array();
 		$this->dtb->prepareAndExecute($query, $values);
 		$result = $this->dtb->getAllRows(false);
 	
 		$arr1 = $result;
 		$arr2 = $result;
-		
+		$ll = count($result);
 		$retArr = array();
-		for($c = 0; $c < count($arr1); $c++)
+		$had = array();
+		
+		for($c = 0; $c < $ll; $c++)
 		{
 			$pers1 = $arr1[$c];
-			for($cc = $c; $cc < count($arr2); $cc++)
+			if(strcmp($pers1->lastName, 'No __name__') == 0)
+			{	
+				continue; 			
+			}			
+			
+			for($cc = $c; $cc < $ll; $cc++)
 			{
 				$pers2 = $arr2[$cc];
-				if(PLanguage::is_same_person(
-					$pers1->firstName . ' ' . $pers1->lastName, 
-					$pers2->firstName . ' ' . $pers2->lastName) &&
-					$pers2->id != $pers1->id)
-				{
-					if($pers1->lastName != 'No __name__')
-						$retArr[] = array(
-							'pers1' => array(
-								'name' => $pers1->firstName . ' ' . $pers1->lastName,
-								'id' => $pers1->id,
-								'linkedin' => $pers1->linkedin,
-								'email' => $pers1->email),
+			
+				if(strcmp($pers2->lastName, 'No __name__') == 0)
+				{	
+					$pers2->lastName = str_replace('.', ' ', 
+						preg_replace('/([@].*)/', '', $pers2->email));
+					$pers2->firstName = '';
+				}
+			
+				if(	$pers2->id != $pers1->id && 
+					!preg_match("/info/i", $pers1->lastName) && 
+					PLanguage::is_same_person(
+						strtolower($pers1->firstName . ' ' . $pers1->lastName), 
+						strtolower($pers2->firstName . ' ' . $pers2->lastName)))
+				{	
+					if(! in_array($pers2->id, $had))
+					$retArr[$pers1->id][] = 
+						array(
 							'pers2' => array(
-								'name' => $pers2->firstName . ' ' . $pers2->lastName,
+								'name' => $pers1->firstName . ' ' . $pers1->lastName,
 								'id' => $pers2->id,
 								'linkedin' => $pers2->linkedin,
 								'email' => $pers2->email)
-						);
-				}
-			}
-		}
-		$retArr2 = array();
-		
-	// Get array of people with linkedin id		
-		
-		foreach ($retArr as $item)
-		{
-			if(!empty($item['pers1']['linkedin']))
-				$retArr2[$item['pers1']['id']][] = $item;
-			else if (!empty($item['pers2']['linkedin']))
-				$retArr2[$item['pers2']['id']][] = $item;
-		}
-		$had = array();
-		foreach ($retArr as $item1)
-		{
-			foreach ($retArr as $item2)
-			{
-				if ($item1['pers1']['id'] == $item2['pers1']['id'] ||
-					$item1['pers2']['id'] == $item2['pers2']['id'])
-				{
-					if(isset($retArr2[$item1['pers1']['id']])) 
-					{
-						$retArr2[$item1['pers1']['id']][] = $item2;
-						$had[] = $item2['pers1']['id'];
-						$had[] = $item2['pers2']['id'];
-					}
-					elseif (isset($retArr2[$item1['pers2']['id']]))
-					{	
-						$retArr2[$item1['pers2']['id']][] = $item2;
-						$had[] = $item2['pers1']['id'];
-						$had[] = $item2['pers2']['id'];
-					}
-					else if(isset($retArr2[$item2['pers1']['id']]))
-					{
-						$retArr2[$item2['pers1']['id']][] = $item2;
-						$had[] = $item2['pers1']['id'];
-						$had[] = $item2['pers2']['id'];
-					}
-					else if(isset($retArr2[$item2['pers2']['id']]))
-					{
-						$retArr2[$item2['pers2']['id']][] = $item2;
-						$had[] = $item2['pers2']['id'];
-						$had[] = $item2['pers1']['id'];
-					}
-					else if (! in_array($item1['pers1']['id'], $had))
-					{
-						$retArr[$item1['pers1']['id']] = $item2;
-						$had[] = $item2['pers1']['id'];
-						$had[] = $item2['pers2']['id'];
-					}
-					else if(! in_array($item1['pers2']['id'], $had))
-					{
-						$retArr2[$item2['pers1']['id']][] = $item2;
-						$had[] = $item2['pers1']['id'];
-						$had[] = $item2['pers2']['id'];
-					}
-				}
-				else if(! in_array($item1['pers1']['id'], $had)) 
-				{
-					$retArr2[$item1['pers1']['id']][] = $item1;
-					$had[] = $item1['pers1']['id'];
-					$had[] = $item1['pers2']['id'];
+						);				
+					$had[] = $pers2->id;
 				}
 			}
 		}
 		$retArr3 = array();
-		foreach ($retArr2 as $k => $v)
+		
+		foreach ($retArr as $k => $v)
 		{
-			$retArr3[] = array('id' => $k, 'items' => $v);
+				$retArr3[] = array('id' => $k, 'name' => $v[0]['pers2']['name'], 'items' => $v);
 		}
 		echo json_encode($retArr3);
-		//var_dump($retArr2);
+		//var_dump($retArr3);
 	}
 }
 

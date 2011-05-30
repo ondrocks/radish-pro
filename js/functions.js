@@ -566,7 +566,7 @@
 	function showProgress(strId, text)
 	{
 		var el = document.createElement('div')
-		el.setAttribute('style', 'height:200px;');
+		el.setAttribute('style', 'height:200px;width:200px;margin:0 auto;');
 		el.innerHTML = '<br/><br/><br/><br/>' + text
 		dojo.place(el, dojo.byId(strId))
 	}
