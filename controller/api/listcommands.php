@@ -140,6 +140,12 @@ $qs = array(
 		false
 	),
 	new APICommand(
+		'get_msg',
+		null,
+		LEVEL_0,
+		false
+	),
+	new APICommand(
 		'import_companies',
 		null,
 		LEVEL_0,

@@ -37,7 +37,7 @@ class APICommand
 		return $linkedin;
 	}
 
-	private function saveEmailConnection($name, $email)
+	private function saveEmailConnection($firstName, $lastName, $email)
 	{
 		global $user;
 		$query = "insert into " . TABLE_PREFIX . "email_connections (email) values(:email)";
@@ -45,8 +45,12 @@ class APICommand
 		$this->dtb->prepareAndExecute($query, $values);
 		if($this->dtb->dtb->lastInsertId())
 		{
-			$query = "insert into " . TABLE_PREFIX . "people (lastName, email, user) values (:name, :email, :user)";
-			$values = array('name' => $name, 'email' => $this->dtb->dtb->lastInsertId(), 'user' => (int)$user->getId());
+			$query = "insert into " . TABLE_PREFIX . "people (firstName, lastName, email, user) values (:name, :email, :user)";
+			$values = array(
+				'firstName' => $firstName, 
+				'lastName' => $lastName, 
+				'email' => $this->dtb->dtb->lastInsertId(), 
+				'user' => (int)$user->getId());
 			$this->dtb->prepareAndExecute($query, $values);
 		}
 	}
@@ -64,8 +68,27 @@ class APICommand
 			foreach($json as $email)
 			{
 				$name = $email->name;
+		// Discard words before /
+				$name = preg_replace('/.*\/(.*)/', '$1', $name);
+				$firstName = '';
+				$lastName = '';
+		// If initials follow last name put those up front
+				if (preg_match('/(\w{0,2}\\.){1,}$/', trim($name)))
+				{
+					$firstName = preg_replace('/.*(\w{0,2}\\.)*$/', '$1', $name);
+					$lastName = preg_replace('/(\w{0,2}\\.)*$/', '', $name);
+				}
+		// If full name has one word take it as firstName
+				if(!preg_match('/\s/', $name)) 			
+					$firstName = $name;
+		// If full name has more then one word take the first as first name, the rest as last name
+				if (preg_match('/\s/', $name))
+				{
+					$firstName = preg_replace('/(.*)\s.*/', '$1', $name);
+					$lastName = preg_replace('/.*\s(.*)/', '$1', $name);
+				}				
 				$email = $email->email;
-				$this->saveEmailConnection($name, $email);
+				$this->saveEmailConnection($firstName, $lastName, $email);
 			}
 		}
 		else if($this->command == 'import_companies')
@@ -98,6 +121,13 @@ class APICommand
 		{
 			$mb = new ImapController();
 			$mb->listEmails();
+		}
+		elseif ($this->command == 'get_msg')
+		{
+			if(! isset($_GET['id']))
+				return false;
+			$mb = new ImapController();
+			$mb->getMsg($_GET['id']);
 		}
 	}
 

@@ -17,10 +17,15 @@ class ImapController
         }
         public function listEmails()
         {
-        //        echo json_encode($this->ImapClient->getUnseenEmails());
-		echo json_encode($this->ImapClient->getEmails());
-                $this->ImapClient->closeMBox();
+			echo json_encode($this->ImapClient->getEmails());
+            $this->ImapClient->closeMBox();
         }
+
+		public function getMsg($id)
+		{
+			echo json_encode($this->ImapClient->getEmail($id));
+			$this->ImapClient->closeMBox();
+		}
 }
 
 ?>

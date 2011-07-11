@@ -3,13 +3,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	$_SESSION['EMAIL_ADDRESS'] = $_POST['emailUser'];
 	$_SESSION['EMAIL_PASS'] = $_POST['emailPass'];
-	$_POST['doTranslate'] == 'on' ? $_SESSION['doTranslate'] = true : $_SESSION['doTranslate'] = false;
+	if (isset($_POST['doTranslate']))
+		$_POST['doTranslate'] == 'on' ? $_SESSION['doTranslate'] = true : $_SESSION['doTranslate'] = false;
 }
 ?>
 
 <h1 class='tacenter'>Settings:</h1>
 
-<form action='/config/' method='POST'>
+<form action='config/' method='POST'>
 <table class='settings'>
 <tr><td colspan='2'><p><?php echo PText::getString('Import_connections', 
 					array(

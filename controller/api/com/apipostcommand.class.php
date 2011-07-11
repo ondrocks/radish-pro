@@ -170,9 +170,11 @@ class APIPostCommand extends APICommand
 				if(!empty($_POST['name']) && $dtb->dtb->lastInsertId())
 				{
 					$query = "insert into " . TABLE_PREFIX . "people 
-					(name, user, email, ip)values(:name, :user, :email_connection, :ip)";
+					(firstName, lastName, user, email, ip)
+					values(:firstName, :lastName, :user, :email_connection, :ip)";
 					$dtb->prepareAndExecute($query, array(
-						'name' => $_POST['name'], 
+						'firstName' => $firstName,
+						'lastName' => $lastName, 
 						'user' => $user->getId(),
 						'ip' => $_SERVER['REMOTE_ADDR'],
 						'email_connection' => $dtb->dtb->lastInsertId())

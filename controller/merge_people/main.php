@@ -24,9 +24,15 @@ var xhrArgs = {
 			for(var cc = 0 ; cc < data[c].items.length; cc++)
 			{
 				if(data[c].items[cc].pers2.email2)
+				{
+					html += '<input type="checkbox" checked/>'
 					html += data[c].items[cc].pers2.email2 + '<br/>'
+				}
 				if(data[c].items[cc].pers2.email)
+				{
+					html += '<input type="checkbox" checked/>'
 					html += data[c].items[cc].pers2.email + '<br/>'
+				}
 			}
 			html += '</td></tr>'
 		}
@@ -37,6 +43,6 @@ var xhrArgs = {
 		error_alert(error)
 	}
 }
-showProgress('people', 'Analysing data, this can take a minute or two ...')
+showProgress('people', 'Analysing data, this may take a minute or two ...')
 dojo.xhrGet(xhrArgs)
 </script>
