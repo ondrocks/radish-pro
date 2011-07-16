@@ -12,7 +12,9 @@ class Mime{
 	{
 		$body = self::stripHTTPHeader($msg);
 		$body = self::getHTMLBody($body);
-		return $body;
+		if(trim($body) != '')
+			return $body;
+		return $msg;
 	}
 	public function nextPart($raw)
 	{
@@ -38,6 +40,7 @@ class Mime{
 					'body' => self::stripHTTPHeader(trim($body))
 				);
 		}
+		$ret = '';
 		foreach ($res as $body)
 		{
 			if($body['info']['type'] == 'text/html')
@@ -53,7 +56,14 @@ class Mime{
 				return $ret;
 			}
 		}
-		return false;	
+		foreach ($res as $body)
+		{
+			if($body['info']['type'] == 'text/plain')
+			{
+				$ret = utf8_encode("<pre>" . $body['body'] . "</pre>" );
+			}
+		}
+		return $ret;	
 	}
 	private function parseHeader($msg)
 	{
