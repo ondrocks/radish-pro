@@ -52,8 +52,6 @@ class ImapClient
 		}
 
 		$body = implode(' ', $textA);
-		echo($body);
-		die();
 		return $body;
 	}
 	private function getParts($structure)
