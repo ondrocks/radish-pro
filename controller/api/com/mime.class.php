@@ -44,10 +44,9 @@ class Mime{
 			{
 				switch ($body['info']['enc'])
 				{
-					case 'iso-8859-1':
-							$ret = utf8_encode($body['body']);
 					case 'base64':
-							$ret = base64_decode($body['body']);
+							$ret = base64_decode(trim($body['body']));
+							break;
 					case 'quoted-printable':
 							$ret = self::quoted_printable_decode($body['body']);
 				}

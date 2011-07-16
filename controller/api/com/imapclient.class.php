@@ -51,8 +51,8 @@ class ImapClient
 			}
 		}
 
-		$body = $textA;
-		var_dump($textA);
+		$body = implode(' ', $textA);
+		echo($body);
 		die();
 		return $body;
 	}
