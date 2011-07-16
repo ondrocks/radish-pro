@@ -18,7 +18,7 @@ class Mime{
 	}
 	public function nextPart($raw)
 	{
-		if(!empty($raw))
+		if(preg_match("/^This is a multi-part message in MIME format/", $raw))
 			return true;	
 		return false;
 	}
