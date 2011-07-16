@@ -17,6 +17,7 @@ var xhrArgs = {
 		handleAs: 'json',
 		load: function(data)
 		{
+			alert(data);
 		},
 		error: function(error)
 		{

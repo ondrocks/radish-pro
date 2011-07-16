@@ -33,61 +33,72 @@ class ImapClient
 		$result = array_reverse($result);
 		return $result;
 	}
-	
-	private function getMultipartMsgText($body)
+		
+	public function getEmail($msgId)
 	{
-		echo $body;
-		die();
-	}
-	
-	public function getEmail($id)
-	{
-		$text = '';
-		$structure = imap_fetchstructure($this->mbox, $id, FT_UID);
-		$mime = $this->get_mime_type($structure);
-		if($mime['type'] == 'MULTIPART')
+		$structure = imap_fetchstructure($this->mbox, $msgId, FT_UID);
+		$parts = self::getParts($structure);
+		$textA = array();
+		foreach ($parts as $part)
 		{
-			$info = imap_fetchstructure($this->mbox, $id, FT_UID);
-			$d = count($info->parts);
-			for($c = 0; $c < $d; $c++)
+			$raw = imap_fetchbody($this->mbox, $msgId, $part['KEY'], FT_UID);
+			$textA[] = Mime::getUTF8Body($raw, $part['CHARSET']);
+			$c = $part['KEY'];
+			while($next = Mime::nextPart($raw))
 			{
-				//if($c == 0)
-				//	continue;
-				$text .= imap_fetchbody($this->mbox, $id, $c, FT_UID);
+				$raw = imap_fetchbody($this->mbox, $msgId, ++$c, FT_UID);
+				$textA[] = Mime::getUTF8Body($raw, $part['CHARSET']);
 			}
 		}
-		var_dump($structure, $text);
-		//return $text;	
-		switch ($structure->encoding) 
-		{
-			default:
-			//case '3':
-				return imap_base64($text);
-			//break;
-			//case '4':
-			//	return imap_qprint($text);
-			//break;	
-			default:
-				return ($text);
-			break;
-		}
+
+		$body = $textA;
+		var_dump($textA);
+		die();
+		return $body;
 	}
+	private function getParts($structure)
+	{
+		$parts = array();
+		foreach ($structure->parts as $kk => $part)
+		{
+			if(isset($part->parts))
+			{
+				foreach ($part->parts as $key => $pp)
+				{
+					$params = $pp->parameters;
+					$charset = 'utf-8';
+					foreach ($params as $params2)
+					{
+						if($params2->attribute == 'CHARSET')
+						{
+							$charset = $params2->value;
+						}
+					}					
+					if($pp->subtype == 'HTML')
+					{
+						$parts[] = array(
+							'KEY' => $key,
+							'CHARSET' => $charset
+						);
+					}
+				}
+			}
+			else 
+			{
+				if($part->subtype == 'HTML')
+				{
+					$parts[] = $kk;
+				}
+			}
+		}
+		return $parts;
+	}
+	
 	public function closeMBox()
 	{
 		imap_close($this->mbox);
 	}
-	
-	private function get_mime_type(&$structure) 
-	{
-		$primary_mime_type = array('TEXT', 'MULTIPART','MESSAGE', 'APPLICATION', 'AUDIO','IMAGE', 'VIDEO', 'OTHER');
-		if($structure->subtype) 
-		{
-			return array(	'type' => $primary_mime_type[(int) $structure->type], 
-							'subtype' => $structure->subtype);
-		}
-		return array('type' => 'TEXT', 'subtype' => 'PLAIN');
-	}
-	
+		
 	private function setEmailsFlags($sequence, $seen, $flagged)
 	{
 		$flags = '';
